@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/08/28 18:43:12 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/08/29 18:57:43 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIBS 	:= $(LIBMLX)build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)libft.a \
 
 LDFLAGS	:= $(HEADERS) $(LIBS)
 
-SRCS += $(addprefix src/mandatory/, wildcard *.c)
+SRCS += $(addprefix src/mandatory/, main.c)
 
 SRCS_BONUS	+= $(addprefix src/bonus/, wildcard *.c)
 
