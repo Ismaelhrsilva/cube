@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/11 20:08:54 by ishenriq          #+#    #+#              #
-#    Updated: 2024/08/28 18:40:06 by ishenriq         ###   ########.fr        #
+#    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
+#    Updated: 2024/08/28 18:43:12 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cube
+NAME	= cub3D
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -O3
 CC	:= cc
 LIBMLX	:= lib/MLX42/
