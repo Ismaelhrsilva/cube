@@ -1,0 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
+/*   Updated: 2024/08/31 19:21:11 by ishenriq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "mandatory/cube.h"
+#include "../lib/MLX42/include/MLX42/MLX42.h"
+
+static int matrix[15][15] = {
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 6, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 1, 1, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+t_cube	*var_cube(void)
+{
+	static t_cube	cube;
+
+	return (&cube);
+}
+
+t_player	*var_player(void)
+{
+	static t_player	player;
+
+	return (&player);
+}
+
+mlx_t	*init_windows(void)
+{
+	static mlx_t	*instance;
+
+	instance = mlx_init(WIDTH, HEIGHT, "cub3D", true);	
+	return (instance);
+}
+
+void	init_player(void)
+{
+	t_cube	*cube;
+
+	cube = var_cube();
+	cube->player = var_player();
+	cube->player->posx = 10;
+    cube->player->posy = 10;
+    cube->player->dirx = -1;
+    cube->player->diry = 0;
+    cube->player->planex = 0;
+    cube->player->planey = 0.66;
+}
+
+void	ft_ray_position(void)
+{
+	int		x;
+	int		w;
+	t_player	*player;
+
+	player = var_player();
+	x = 0;
+	w = 13;
+	while (x < w)
+	{
+		player->camerax = 2 * x / float(w) - 1;
+		player->raydirx = player->dirx + planex * player->camerax;
+		player->raydiry = player->diry + planey * player->cameray;
+		x++;
+	}
+
+
+
+}
+
+int	main(void)
+{
+	t_cube	*cube;
+
+	cube = var_cube();
+	cube->init = init_windows();
+	init_player();
+
+	mlx_loop(cube->init);
+	mlx_terminate(cube->init);
+	return (0);
+}

@@ -6,14 +6,12 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/29 20:11:36 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:48:57 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/cube.h"
 #include "../lib/MLX42/include/MLX42/MLX42.h"
-
-static mlx_image_t* image;
 
 t_cube	*var_cube(void)
 {
@@ -22,67 +20,69 @@ t_cube	*var_cube(void)
 	return (&cube);
 }
 
-mlx_t	*init_windows(void)
+void	game_loop(void *cub)
 {
-	static mlx_t	*instance;
+	t_cube *cube;
 
-	instance = mlx_init(WIDTH, HEIGHT, "cub3D", true);	
-	var_cube()->instance = instance;
-	return (instance);
+	cube = cub;
+	//mlx_delete_image(cube->init, cube->img);
+	cube->img = mlx_new_image(cube->init, WIDTH, HEIGHT);
+	//hook(cube, 0, 0);
+	//cats_rays(cube);
+	mlx_image_to_window(cube->init, cube->img, 0, 0);
+
 }
 
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+void	init_player(t_cube *cube)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	cube->player->player_x = cube->data->player_x * TILE_SIZE + TILE_SIZE / 2;
+	cube->player->player_y = cube->data->player_y * TILE_SIZE + TILE_SIZE / 2;
+	cube->player->fov_rd = (FOV * M_PI) / 180;
+	cube->player->angle = M_PI;
 }
 
-void ft_randomize(void* param)
+void	start_the_game(void)
 {
-	(void)param;
-	for (uint32_t i = 0; i < image->width; ++i)
-	{
-		for (uint32_t y = 0; y < image->height; ++y)
-		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
-			mlx_put_pixel(image, i, y, color);
-		}
-	}
+	t_cube *cube;
+
+	cube = var_cube();
+	cube->player = calloc(1, sizeof(t_player));
+	cube->ray = calloc(1, sizeof(t_ray));
+	cube->init = mlx_init(WIDTH, HEIGHT, "Cub3D", 0);
+	init_player(cube);
+	mlx_loop_hook(cube->init, &game_loop, &cube);
+	//mlx_key_hook(cube->init, &mlx_key, &cube);
+	mlx_loop(cube->init);
+	//ft_exit(&cube);
 }
 
-void ft_hook(void* param)
+t_data *init_arg(void)
 {
-	mlx_t* mlx = param;
-
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
+	t_data *dt = calloc(1, sizeof(t_data)); // init the data structure
+	dt->map2d = calloc(10, sizeof(char *)); // init the map
+	dt->map2d[0] = strdup("1111111111111111111111111"); //fill the map
+	dt->map2d[1] = strdup("1000000000000000000100001");
+	dt->map2d[2] = strdup("1001000000000P00000000001");
+	dt->map2d[3] = strdup("1001000000000000001000001");
+	dt->map2d[4] = strdup("1001000000000000001000001");
+	dt->map2d[5] = strdup("1001000000100000001000001");
+	dt->map2d[6] = strdup("1001000000000000001000001");
+	dt->map2d[7] = strdup("1001000000001000001000001");
+	dt->map2d[8] = strdup("1111111111111111111111111");
+	dt->map2d[9] = NULL;
+	dt->player_y = 3; // player y position in the map
+	dt->player_x = 14; // player x position in the map
+	dt->width_map = 25; // map width
+	dt->height_map = 9; // map height
+	return (dt); // return the data structure
 }
 
 int	main(void)
 {
-	t_cube	*cube;
+	t_cube *cube;
 
 	cube = var_cube();
-	cube->instance = init_windows();
-	image = mlx_new_image(cube->instance, 128, 128);
-	mlx_image_to_window(cube->instance, image, 0, 0);
-
-	mlx_loop_hook(cube->instance, ft_randomize, cube->instance);
-	mlx_loop_hook(cube->instance, ft_hook, cube->instance);
-
-	mlx_loop(cube->instance);
-	mlx_terminate(cube->instance);
+	cube->data = init_arg();
+	start_the_game();
 	return (0);
 }

@@ -6,12 +6,12 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/08/29 18:57:43 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/08/31 19:11:29 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3D
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -O3
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -O3 -ffast-math
 CC	:= cc
 LIBMLX	:= lib/MLX42/
 PRINTF	:= lib/printf/
