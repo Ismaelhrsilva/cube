@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 18:14:58 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:05:15 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	start_the_game(t_data *dt)	// start the game
 	init_the_player(mlx);	// init the player structure
 	mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx);	// game loop
 	mlx_key_hook(mlx.mlx_p, &mlx_key, &mlx);	// key press and release
+	mlx_cursor_hook(mlx.mlx_p, &ft_mouse, &mlx); // função de movimentação com mouse
 	mlx_loop(mlx.mlx_p);	// mlx loop
 }
