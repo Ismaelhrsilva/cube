@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/08/31 19:11:29 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/09/04 17:51:35 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,15 @@ LIBS 	:= $(LIBMLX)build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)libft.a \
 
 LDFLAGS	:= $(HEADERS) $(LIBS)
 
-SRCS += $(addprefix src/mandatory/, main.c)
-
-SRCS_BONUS	+= $(addprefix src/bonus/, wildcard *.c)
+SRCS += $(addprefix src/, main.c \
+		init.c \
+		map.c \
+		movement.c \
+		raycast.c \
+		utils.c \
+		wall_rend.c )
 
 OBJS	+=  $(SRCS:%.c=$(BUILD_DIR)%.o)
-OBJS_BONUS	+= $(SRCS_BONUS:%.c=$(BUILD_DIR)%.o)
 
 DELETE	=	$(OBJS_BONUS)
 

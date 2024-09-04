@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/08/31 20:36:41 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:44:14 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,6 @@
 # include "../lib/printf/ft_printf.h"
 # include "../lib/libft/gnl/get_next_line.h"
 
-
-// before you start, you need to install the mlx library and you need to install the glfw library
-// you need to incude the mlx library in your file
-// for compiling the code you need to include the required frameworks and the libmlx.a amd link the glfw library
-// the flag (-O3 -ffast-math) is for optimization
-// the flag (-framework) is for the required frameworks
-// the flag (-lglfw) is for linking the glfw library
-// the flag (-L) is for the path to the glfw library
-// the flag (-o) is for the name of the executable file
-// to run the program (./cub)
-
-// example:
-// cc -O3 -ffast-math -framework Cocoa -framework OpenGL -framework IOKit -lglfw (path to libmlx42.a) -L(path to glfw library) cub3d.c -o cub
-
-# include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
@@ -86,5 +68,46 @@ typedef struct s_mlx	//the mlx structure
 	t_data			*dt;	// the data structure
 	t_player		*ply;	// the player structure
 }	t_mlx;
+
+
+
+
+//File init
+void	game_loop(void *ml);
+void init_the_player(t_mlx mlx);
+void	start_the_game(t_data *dt);
+
+//File map
+t_data *init_argumet(void);
+
+//File movement
+void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
+void mlx_key(mlx_key_data_t keydata, void *ml);
+void	rotate_player(t_mlx *mlx, int i);
+void	move_player(t_mlx *mlx, double move_x, double move_y);
+void	hook(t_mlx *mlx, double move_x, double move_y);
+
+//File raycast 
+int	unit_circle(float angle, char c);
+int	inter_check(float angle, float *inter, float *step, int is_horizon);
+int	wall_hit(float x, float y, t_mlx *mlx);
+float	get_h_inter(t_mlx *mlx, float angl);
+float	get_v_inter(t_mlx *mlx, float angl);
+void	cast_rays(t_mlx *mlx);
+
+//File utils
+void	ft_exit(t_mlx *mlx);
+
+//File wall rend
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+float	nor_angle(float angle);
+void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix);
+int	get_color(t_mlx *mlx, int flag);
+void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix);
+void	render_wall(t_mlx *mlx, int ray);
+
+
+
+
 
 #endif
