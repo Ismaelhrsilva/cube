@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 20:03:34 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:09:45 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,21 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	ft_len(t_mlx *mlx)
+/*void	ft_len(t_mlx *mlx)
 {
 	if ((S_H / mlx->dt->h_map) >= (S_W / mlx->dt->w_map))
 		mlx->dt->len = S_W / mlx->dt->w_map;
 	else
 		mlx->dt->len = S_H / mlx->dt->h_map;
+}*/
+
+void	ft_len(t_mlx *mlx)
+{
+	int	size = mlx->dt->size_minimap;
+	if ((size / mlx->dt->h_map) >= (size / mlx->dt->w_map))
+		mlx->dt->len = size / mlx->dt->w_map;
+	else
+		mlx->dt->len = size / mlx->dt->h_map;
 }
 
 void ft_randomize(void* param)
@@ -69,7 +78,8 @@ void ft_randomize(void* param)
 
 void	ft_minimap(t_mlx *mlx)
 {
-	image = mlx_new_image(mlx->mlx_p, 256, 256);
+	mlx->dt->size_minimap = 400;
+	image = mlx_new_image(mlx->mlx_p, mlx->dt->size_minimap, mlx->dt->size_minimap);
 	mlx_image_to_window(mlx->mlx_p, image, 0, 0);
 	image->instances[0].z = 1;
 	mlx_loop_hook(mlx->mlx_p, ft_randomize, mlx);
