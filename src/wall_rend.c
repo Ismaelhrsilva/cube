@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 18:15:50 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:44:20 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ float	nor_angle(float angle)	// normalize the angle
 void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the floor and the ceiling
 {
 	int		i;
-	//int		c;
 
 	i = b_pix;
 	while (i < S_H)

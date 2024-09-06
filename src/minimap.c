@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 19:38:34 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:03:34 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,62 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
+void	ft_len(t_mlx *mlx)
+{
+	if ((S_H / mlx->dt->h_map) >= (S_W / mlx->dt->w_map))
+		mlx->dt->len = S_W / mlx->dt->w_map;
+	else
+		mlx->dt->len = S_H / mlx->dt->h_map;
+}
+
 void ft_randomize(void* param)
+{
+	t_mlx	*mlx;
+
+	mlx = param;
+	ft_len(mlx);
+	int block_size = mlx->dt->len;
+	for (uint32_t i = 0; i < image->width; ++i)
+	{
+		for (uint32_t y = 0; y < image->height; ++y)
+		{
+			uint32_t color = ft_pixel(
+				rand() % 0xFF, // R
+				rand() % 0xFF, // G
+				rand() % 0xFF, // B
+				rand() % 0xFF  // A
+			);
+			mlx_put_pixel(image, i, y, color);
+		}
+	}
+	// Desenhar as linhas e colunas de preto
+    for (uint32_t i = 0; i < image->width; i += block_size)
+    {
+        for (uint32_t y = 0; y < image->height; ++y)
+        {
+            mlx_put_pixel(image, i, y, 0x000000FF); // Preto
+        }
+    }
+
+    for (uint32_t y = 0; y < image->height; y += block_size)
+    {
+        for (uint32_t i = 0; i < image->width; ++i)
+        {
+            mlx_put_pixel(image, i, y, 0x000000FF); // Preto
+        }
+    }
+}
+
+
+void	ft_minimap(t_mlx *mlx)
+{
+	image = mlx_new_image(mlx->mlx_p, 256, 256);
+	mlx_image_to_window(mlx->mlx_p, image, 0, 0);
+	image->instances[0].z = 1;
+	mlx_loop_hook(mlx->mlx_p, ft_randomize, mlx);
+}
+
+/*void ft_randomize(void* param)
 {
 	(void)param;
 	for (uint32_t i = 0; i < image->width; ++i)
@@ -36,13 +91,4 @@ void ft_randomize(void* param)
 			mlx_put_pixel(image, i, y, color);
 		}
 	}
-}
-
-void	ft_minimap(t_mlx *mlx)
-{
-	printf("aqui\n");
-	image = mlx_new_image(mlx->mlx_p, 128, 128);
-	mlx_image_to_window(mlx->mlx_p, image, 0, 0);
-	image->instances[0].z = 1;
-	mlx_loop_hook(mlx->mlx_p, ft_randomize, mlx);
-}
+}*/

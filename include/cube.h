@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/05 18:57:43 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:55:16 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data	//the data structure
 	int		p_y;		// player y position in the map
 	int		w_map;		// map width
 	int		h_map;		// map height
+	int		len;		// map block len 
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure
