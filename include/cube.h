@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 19:01:54 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:57:43 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,11 @@ int	get_color(t_mlx *mlx, int flag);
 void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix);
 void	render_wall(t_mlx *mlx, int ray);
 
-// File mouse
+//File mouse
 void ft_mouse(double xpos, double ypos, void *ml);
 
-
+//File minimap
+void	ft_minimap(t_mlx *mlx);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 18:15:11 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:57:59 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void mlx_key(mlx_key_data_t keydata, void *ml)	// key press
 		mlx->ply->rot = -1;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS) // rotate right
 		mlx->ply->rot = 1;
+	else if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
+		ft_minimap(mlx);
 	ft_reles(keydata, mlx); // release the key
 }
 

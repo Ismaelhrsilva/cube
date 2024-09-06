@@ -6,12 +6,13 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 20:05:15 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:35:11 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "../lib/MLX42/include/MLX42/MLX42.h"
+
 
 void	game_loop(void *ml)	// game loop
 {
@@ -23,6 +24,7 @@ void	game_loop(void *ml)	// game loop
 	hook(mlx, 0, 0); // hook the player
 	cast_rays(mlx);	// cast the rays
 	mlx_image_to_window(mlx->mlx_p, mlx->img, 0, 0); // put the image to the window
+	mlx->img->instances[0].z = 0;
 }
 
 void init_the_player(t_mlx mlx)	// init the player structure
