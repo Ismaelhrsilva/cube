@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 20:07:05 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:35:27 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data	//the data structure
 	int		h_map;		// map height
 	int		len;		// map block len 
 	int		size_minimap;
+	int		minimap_turn;
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure

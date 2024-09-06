@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:22:18 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 17:52:43 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:37:35 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ t_data *init_argumet(void)	// init the data structure
 	dt->p_x = 14; // player x position in the map
 	dt->w_map = 25; // map width
 	dt->h_map = 9; // map height
+	dt->minimap_turn = 0;
 	return (dt); // return the data structure
 }
