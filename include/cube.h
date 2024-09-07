@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 16:47:41 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:06:37 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ typedef struct s_mlx	//the mlx structure
 	t_data			*dt;	// the data structure
 	t_player		*ply;	// the player structure
 }	t_mlx;
-
-
-
 
 //File init
 void	game_loop(void *ml);
