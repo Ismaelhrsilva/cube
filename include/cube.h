@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 20:35:27 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:47:41 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ typedef struct s_data	//the data structure
 	int		p_y;		// player y position in the map
 	int		w_map;		// map width
 	int		h_map;		// map height
-	int		len;		// map block len 
 	int		size_minimap;
 	int		minimap_turn;
+	mlx_image_t		*image;	// image of minimap
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure
@@ -100,6 +100,7 @@ void	cast_rays(t_mlx *mlx);
 
 //File utils
 void	ft_exit(t_mlx *mlx);
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //File wall rend
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);

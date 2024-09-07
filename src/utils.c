@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:30:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/04 18:15:43 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:50:09 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,7 @@ void	ft_exit(t_mlx *mlx) 		// exit the game
 	exit(0); // exit the game
 }
 
-
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
