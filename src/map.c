@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:22:18 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 15:22:18 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:02:33 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ t_data *init_argumet(void)	// init the data structure
 	dt->w_map = 25; // map width
 	dt->h_map = 9; // map height
 	dt->minimap_turn = 0;
+	dt->wall_text = construct_texture(NULL, WALL_TEXT); //GET TEXTURE WALL
 	return (dt); // return the data structure
 }

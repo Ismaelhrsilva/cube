@@ -6,13 +6,12 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 19:35:11 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:33:21 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "../lib/MLX42/include/MLX42/MLX42.h"
-
 
 void	game_loop(void *ml)	// game loop
 {

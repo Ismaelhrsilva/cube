@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:25:27 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 17:06:48 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:04:39 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void ft_mouse(double xpos, double ypos, void *ml)
 		ft_rotate_player(mlx, 1);
 	else if ((double)x < xpos)
 		ft_rotate_player(mlx, 0);
-	printf("%d\n", x);
 	if (x <= 0 || x >= S_W)
 		mlx_set_mouse_pos(mlx->mlx_p, S_W / 2 , S_H / 2); // relativo a posição do player na hora;
 }

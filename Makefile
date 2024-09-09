@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/09/05 18:51:11 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/09/07 17:09:44 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCS += $(addprefix src/, main.c \
 		utils.c \
 		wall_rend.c \
 		mouse.c \
-		minimap.c)
+		minimap.c \
+		animation.c )
 
 OBJS	+=  $(SRCS:%.c=$(BUILD_DIR)%.o)
 

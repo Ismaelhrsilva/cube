@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 17:06:37 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:04:45 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # include "../lib/printf/ft_printf.h"
 # include "../lib/libft/gnl/get_next_line.h"
 
-
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
+# define WALL_TEXT "textures/north.png"
 
 typedef struct s_player //the player structure
 {
@@ -58,9 +58,10 @@ typedef struct s_data	//the data structure
 	int		p_y;		// player y position in the map
 	int		w_map;		// map width
 	int		h_map;		// map height
-	int		size_minimap;
-	int		minimap_turn;
+	int		size_minimap; // size of block minimap
+	int		minimap_turn; // tells if the minimap is turn on /off
 	mlx_image_t		*image;	// image of minimap
+	mlx_texture_t	*wall_text; // texture wall
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure
@@ -113,5 +114,7 @@ void ft_mouse(double xpos, double ypos, void *ml);
 //File minimap
 void	ft_minimap(t_mlx *mlx);
 
+//File Animation
+mlx_texture_t *construct_texture(t_mlx *mlx, char *png);
 
 #endif

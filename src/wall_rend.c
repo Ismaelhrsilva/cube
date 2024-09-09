@@ -6,12 +6,27 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 19:44:20 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:28:38 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "../lib/MLX42/include/MLX42/MLX42.h"
+
+uint32_t	get_texture_color(mlx_texture_t *texture, int y, int x)
+{
+	int		texture_pos;
+	uint8_t	*pixel;
+
+	if (x < 0 || x >= (int)texture->width || y < 0
+		|| y >= (int)texture->height)
+		return (0);
+	texture_pos = y * texture->width + x;
+	texture_pos *= texture->bytes_per_pixel;
+	pixel = &texture->pixels[texture_pos];
+	return (pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3]);
+}
+
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)	// put the pixel
 {
@@ -70,9 +85,12 @@ void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the wall
 {
 	int color;
 
-	color = get_color(mlx, mlx->ray->flag);
 	while (t_pix < b_pix)
+	{
+		color = get_texture_color(mlx->dt->wall_text, t_pix, b_pix);
 		my_mlx_pixel_put(mlx, ray, t_pix++, color);
+	}
+
 }
 
 void	render_wall(t_mlx *mlx, int ray)	// render the wall
@@ -81,6 +99,7 @@ void	render_wall(t_mlx *mlx, int ray)	// render the wall
 	double	b_pix;
 	double	t_pix;
 
+	//mlx->dt->wall_text = construct_texture(mlx, WALL_TEXT); //GET TEXTURE WALL
 	mlx->ray->distance *= cos(nor_angle(mlx->ray->ray_ngl - mlx->ply->angle)); // fix the fisheye
 	wall_h = (TILE_SIZE / mlx->ray->distance) * ((S_W / 2) / tan(mlx->ply->fov_rd / 2)); // get the wall height
 	b_pix = (S_H / 2) + (wall_h / 2); // get the bottom pixel
@@ -92,3 +111,12 @@ void	render_wall(t_mlx *mlx, int ray)	// render the wall
 	draw_wall(mlx, ray, t_pix, b_pix); // draw the wall
 	draw_floor_ceiling(mlx, ray, t_pix, b_pix); // draw the floor and the ceiling
 }
+
+/*void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the wall
+{
+	int color;
+
+	color = get_color(mlx, mlx->ray->flag);
+	while (t_pix < b_pix)
+		my_mlx_pixel_put(mlx, ray, t_pix++, color);
+}*/
