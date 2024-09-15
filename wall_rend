@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/14 22:15:14 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:42:38 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,61 +62,43 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the f
 		my_mlx_pixel_put(mlx, ray, i++, 0x89CFF3FF); // ceiling
 }
 
-
-static void	intersection_point(t_mlx *mlx)
+int	get_color(t_mlx *mlx, int flag)	// get the color of the wall
 {
-	if (mlx->ray->flag == 0)
-		mlx->dt->point_x = mlx->ply->plyr_y + mlx->ray->distance * mlx->ray->ray_ngl;
-		//mlx->dt->point_x = mlx->ply->plyr_y + mlx->ray->distance * ray->dir.y;
-	else
-		mlx->dt->point_x = mlx->ply->plyr_x + mlx->ray->distance * mlx->ray->ray_ngl;
-		//mlx->dt->point_x = mlx->ply->plyr_x + mlx->ray->distance * ray->dir.x;
-	mlx->dt->point_x -= floor(mlx->dt->point_x);
-}
-
-static void	find_texture_position_x(t_mlx *mlx)
-{
-	mlx->dt->texture_x = (int)(mlx->dt->point_x * mlx->dt->wall_text->width);
-	if (mlx->ray->flag == 0)
-		mlx->dt->texture_x = mlx->dt->wall_text->width - mlx->dt->texture_x - 1;
-	mlx->dt->texture_step = 1.0 * mlx->dt->wall_text->height / mlx->dt->wall_height;
-}
-
-static void	render_wall_2(t_mlx *mlx, int pixel)
-{
-	int			y;
-	int			texture_y;
-	uint32_t	color;
-
-	y = mlx->dt->wall_line_start_y;
-	while (y < mlx->dt->wall_line_end_y)
+	mlx->ray->ray_ngl = nor_angle(mlx->ray->ray_ngl); // normalize the angle
+	if (flag == 0)
 	{
-		texture_y = (int)mlx->dt->texture_pos;
-		if (texture_y < 0)
-			texture_y = 0;
-		if (texture_y >= (int)mlx->dt->wall_text->height)
-			texture_y = mlx->dt->wall_text->height - 1;
-		mlx->dt->texture_pos += mlx->dt->texture_step;
-		color = get_texture_color(mlx->dt->wall_text, texture_y, mlx->dt->texture_x);
-		my_mlx_pixel_put(mlx, pixel, y, color);
-		y++;
+		if (mlx->ray->ray_ngl > M_PI / 2 && mlx->ray->ray_ngl < 3 * (M_PI / 2))
+			return (0xB5B5B5FF); // west wall
+		else
+			return (0xB5B5B5FF); // east wall
+	}
+	else
+	{
+		if (mlx->ray->ray_ngl > 0 && mlx->ray->ray_ngl < M_PI)
+			return (0xF5F5F5FF); // south wall
+		else
+			return (0xF5F5F5FF); // north wall
 	}
 }
 
-void	draw_wall(t_mlx *mlx, int pixel)
+void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the wall
 {
-	mlx->dt->wall_height = (S_H / mlx->ray->distance);
-	mlx->dt->wall_line_start_y = (S_H / 2 - mlx->dt->wall_height / 2);
-	mlx->dt->wall_line_end_y = (S_H / 2 + mlx->dt->wall_height / 2);
-	if (mlx->dt->wall_line_start_y < 0)
-		mlx->dt->wall_line_start_y = 0;
-	if (mlx->dt->wall_line_end_y >= S_H)
-		mlx->dt->wall_line_end_y = S_H - 1;
-	intersection_point(mlx);
-	find_texture_position_x(mlx);
-	mlx->dt->texture_pos = (mlx->dt->wall_line_start_y - S_H / 2 + mlx->dt->wall_height / 2)
-		* mlx->dt->texture_step;
-	render_wall_2(mlx, pixel);
+	int color;
+
+
+	while (t_pix < b_pix)
+	{
+		color = get_texture_color(mlx->dt->wall_text, ray, t_pix);
+		my_mlx_pixel_put(mlx, ray + 300, 	  t_pix + 300, color);
+		my_mlx_pixel_put(mlx, ray + 600, 	  t_pix + 300, color);
+		my_mlx_pixel_put(mlx, ray + 900, 	  t_pix + 300, color);
+		my_mlx_pixel_put(mlx, ray + 1200, 	  t_pix + 300, color);
+		my_mlx_pixel_put(mlx, ray + 1500, 	  t_pix + 300, color);
+		my_mlx_pixel_put(mlx, ray + 1800, 	  t_pix + 300, color);
+		my_mlx_pixel_put(mlx, ray , 	  t_pix + 300, color);
+		t_pix ++;
+	}
+
 }
 
 void	render_wall(t_mlx *mlx, int ray)	// render the wall
@@ -133,24 +115,52 @@ void	render_wall(t_mlx *mlx, int ray)	// render the wall
 		b_pix = S_H;
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
-	draw_wall(mlx, ray);
+	draw_wall(mlx, ray, t_pix, b_pix); // draw the wall
 	draw_floor_ceiling(mlx, ray, t_pix, b_pix); // draw the floor and the ceiling
 }
 
-/*static void	intersection_point(t_mlx *mlx)
+/*void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the wall
 {
-	if (ray->hit_side == 0)
-		wall->point_x = game->pos.y + ray->perp_dist * ray->dir.y;
-	else
-		wall->point_x = game->pos.x + ray->perp_dist * ray->dir.x;
-	mlx->dt->point_x -= floor(mlx->dt->point_x);
-}
+	int color;
 
-static void	find_texture_position_x(t_mlx *mlx)
+	color = get_color(mlx, mlx->ray->flag);
+	while (t_pix < b_pix)
+		my_mlx_pixel_put(mlx, ray, t_pix++, color);
+}*/
+
+/*void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the wall
 {
-	mlx->dt->texture_x = (int)(mlx->dt->point_x * mlx->dt->wall_text->width);
-	if ((ray->hit_side == 0 && ray->dir.x < 0)
-		|| (ray->hit_side == 1 && ray->dir.y > 0))
-		wall->texture_x = game->texture->width - wall->texture_x - 1;
-	mlx->dt->texture_step = 1.0 * mlx->dt->wall_text->height / mlx->dt->wall_height;
+	int color;
+
+	while (t_pix < b_pix)
+	{
+		color = get_texture_color(mlx->dt->wall_text, b_pix, b_pix);
+		my_mlx_pixel_put(mlx, ray, t_pix++, color);
+	}
+
+}*/
+
+/*void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the wall
+{
+	int color;
+	uint32_t	x_pos = 0;
+	uint32_t	y_pos = 0;
+
+	while (t_pix < b_pix)
+	{
+		while (y_pos < mlx->dt->wall_text->height && x_pos < mlx->dt->wall_text->width)
+		{
+			color = get_texture_color(mlx->dt->wall_text, ray, t_pix);
+			my_mlx_pixel_put(mlx, ray, t_pix, color);
+
+			if (x_pos <= y_pos)
+				x_pos++;
+			else
+				y_pos++;
+		t_pix ++;
+		}
+		t_pix ++;
+	}
+	b_pix ++;
+
 }*/

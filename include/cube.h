@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/09 19:04:45 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:26:28 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
+//# define WALL_TEXT "textures/rock.png"
+//# define WALL_TEXT "textures/rocket_up.png"
 # define WALL_TEXT "textures/north.png"
 
 typedef struct s_player //the player structure
@@ -62,6 +64,15 @@ typedef struct s_data	//the data structure
 	int		minimap_turn; // tells if the minimap is turn on /off
 	mlx_image_t		*image;	// image of minimap
 	mlx_texture_t	*wall_text; // texture wall
+	
+	int	wall_height;
+	int	wall_line_start_y;
+	int	wall_line_end_y;
+	int	texture_pos;
+	int	texture_step;
+	int	texture_x;
+	int	point_x;
+
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure
@@ -105,7 +116,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 float	nor_angle(float angle);
 void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix);
 int	get_color(t_mlx *mlx, int flag);
-void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix);
+//void	draw_wall(t_mlx *mlx, int ray, int t_pix, int b_pix);
 void	render_wall(t_mlx *mlx, int ray);
 
 //File mouse

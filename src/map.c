@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:22:18 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/09 20:02:33 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:47:05 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_data *init_argumet(void)	// init the data structure
 {
 	t_data *dt = calloc(1, sizeof(t_data)); // init the data structure
 	dt->map2d = calloc(10, sizeof(char *)); // init the map
-	dt->map2d[0] = strdup("1111111111111111111111111"); //fill the map
-	dt->map2d[1] = strdup("1P00000000000000000100001");
-	dt->map2d[2] = strdup("1000000000000000000000001");
+	dt->map2d[0] = strdup("11111111111111111111111111111111"); //fill the map
+	dt->map2d[1] = strdup("1P000000000000000001000000000101");
+	dt->map2d[2] = strdup("10000000000000000000000011111111");
 	dt->map2d[3] = strdup("1111000000000000001000001");
 	dt->map2d[4] = strdup("1001000000000000001000001");
 	dt->map2d[5] = strdup("1000000000100000001000001");
