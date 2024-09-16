@@ -6,16 +6,19 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 16:50:38 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:16:00 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "MLX42.h"
 
 int main()	// main function
 {
 	t_data	*data;
+	t_mlx	*mlx;
+
+	(void)mlx;
 
 	data = init_argumet();	// init the data structure
 	start_the_game(data);	// start the game

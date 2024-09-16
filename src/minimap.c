@@ -6,12 +6,13 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 16:50:29 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/15 22:13:45 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "MLX42.h"
+#include <math.h>
 
 void	draw_walls_2d(t_mlx *mlx)
 {
@@ -55,12 +56,12 @@ void draw_player(t_mlx *mlx)
     {
         for (int x = -halfSide; x <= halfSide; ++x)
         {
-            uint32_t px = centerX + x;
-            uint32_t py = centerY + y;
+            int32_t px = centerX + x;
+            int32_t py = centerY + y;
 
             // Verificar se o pixel está dentro dos limites da imagem
-            if (px >= 0 && px < mlx->dt->image->width
-				&& py >= 0 && py < mlx->dt->image->height)
+            if (px >= 0 && px < (int32_t) mlx->dt->image->width
+				&& py >= 0 && py < (int32_t) mlx->dt->image->height)
             {
                 mlx_put_pixel(mlx->dt->image, px, py, squareColor);
             }
@@ -88,6 +89,7 @@ void	draw_line(t_mlx *mlx)
     }
 }
 
+#include <stdlib.h>
 void ft_randomize(void* param)
 {
 	t_mlx	*mlx;

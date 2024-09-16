@@ -6,12 +6,15 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:30:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/07 17:38:19 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:35:23 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "MLX42.h"
+#include <stdlib.h>
+
+#include <stdio.h>
 
 void	ft_exit(t_mlx *mlx) 		// exit the game
 {
