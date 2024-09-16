@@ -6,12 +6,13 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/06 20:38:00 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:14:40 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "cube.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "MLX42.h"
 
 void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx)	// release the key
 {

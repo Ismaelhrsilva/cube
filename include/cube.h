@@ -6,27 +6,20 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/14 20:26:28 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:27:54 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdbool.h>
+# include "MLX42.h"
+# include <stdint.h>
 
-# include "../lib/MLX42/include/MLX42/MLX42.h"
-# include "../lib/libft/libft.h"
-# include "../lib/printf/ft_printf.h"
-# include "../lib/libft/gnl/get_next_line.h"
-
-# define S_W 1900 // screen width
-# define S_H 1000 // screen height
+//# define S_W 1900 // screen width
+# define S_W 640 // screen width
+//# define S_H 1000 // screen height
+# define S_H 480 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
@@ -35,15 +28,32 @@
 //# define WALL_TEXT "textures/rocket_up.png"
 # define WALL_TEXT "textures/north.png"
 
+typedef struct s_map
+{
+	char			*north;
+	char			*south;
+	char			*west;
+	char			*east;
+	uint32_t		floor;
+	uint32_t		sky;
+	int32_t		width;
+	int32_t		height;
+	char			**map;
+	int32_t		player[3];
+}	t_map;
+
+void	clear_map(t_map *map);
+t_map	*parser_map(char *map);
+
 typedef struct s_player //the player structure
 {
-	int		plyr_x; // player x position in pixels
-	int		plyr_y; // player y position in pixels
+	int32_t	plyr_x; // player x position in pixels
+	int32_t	plyr_y; // player y position in pixels
 	double	angle;	// player angle
-	float	fov_rd;	// field of view in radians
-	int		rot;	// rotation flag
-	int		l_r;	// left right flag
-	int		u_d;	// up down flag
+	double	fov_rd;	// field of view in radians
+	int32_t	rot;	// rotation flag
+	int32_t	l_r;	// left right flag
+	int32_t	u_d;	// up down flag
 }	t_player;
 
 typedef struct s_ray	//the ray structure

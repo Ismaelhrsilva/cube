@@ -6,12 +6,13 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/14 22:15:14 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:41:24 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "MLX42.h"
+#include <math.h>
 
 uint32_t	get_texture_color(mlx_texture_t *texture, int y, int x)
 {

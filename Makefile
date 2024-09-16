@@ -6,92 +6,96 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/09/07 17:09:44 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/09/16 11:36:26 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cub3D
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -O3 -ffast-math
-CC	:= cc
-LIBMLX	:= lib/MLX42/
-PRINTF	:= lib/printf/
-LIBFT	:= lib/libft/
-GNL	:= lib/gnl/
-BUILD_DIR = objects/
-MKDIR  := mkdir -p
+RED					:= $(shell tput setaf 1)
+GREEN				:= $(shell tput setaf 2)
+YELLOW				:= $(shell tput setaf 3)
+BLUE				:= $(shell tput setaf 4)
+MAGENTA				:= $(shell tput setaf 5)
+RESET				:= $(shell tput sgr0)
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include -I $(LIBFT) -I $(PRINTF) $(LIBS) -I $(GNL)
+NAME				:= cub3d
 
-LIBS 	:= $(LIBMLX)build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)libft.a \
-	-lm $(PRINTF)libftprintf.a
+SRCSDIR				:= ./src
+OBJSDIR				:= ./build
+LIBFTXDIR			:= ./lib/libftx
+LIBMLXDIR			:= ./lib/MLX42
 
-LDFLAGS	:= $(HEADERS) $(LIBS)
+FILES				:= main.c \
+					   animation.c \
+					   init.c \
+					   map.c \
+					   minimap.c \
+					   mouse.c \
+					   movement.c \
+					   parser/parser.c \
+					   parser/getter.c \
+					   parser/validate.c \
+					   parser/floodfill.c \
+					   raycast.c \
+					   utils.c \
+					   wall_rend.c
 
-SRCS += $(addprefix src/, main.c \
-		init.c \
-		map.c \
-		movement.c \
-		raycast.c \
-		utils.c \
-		wall_rend.c \
-		mouse.c \
-		minimap.c \
-		animation.c )
+SRCS				:= $(FILES:%.c=$(SRCSDIR)/%.c)
+OBJS				:= $(FILES:%.c=$(OBJSDIR)/%.o)
 
-OBJS	+=  $(SRCS:%.c=$(BUILD_DIR)%.o)
+LIBS 				:= $(LIBMLXDIR)/build/libmlx42.a \
+					  $(LIBFTXDIR)/libftx.a
 
-DELETE	=	$(OBJS_BONUS)
+HEADERS				:= -I ./include \
+					   -I ./src/parser \
+					   -I $(LIBFTXDIR)/includes \
+					   -I $(LIBMLXDIR)/include/MLX42
 
-ifdef   WITH_BONUS
-		DELETE := $(OBJS)
-		OBJS = $(OBJS_BONUS)
-endif
+LDFLAGS				:= $(HEADERS) $(LIBS)
 
-define create_dir
-	$(MKDIR) $(dir $@)
-endef
+COMPILER			:= gcc
+CFLAGS				:= -Wall -Wextra -Werror -g3 -Ofast
+MLXFLAGS 			:= -ldl -lglfw -lm
+NFLAGS				:= -R CheckForbiddenSourceHeader
 
-define bonus
-	$(MAKE) WITH_BONUS=TRUE
-endef
+all: 				$(NAME)
 
-all: libmlx libft printf $(NAME)
+$(NAME):			$(LIBS) $(OBJS)
+					@$(COMPILER) $(CFLAGS) $(HEADERS) $(OBJS) $(LIBS) $(MLXFLAGS) -o $(NAME) \
+						&& echo "$(BLUE)Compiled $(NAME) successfully$(RESET)"
 
-$(BUILD_DIR)%.o: %.c
-	@rm -rf $(DELETE)
-	$(call create_dir)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+$(OBJSDIR)/%.o: 	$(SRCSDIR)/%.c
+					@mkdir -p $(@D)
+					@$(COMPILER) $(CFLAGS) $(HEADERS) -c $< -o $@ \
+						&& echo "$(GREEN)Compiled $(RESET)$(notdir $<)"
+
+$(LIBS):
+					@make libftx libmlx --no-print-directory 
+
+libftx:
+					@git submodule sync $(LIBFTXDIR)
+					@git submodule update --init --force --remote $(LIBFTXDIR)
+					@make -sC $(LIBFTXDIR)
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)build && make -C $(LIBMLX)build -j4
-
-libft:
-	@make -C $(LIBFT)
-
-printf:
-	@make -C $(PRINTF)
-
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
-
-bonus:
-	$(call bonus)
+					@git submodule sync $(LIBMLXDIR)
+					@git submodule update --init --force --remote $(LIBMLXDIR)
+					@cd $(LIBMLXDIR) && cmake -B build && make -sC build -j4
 
 clean:
-	@rm -rf $(BUILD_DIR)
+					@rm -rf $(OBJSDIR) \
+						&& echo "$(RED)Removing $(RESET)$(NAME) objects"
 
-fclean: clean
-	@rm -rf $(NAME)
-	@rm -rf $(LIBMLX)/build
-	@make -C $(LIBFT) fclean
-	@make -C $(PRINTF) fclean
+fclean: 			clean
+					@rm -rf $(NAME) \
+						&& echo "$(RED)Removing $(RESET)$(NAME)"
+					@make fclean -sC $(LIBFTXDIR)
+					@rm -rf $(LIBMLXDIR)/build \
+						&& echo "$(RED)Removing $(RESET)libmlx42.a"
 
-re: clean all
-
-re_bonus: clean bonus
+re: 				fclean all
 
 norm:
-	norminette -R CheckForbiddenSourceHeader $(SRCS) ./include
+					@norminette $(NFLAGS) $(SRCS) ./include | grep -v "OK!" \
+						|| true
 
-.PHONY: all, clean, fclean, re, libmlx, libft, printf, bonus
-.DEFAULT_GOAL := all
+.PHONY: 			all, clean, fclean, re, libmlx, libftx

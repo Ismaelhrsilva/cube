@@ -6,12 +6,14 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/14 16:44:26 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:06:10 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "ft_stdlib.h"
+#include "MLX42.h"
+#include <math.h>
 
 void	game_loop(void *ml)	// game loop
 {
@@ -40,10 +42,10 @@ void	start_the_game(t_data *dt)	// start the game
 	t_mlx	mlx;
 
 	mlx.dt = dt;	// init the mlx structure
-	mlx.ply = calloc(1, sizeof(t_player));	// init the player structure i'm using calloc to initialize the variables to zero
-	mlx.ray = calloc(1, sizeof(t_ray));	// init the ray structure
-	mlx.mlx_p = mlx_init(S_W, S_H, "Cub3D", 0);	// init the mlx pointer
-	//mlx_set_setting(MLX_MAXIMIZED, true);
+	mlx.ply = ft_calloc(1, sizeof(t_player));	// init the player structure i'm using calloc to initialize the variables to zero
+	mlx.ray = ft_calloc(1, sizeof(t_ray));	// init the ray structure
+	//mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
+	mlx.mlx_p = mlx_init(S_W, S_H, "Cub3d", 0);	// init the mlx pointer
 	init_the_player(mlx);	// init the player structure
 	mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx);	// game loop
 	mlx_key_hook(mlx.mlx_p, &mlx_key, &mlx);	// key press and release

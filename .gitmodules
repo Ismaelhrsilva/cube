@@ -1,0 +1,9 @@
+[submodule "lib/libftx"]
+	path = lib/libftx
+	url = https://github.com/rgrmra/libftx.git
+	branch = main
+	
+[submodule "lib/libmlx"]
+	path = lib/MLX42
+	url = https://github.com/codam-coding-college/MLX42.git
+	branch = master
