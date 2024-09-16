@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/15 18:27:54 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/16 12:23:19 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@
 
 typedef struct s_map
 {
-	char			*north;
-	char			*south;
-	char			*west;
-	char			*east;
-	uint32_t		floor;
-	uint32_t		sky;
-	int32_t		width;
-	int32_t		height;
-	char			**map;
-	int32_t		player[3];
+	char			*north;	// north texture path
+	char			*south;	// south texture path
+	char			*west;	// west texture path
+	char			*east;	// east texture path
+	uint32_t		floor;	// floor hex color
+	uint32_t		sky;	// sky hex color
+	int32_t		width;		// map width
+	int32_t		height;		// map height
+	char			**map;	// map array
+	int32_t		player[3];	// player position x, y and direction
 }	t_map;
 
-void	clear_map(t_map *map);
-t_map	*parser_map(char *map);
+void	clear_map(t_map *map);	// clear structure t_map
+t_map	*parser_map(char *map);	// parser file .cub and create t_map
 
 typedef struct s_player //the player structure
 {

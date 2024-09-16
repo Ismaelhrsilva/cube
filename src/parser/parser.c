@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/15 13:04:50 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/16 12:07:14 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdio.h>
 
 // TEMPORARY FUNCTION
-static void	print(t_map *map)
+void	print(t_map *map)
 {
 	uint32_t	i;
 
@@ -85,6 +85,5 @@ t_map	*parser_map(char *path)
 		panic(map, path, " is a bad formated map\n", 1);
 	if (!validate_floodfill(map))
 		panic(map, path, " is not a valid map\n", 1);
-	print(map);
 	return (map);
 }
