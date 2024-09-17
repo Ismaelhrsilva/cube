@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/15 22:13:45 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/16 18:40:01 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_walls_2d(t_mlx *mlx)
 {
 	int	line;
 	int	col;
-	int size = mlx->dt->size_minimap;
+	int size = mlx->dt->size_minimap / 4;
 
 	col = 0;
 	while (col < mlx->dt->w_map)
@@ -45,13 +45,13 @@ void	draw_walls_2d(t_mlx *mlx)
 void draw_player(t_mlx *mlx)
 {
 	// Coordenadas centrais e propriedades do quadrado
-    int centerX = mlx->ply->plyr_x; // Exemplo: Centro da imagem
-    int centerY = mlx->ply->plyr_y; // Exemplo: Centro da imagem
-    int sideLength = mlx->dt->size_minimap / 2; // Lado do quadrado
+    int centerX = mlx->ply->plyr_x / 4; // Exemplo: Centro da imagem
+    int centerY = mlx->ply->plyr_y / 4; // Exemplo: Centro da imagem
+    int sideLength = mlx->dt->size_minimap / 4; // Lado do quadrado
     uint32_t squareColor = 0xFF0000FF; // Cor do quadrado (vermelho)
 
     // Desenhar o quadrado
-    int halfSide = sideLength / 2;
+    int halfSide = sideLength / 4;
     for (int y = -halfSide; y <= halfSide; ++y)
     {
         for (int x = -halfSide; x <= halfSide; ++x)
@@ -60,8 +60,8 @@ void draw_player(t_mlx *mlx)
             int32_t py = centerY + y;
 
             // Verificar se o pixel está dentro dos limites da imagem
-            if (px >= 0 && px < (int32_t) mlx->dt->image->width
-				&& py >= 0 && py < (int32_t) mlx->dt->image->height)
+            if (px >= 0 && px < (int32_t) mlx->dt->image->width / 4
+				&& py >= 0 && py < (int32_t) mlx->dt->image->height / 4)
             {
                 mlx_put_pixel(mlx->dt->image, px, py, squareColor);
             }
@@ -71,18 +71,18 @@ void draw_player(t_mlx *mlx)
 
 void	draw_line(t_mlx *mlx)
 {
-	int	block_size = mlx->dt->size_minimap;
+	int	block_size = mlx->dt->size_minimap / 4;
 
-    for (uint32_t i = 0; i < mlx->dt->image->width; i += block_size)
+    for (uint32_t i = 0; i < mlx->dt->image->width / 4; i += block_size)
     {
-        for (uint32_t y = 0; y < mlx->dt->image->height; ++y)
+        for (uint32_t y = 0; y < mlx->dt->image->height / 4; ++y)
         {
             mlx_put_pixel(mlx->dt->image, i, y, 0x000000FF); // Preto
         }
     }
-    for (uint32_t y = 0; y < mlx->dt->image->height; y += block_size)
+    for (uint32_t y = 0; y < mlx->dt->image->height / 4; y += block_size)
     {
-        for (uint32_t i = 0; i < mlx->dt->image->width; ++i)
+        for (uint32_t i = 0; i < mlx->dt->image->width / 4; ++i)
         {
             mlx_put_pixel(mlx->dt->image, i, y, 0x000000FF); // Preto
         }
@@ -95,17 +95,18 @@ void ft_randomize(void* param)
 	t_mlx	*mlx;
 
 	mlx = param;
-	for (uint32_t i = 0; i < mlx->dt->image->width; ++i)
+	for (uint32_t i = 0; i < mlx->dt->image->width / 4; ++i)
 	{
-		for (uint32_t y = 0; y < mlx->dt->image->height; ++y)
+		for (uint32_t y = 0; y < mlx->dt->image->height / 4; ++y)
 		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
-			mlx_put_pixel(mlx->dt->image, i, y, color);
+			//uint32_t color = ft_pixel(
+			//	rand() % 0xFF, // R
+			//	rand() % 0xFF, // G
+			//	rand() % 0xFF, // B
+			//	rand() % 0xFF  // A
+			//);
+			//mlx_put_pixel(mlx->dt->image, i, y, color);
+			mlx_put_pixel(mlx->dt->image, i, y, 0xFFFFFF7F);
 		}
 	}
 	draw_line(mlx);

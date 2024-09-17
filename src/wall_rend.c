@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/15 17:41:24 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/16 14:19:45 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)	// put the pixel
 float	nor_angle(float angle)	// normalize the angle
 {
 	if (angle < 0)
-		angle += (2 * M_PI);
-	if (angle > (2 * M_PI))
-		angle -= (2 * M_PI);
+		return (angle + (2 * M_PI));
+	else if (angle > (2 * M_PI))
+		return (angle - (2 * M_PI));
 	return (angle);
 }
 

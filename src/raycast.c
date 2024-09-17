@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/15 22:16:44 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/16 13:45:04 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@
 
 int	unit_circle(float angle, char c)	// check the unit circle
 {
-	if (c == 'x')
-	{
-		if (angle > 0 && angle < M_PI)
-			return (1);
-	}
-	else if (c == 'y')
-	{
-		if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-			return (1);
-	}
+	if (c == 'x' && angle > 0 && angle < M_PI)
+		return (1);
+	else if (c == 'y' && angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
+		return (1);
 	return (0);
 }
 
