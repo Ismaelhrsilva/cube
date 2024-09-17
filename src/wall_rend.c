@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/16 14:19:45 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 08:43:20 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the f
 static void	intersection_point(t_mlx *mlx)
 {
 	if (mlx->ray->flag == 0)
-		mlx->dt->point_x = mlx->ply->plyr_y + mlx->ray->distance * mlx->ray->ray_ngl;
-		//mlx->dt->point_x = mlx->ply->plyr_y + mlx->ray->distance * ray->dir.y;
+		mlx->dt->point_x = mlx->player->y + mlx->ray->distance * mlx->ray->angle;
+		//mlx->dt->point_x = mlx->player->y + mlx->ray->distance * ray->dir.y;
 	else
-		mlx->dt->point_x = mlx->ply->plyr_x + mlx->ray->distance * mlx->ray->ray_ngl;
-		//mlx->dt->point_x = mlx->ply->plyr_x + mlx->ray->distance * ray->dir.x;
+		mlx->dt->point_x = mlx->player->x + mlx->ray->distance * mlx->ray->angle;
+		//mlx->dt->point_x = mlx->player->x + mlx->ray->distance * ray->dir.x;
 	mlx->dt->point_x -= floor(mlx->dt->point_x);
 }
 
@@ -126,10 +126,10 @@ void	render_wall(t_mlx *mlx, int ray)	// render the wall
 	double	b_pix;
 	double	t_pix;
 
-	mlx->ray->distance *= cos(nor_angle(mlx->ray->ray_ngl - mlx->ply->angle)); // fix the fisheye
-	wall_h = (TILE_SIZE / mlx->ray->distance) * ((S_W / 2) / tan(mlx->ply->fov_rd / 2)); // get the wall height
-	b_pix = (S_H / 2) + (wall_h / 2); // get the bottom pixel
-	t_pix = (S_H / 2) - (wall_h / 2); // get the top pixel
+	mlx->ray->distance *= cos(nor_angle(mlx->ray->angle - mlx->player->angle)); // fix the fisheye
+	wall_h = (TILE_SIZE / mlx->ray->distance) * (((double)S_W / 2) / tan(mlx->player->fov / 2)); // get the wall height
+	b_pix = ((double)S_H / 2) + (wall_h / 2); // get the bottom pixel
+	t_pix = ((double)S_H / 2) - (wall_h / 2); // get the top pixel
 	if (b_pix > S_H) // check the bottom pixel
 		b_pix = S_H;
 	if (t_pix < 0) // check the top pixel

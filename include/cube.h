@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/16 14:41:43 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 08:49:58 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ t_map	*parser_map(char *map);	// parser file .cub and create t_map
 
 typedef struct s_player //the player structure
 {
-	int32_t	plyr_x; // player x position in pixels
-	int32_t	plyr_y; // player y position in pixels
+	int32_t	x; // player x position in pixels
+	int32_t	y; // player y position in pixels
 	double	angle;	// player angle
-	double	fov_rd;	// field of view in radians
+	double	fov;	// field of view in radians
 	int32_t	rot;	// rotation flag
 	int32_t	l_r;	// left right flag
 	int32_t	u_d;	// up down flag
@@ -59,18 +59,18 @@ typedef struct s_player //the player structure
 
 typedef struct s_ray	//the ray structure
 {
-	double	ray_ngl;	// ray angle
+	double	angle;	// ray angle
 	double	distance;	// distance to the wall
 	int		flag;		// flag for the wall
 }	t_ray;
 
 typedef struct s_data	//the data structure
 {
-	char	**map2d;	// the map
+	char	**map;	// the map
 	int		p_x;		// player x position in the map
 	int		p_y;		// player y position in the map
-	int		w_map;		// map width
-	int		h_map;		// map height
+	int		width;		// map width
+	int		height;		// map height
 	int		size_minimap; // size of block minimap
 	int		minimap_turn; // tells if the minimap is turn on /off
 	mlx_image_t		*image;	// image of minimap
@@ -92,7 +92,7 @@ typedef struct s_mlx	//the mlx structure
 	mlx_t			*mlx_p;	// the mlx pointer
 	t_ray			*ray;	// the ray structure
 	t_data			*dt;	// the data structure
-	t_player		*ply;	// the player structure
+	t_player		*player;	// the player structure
 }	t_mlx;
 
 //File init
