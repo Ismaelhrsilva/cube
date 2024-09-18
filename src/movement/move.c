@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 10:28:59 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 19:20:08 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static void	move(t_mlx *mlx, double x, double y)	// move the player
 	if (mlx->dt->map[map_grid_y][map_grid_x] == '1'
 		|| mlx->dt->map[map_grid_y][mlx->player->x / TILE_SIZE] == '1'
 		|| mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_x] == '1') // check the wall hit and the diagonal wall hit
+		return ;
+	if (mlx->dt->map[map_grid_y][map_grid_x] == 'd'
+		|| mlx->dt->map[map_grid_y][mlx->player->x / TILE_SIZE] == 'd'
+		|| mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_x] == 'd') // check the wall hit and the diagonal wall hit
 		return ;
 	mlx->player->x = x; // move the player
 	mlx->player->y = y; // move the player

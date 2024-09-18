@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 14:11:37 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 17:45:12 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,8 @@ void	ft_minimap(t_mlx *mlx);
 
 //File Animation
 mlx_texture_t *construct_texture(t_mlx *mlx, char *png);
+
+//File open_door
+void	ft_open_door(t_mlx *mlx);
 
 #endif

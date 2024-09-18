@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/09/17 08:48:14 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/09/18 17:25:42 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ FILES				:= main.c \
 					   parser/floodfill.c \
 					   raycast.c \
 					   utils.c \
-					   wall_rend.c
+					   wall_rend.c \
+					   open_door.c
 
 SRCS				:= $(FILES:%.c=$(SRCSDIR)/%.c)
 OBJS				:= $(FILES:%.c=$(OBJSDIR)/%.o)
