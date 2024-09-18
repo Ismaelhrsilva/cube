@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/15 18:27:54 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 14:11:37 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,44 @@
 # include <stdint.h>
 
 //# define S_W 1900 // screen width
-# define S_W 640 // screen width
+# define S_W 1024 // screen width
 //# define S_H 1000 // screen height
-# define S_H 480 // screen height
+# define S_H 600 // screen height
 # define TILE_SIZE 30 // tile size
-# define FOV 60 // field of view
+//# define FOV 60 // field of view
+#define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
 //# define WALL_TEXT "textures/rock.png"
 //# define WALL_TEXT "textures/rocket_up.png"
 # define WALL_TEXT "textures/north.png"
 
+# define NEGATIVE -1
+# define POSITIVE 1
+
 typedef struct s_map
 {
-	char			*north;
-	char			*south;
-	char			*west;
-	char			*east;
-	uint32_t		floor;
-	uint32_t		sky;
-	int32_t		width;
-	int32_t		height;
-	char			**map;
-	int32_t		player[3];
+	char			*north;	// north texture path
+	char			*south;	// south texture path
+	char			*west;	// west texture path
+	char			*east;	// east texture path
+	uint32_t		floor;	// floor hex color
+	uint32_t		sky;	// sky hex color
+	int32_t		width;		// map width
+	int32_t		height;		// map height
+	char			**map;	// map array
+	int32_t		player[3];	// player position x, y and direction
 }	t_map;
 
-void	clear_map(t_map *map);
-t_map	*parser_map(char *map);
+void	clear_map(t_map *map);	// clear structure t_map
+t_map	*parser_map(char *map);	// parser file .cub and create t_map
 
 typedef struct s_player //the player structure
 {
-	int32_t	plyr_x; // player x position in pixels
-	int32_t	plyr_y; // player y position in pixels
+	int32_t	x; // player x position in pixels
+	int32_t	y; // player y position in pixels
 	double	angle;	// player angle
-	double	fov_rd;	// field of view in radians
+	double	fov;	// field of view in radians
 	int32_t	rot;	// rotation flag
 	int32_t	l_r;	// left right flag
 	int32_t	u_d;	// up down flag
@@ -58,20 +62,19 @@ typedef struct s_player //the player structure
 
 typedef struct s_ray	//the ray structure
 {
-	double	ray_ngl;	// ray angle
+	double	angle;	// ray angle
 	double	distance;	// distance to the wall
 	int		flag;		// flag for the wall
 }	t_ray;
 
 typedef struct s_data	//the data structure
 {
-	char	**map2d;	// the map
+	char	**map;	// the map
 	int		p_x;		// player x position in the map
 	int		p_y;		// player y position in the map
-	int		w_map;		// map width
-	int		h_map;		// map height
+	int		width;		// map width
+	int		height;		// map height
 	int		size_minimap; // size of block minimap
-	int		minimap_turn; // tells if the minimap is turn on /off
 	mlx_image_t		*image;	// image of minimap
 	mlx_texture_t	*wall_text; // texture wall
 	
@@ -91,7 +94,7 @@ typedef struct s_mlx	//the mlx structure
 	mlx_t			*mlx_p;	// the mlx pointer
 	t_ray			*ray;	// the ray structure
 	t_data			*dt;	// the data structure
-	t_player		*ply;	// the player structure
+	t_player		*player;	// the player structure
 }	t_mlx;
 
 //File init
@@ -99,15 +102,11 @@ void	game_loop(void *ml);
 void init_the_player(t_mlx mlx);
 void	start_the_game(t_data *dt);
 
-//File map
-t_data *init_argumet(void);
-
 //File movement
 void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
 void mlx_key(mlx_key_data_t keydata, void *ml);
-void	rotate_player(t_mlx *mlx, int i);
-void	move_player(t_mlx *mlx, double move_x, double move_y);
-void	hook(t_mlx *mlx, double move_x, double move_y);
+void	hook(t_mlx *mlx);
+void	rotation_move(t_mlx *mlx, int32_t direction);
 
 //File raycast 
 int	unit_circle(float angle, char c);

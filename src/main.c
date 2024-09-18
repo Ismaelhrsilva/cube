@@ -6,21 +6,48 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/15 17:16:00 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 19:20:45 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "MLX42.h"
+#include "parser.h"
+#include <stdbool.h>
+#include <stdlib.h>
 
-int main()	// main function
+/*
+ * Get the t_map and converts it to t_data
+ */
+t_data *init_map(t_map	*map)
 {
 	t_data	*data;
-	t_mlx	*mlx;
 
-	(void)mlx;
+	data = (t_data *) malloc(sizeof(t_data) * 1);
+	if (!data)
+		exit(EXIT_FAILURE);
+	data->map = map->map;
+	data->p_x = map->player[0];
+	data->p_y = map->player[1];
+	data->width = map->width;
+	data->height = map->height;
+	data->image = NULL;
+	data->wall_text = construct_texture(NULL, WALL_TEXT);
+	return (data);
+}
 
-	data = init_argumet();	// init the data structure
+int	 main(int argc, char **argv)
+{
+	t_data	*data;
+	t_map	*map;
+
+	if (argc != 2)
+		return (EXIT_FAILURE);
+	map = parser_map(argv[1]);
+	if (!map)
+		return (EXIT_FAILURE);
+	print(map);
+	data = init_map(map);	// init the data structure
 	start_the_game(data);	// start the game
-	return 0;
+	clear_map(map);
+	return (EXIT_SUCCESS);
 }

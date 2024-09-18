@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/09/16 11:36:26 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/09/17 08:48:14 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,10 @@ LIBMLXDIR			:= ./lib/MLX42
 FILES				:= main.c \
 					   animation.c \
 					   init.c \
-					   map.c \
 					   minimap.c \
-					   mouse.c \
-					   movement.c \
+					   movement/key.c \
+					   movement/move.c \
+					   movement/mouse.c \
 					   parser/parser.c \
 					   parser/getter.c \
 					   parser/validate.c \
