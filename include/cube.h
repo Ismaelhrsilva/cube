@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 08:49:58 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 19:19:34 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 //# define WALL_TEXT "textures/rock.png"
 //# define WALL_TEXT "textures/rocket_up.png"
 # define WALL_TEXT "textures/north.png"
+
+# define NEGATIVE -1
+# define POSITIVE 1
 
 typedef struct s_map
 {
@@ -72,7 +75,6 @@ typedef struct s_data	//the data structure
 	int		width;		// map width
 	int		height;		// map height
 	int		size_minimap; // size of block minimap
-	int		minimap_turn; // tells if the minimap is turn on /off
 	mlx_image_t		*image;	// image of minimap
 	mlx_texture_t	*wall_text; // texture wall
 	
@@ -103,9 +105,8 @@ void	start_the_game(t_data *dt);
 //File movement
 void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
 void mlx_key(mlx_key_data_t keydata, void *ml);
-void	rotate_player(t_mlx *mlx, int i);
-void	move_player(t_mlx *mlx, double move_x, double move_y);
-void	hook(t_mlx *mlx, double move_x, double move_y);
+void	hook(t_mlx *mlx);
+void	rotation_move(t_mlx *mlx, int32_t direction);
 
 //File raycast 
 int	unit_circle(float angle, char c);

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 08:50:31 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 19:20:45 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_data *init_map(t_map	*map)
 	data->p_y = map->player[1];
 	data->width = map->width;
 	data->height = map->height;
-	data->minimap_turn = false;
+	data->image = NULL;
 	data->wall_text = construct_texture(NULL, WALL_TEXT);
 	return (data);
 }

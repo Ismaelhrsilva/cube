@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/16 22:40:02 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 20:08:48 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	game_loop(void *ml)	// game loop
 {
 	t_mlx	*mlx;
 
-	mlx = ml;	// cast to the mlx structure
+	mlx = (t_mlx *) ml;	// cast to the mlx structure
 	mlx_delete_image(mlx->mlx_p, mlx->img);	// delete the image
 	mlx->img = mlx_new_image(mlx->mlx_p, S_W, S_H);	// create new image
-	hook(mlx, 0, 0); // hook the player
+	hook(mlx); // hook the player
 	cast_rays(mlx);	// cast the rays
 	mlx_image_to_window(mlx->mlx_p, mlx->img, 0, 0); // put the image to the window
 	mlx->img->instances[0].z = 0;
@@ -44,7 +44,7 @@ void	start_the_game(t_data *dt)	// start the game
 	mlx.dt = dt;	// init the mlx structure
 	mlx.player = ft_calloc(1, sizeof(t_player));	// init the player structure i'm using calloc to initialize the variables to zero
 	mlx.ray = ft_calloc(1, sizeof(t_ray));	// init the ray structure
-	//mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
+	mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
 	mlx.mlx_p = mlx_init(S_W, S_H, "Cub3d", 0);	// init the mlx pointer
 	init_the_player(mlx);	// init the player structure
 	mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx);	// game loop

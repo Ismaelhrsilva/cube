@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/15 18:29:22 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/17 16:21:00 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,9 @@ _Bool	validate_floodfill(t_map *map)
 
 	x = map->player[0];
 	y = map->player[1];
-	map->map[y][x] = '0';
 	if (x < 0 || y < 0 || x > map->width || y > map->height)
 		return (false);
 	if (!floodfill(map, x, y))
 		return (false);
-	map->map[y][x] = map->player[2];
 	return (true);
 }
