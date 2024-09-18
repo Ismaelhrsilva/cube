@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 19:19:34 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 14:11:37 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdint.h>
 
 //# define S_W 1900 // screen width
-# define S_W 640 // screen width
+# define S_W 1024 // screen width
 //# define S_H 1000 // screen height
-# define S_H 480 // screen height
+# define S_H 600 // screen height
 # define TILE_SIZE 30 // tile size
 //# define FOV 60 // field of view
 #define FOV 60

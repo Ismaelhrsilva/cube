@@ -6,62 +6,53 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 19:55:51 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 15:51:47 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "ft_string.h"
 #include "MLX42.h"
 #include <math.h>
 
-#include <stdio.h>
 void	draw_walls_2d(t_mlx *mlx)
 {
-	int	line;
-	int	col;
-	int size = mlx->dt->size_minimap;
+	int32_t	x;
+	int32_t	y;
+	int32_t	width;
+	int32_t	height;
 
-	col = 0;
-	while (col < mlx->dt->width)
+	y = 0;
+	while(y < mlx->dt->height * mlx->dt->size_minimap)
 	{
-		line = 0;
-		while (line < mlx->dt->height)
+		height = y / mlx->dt->size_minimap;
+		x = 0;
+		while (x < mlx->dt->width * mlx->dt->size_minimap)
 		{
-			//if (mlx->dt->map[line][col] == 49)
-			{
-				for (uint32_t y = size * line; y < (uint32_t)size * (line + 1); ++y)
-    			{
-    				for (uint32_t i = size * col; i < (uint32_t)size * (col + 1); ++i)
-					{
-						if (mlx->dt->map[line][col] == '1')
-							mlx_put_pixel(mlx->dt->image, i, y, 0x000000FF); // Preto
-						else if (mlx->dt->map[line][col] == '2')
-							mlx_put_pixel(mlx->dt->image, i, y, 0xFFFFFF7F);
-						//if ((mlx->player->y / 30) == line && (mlx->player->x / 30) == col)
-						//	mlx_put_pixel(mlx->dt->image, i, y, 0xFF0000FF);
-        			}
-    			}
-			}
-			line++;
+			width = x / mlx->dt->size_minimap;
+			if (mlx->dt->map[height][width] == '1')
+				mlx_put_pixel(mlx->dt->image, x, y, 0x000000FF);
+			else if (mlx->dt->map[height][width] == '2')
+				mlx_put_pixel(mlx->dt->image, x, y, 0xFFFFFF7F);
+			//if (x % mlx->dt->size_minimap == 0)
+			//	mlx_put_pixel(mlx->dt->image, x, y, 0x000000FF);
+			//else if (y % mlx->dt->size_minimap == 0)
+			//	mlx_put_pixel(mlx->dt->image, x, y, 0x000000FF);
+			x++;
 		}
-		col++;
+		y++;
 	}
-	printf("x %d y %d\n", mlx->player->x, mlx->player->y);
 }
 
+#include <stdio.h>
 void draw_player(t_mlx *mlx)
 {
 	// Coordenadas centrais e propriedades do quadrado
-    //int32_t	centerX = (mlx->player->x + (TILE_SIZE / 2)) / TILE_SIZE * mlx->dt->size_minimap; // Exemplo: Centro da imagem
-    //int32_t	centerY = (mlx->player->y + (TILE_SIZE / 2)) / TILE_SIZE * mlx->dt->size_minimap; // Exemplo: Centro da imagem
-	double centerX = (mlx->player->x + TILE_SIZE / 2) / (TILE_SIZE) * mlx->dt->size_minimap;
-	double centerY = (mlx->player->y + TILE_SIZE / 2) / (TILE_SIZE) * mlx->dt->size_minimap;
-	//printf("%d %d\n", mlx->player->x, mlx->player->y);
+    int32_t	centerX = (double) mlx->player->x / TILE_SIZE * mlx->dt->size_minimap;
+    int32_t	centerY = (double) mlx->player->y / TILE_SIZE * mlx->dt->size_minimap;
     int sideLength = mlx->dt->size_minimap; // Lado do quadrado
 
     // Desenhar o quadrado
-    int halfSide = sideLength / 3;
+    int halfSide = sideLength / 4;
     for (int y = -halfSide; y <= halfSide; y++)
     {
         for (int x = -halfSide; x <= halfSide; x++)
@@ -70,11 +61,12 @@ void draw_player(t_mlx *mlx)
             int32_t py = centerY + y;
 
             // Verificar se o pixel está dentro dos limites da imagem
-            if (px >= 0 && px < (int32_t) mlx->dt->image->width
-				&& py >= 0 && py < (int32_t) mlx->dt->image->height)
-            {
+            //if (px >= 0 && px < (int32_t) mlx->dt->image->width
+			//	&& py >= 0 && py < (int32_t) mlx->dt->image->height)
+            //{
+			if (halfSide / 2 == (int)sqrt(pow(y - halfSide, 2) + pow(x - halfSide, 2)))
 				mlx_put_pixel(mlx->dt->image, px, py, 0xFF0000FF);
-            }
+            //}
         }
     }
 }
@@ -128,7 +120,7 @@ void	ft_minimap(t_mlx *mlx)
 {
 	if (!mlx->dt->image)
 	{
-		mlx->dt->size_minimap = TILE_SIZE / 5; //(double) mlx->img->width / (mlx->dt->width - 1) * 0.25;
+		mlx->dt->size_minimap = TILE_SIZE; //(double) mlx->img->width / (mlx->dt->width - 1) * 0.25;
 		mlx->dt->image = mlx_new_image(mlx->mlx_p, 
 			mlx->dt->size_minimap * mlx->dt->width, 
 			mlx->dt->size_minimap * mlx->dt->height);

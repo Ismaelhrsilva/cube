@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:26:52 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/17 20:08:16 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 13:56:34 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	panic(t_map *map, char *str, char *message, uint32_t error);
 _Bool	validate_file(char *path);
 _Bool	validate_map(t_map	*map);
 _Bool	validate_floodfill(t_map *map);
-void	print(t_map *map)
+void	print(t_map *map);
 
 #endif

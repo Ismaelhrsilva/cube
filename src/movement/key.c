@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:43:50 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/17 10:33:46 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 14:17:34 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,6 @@ void	mlx_key(mlx_key_data_t keydata, void *mlx)
 		ft_exit((t_mlx *) mlx);
 	else if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
 		ft_minimap(mlx);
+	else if (keydata.key == MLX_KEY_F11 && keydata.action == MLX_PRESS)
+		mlx_set_setting(MLX_FULLSCREEN, true);
 }
