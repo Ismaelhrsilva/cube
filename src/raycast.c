@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 18:24:28 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:34:11 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,4 +134,5 @@ void	cast_rays(t_mlx *mlx)	// cast the rays
 		ray++; // next ray
 		mlx->ray->angle += (mlx->player->fov / S_W); // next angle
 	}
+	ft_animation(mlx);
 }
