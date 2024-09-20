@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 19:14:53 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 20:38:06 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ typedef struct s_ray	//the ray structure
 {
 	double	angle;	// ray angle
 	double	distance;	// distance to the wall
+	
+	float distance_x;	// distance to the wall
+	float	distance_y;	// distance to the wall
+
 	double	x;
 	double	y;
 	int		flag;		// flag for the wall
@@ -152,6 +156,7 @@ void	ft_minimap(t_mlx *mlx);
 //File Animation
 mlx_texture_t *construct_texture(t_mlx *mlx, char *png);
 void	ft_animation(t_mlx *mlx);
+void	ft_init_animation(t_mlx *mlx);
 
 //File open_door
 void	ft_open_door(t_mlx *mlx);

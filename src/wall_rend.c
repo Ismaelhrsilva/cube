@@ -6,13 +6,14 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 19:13:57 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 20:37:25 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "MLX42.h"
 #include <math.h>
+#include <stdio.h>
 
 uint32_t	get_texture_color(mlx_texture_t *texture, int y, int x)
 {
@@ -62,7 +63,6 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)	// draw the f
 	while (i < t_pix)
 		my_mlx_pixel_put(mlx, ray, i++, mlx->dt->sky);//0x89CFF3FF); // ceiling
 }
-
 
 void	intersection_point(t_mlx *mlx)
 {
@@ -135,7 +135,7 @@ void	render_wall(t_mlx *mlx, int ray)	// render the wall
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
 	draw_wall(mlx, ray);
-	//draw_floor_ceiling(mlx, ray, t_pix, b_pix); // draw the floor and the ceiling
+	draw_floor_ceiling(mlx, ray, t_pix, b_pix); // draw the floor and the ceiling
 }
 
 /*static void	intersection_point(t_mlx *mlx)
