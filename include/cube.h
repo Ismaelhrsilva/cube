@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 20:39:10 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/20 19:14:53 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,16 @@ typedef struct s_ray	//the ray structure
 {
 	double	angle;	// ray angle
 	double	distance;	// distance to the wall
+	double	x;
+	double	y;
 	int		flag;		// flag for the wall
 }	t_ray;
+
+typedef struct s_minimap
+{
+	mlx_image_t	*img;
+	int32_t		size;
+} t_minimap;
 
 typedef struct s_data	//the data structure
 {
@@ -74,6 +82,8 @@ typedef struct s_data	//the data structure
 	int		p_y;		// player y position in the map
 	int		width;		// map width
 	int		height;		// map height
+	uint32_t	floor;
+	uint32_t	sky;
 	int		size_minimap; // size of block minimap
 	mlx_image_t		*image;	// image of minimap
 	mlx_texture_t	*wall_text; // texture wall
@@ -99,6 +109,7 @@ typedef struct s_mlx	//the mlx structure
 	t_ray			*ray;	// the ray structure
 	t_data			*dt;	// the data structure
 	t_player		*player;	// the player structure
+	t_minimap	*minimap;
 }	t_mlx;
 
 //File init
