@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 19:15:33 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 20:25:13 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	move(t_mlx *mlx, float x, float y)	// move the player
 	int32_t	map_grid_y;
 	int32_t	map_grid_x;
 
-	x = round(mlx->player->x + x); // get the new x position
-	y = round(mlx->player->y + y); // get the new y position
+	x = roundf(mlx->player->x + x); // get the new x position
+	y = roundf(mlx->player->y + y); // get the new y position
 	map_grid_x = x / TILE_SIZE; // get the x position in the map
 	map_grid_y = y / TILE_SIZE; // get the y position in the map
 	if (mlx->dt->map[map_grid_y][map_grid_x] == '1'

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 19:17:31 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 20:58:19 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ int	wall_hit(float x, float y, t_mlx *mlx)	// check the wall hit
 
 	if (x < 0 || y < 0)
 		return (0);
-	x_m = floor((double) x / TILE_SIZE); // get the x position in the map
-	y_m = floor((double) y / TILE_SIZE); // get the y position in the map
-	if ((y_m >= mlx->dt->height - 1 || x_m >= mlx->dt->width - 1))
+	x_m = floor(x / TILE_SIZE); // get the x position in the map
+	y_m = floor(y / TILE_SIZE); // get the y position in the map
+	if ((y_m >= mlx->dt->height || x_m >= mlx->dt->width))
 		return (0);
-	//if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
-	if (mlx->dt->map[y_m][x_m] == '1')
-		return (0);
+	if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
+		if (mlx->dt->map[y_m][x_m] == '1')
+			return (0);
 	return (1);
 }
 
@@ -102,6 +102,8 @@ float	get_h_inter(t_mlx *mlx, float angle)	// get the horizontal intersection
 		x += x_step;
 		y += y_step;
 	}
+	mlx->ray->x = x;
+	mlx->ray->y = y;
 	return (pytheorem(x - mlx->player->x, y - mlx->player->y));
 }
 
@@ -126,6 +128,8 @@ float	get_v_inter(t_mlx *mlx, float angle)	// get the vertical intersection
 		x += x_step;
 		y += y_step;
 	}
+	mlx->ray->vx = x;
+	mlx->ray->vy = y;
 	return (pytheorem(x - mlx->player->x, y - mlx->player->y));
 }
 

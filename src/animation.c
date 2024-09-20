@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 18:56:56 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/20 19:33:27 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_animation(t_mlx *mlx)
 {
 	double	time;
 
+	return ;
 	time = mlx_get_time();
 	mlx_delete_image(mlx->mlx_p, mlx->dt->animation1);
 	mlx_delete_image(mlx->mlx_p, mlx->dt->animation2);
