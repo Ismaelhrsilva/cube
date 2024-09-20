@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 08:51:47 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 18:06:55 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,52 @@
 #include "MLX42.h"
 #include <math.h>
 
-int	unit_circle(float angle, char c)	// check the unit circle
+static double pytheorem(double a, double b)
 {
-	if (c == 'x' && angle > 0 && angle < M_PI)
-		return (1);
-	else if (c == 'y' && angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-		return (1);
-	return (0);
+	return (sqrt((a * a) + (b * b)));
 }
 
-int	inter_check(float angle, float *inter, float *step, int is_horizon)	// check the intersection
+static int	horizontal_unit_circle(float angle) // check the unit circle
 {
-	if (is_horizon)
+	return (angle > 0 && angle < M_PI);
+}
+
+static int	vertical_unit_circle(float angle) // check the unit circle
+{
+	return (angle > (M_PI / 2) && angle < (3 * M_PI) / 2);
+}
+
+//int	inter_check(float angle, float *inter, float *step, int is_horizon)	// check the intersection
+//{
+//	if (is_horizon)
+//	{
+//		if (angle > 0 && angle < M_PI)
+//		{
+//			*inter += TILE_SIZE;
+//			return (-1);
+//		}
+//		*step *= -1;
+//	}
+//	else
+//	{
+//		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2)) 
+//		{
+//			*inter += TILE_SIZE;
+//			return (-1);
+//		}
+//		*step *= -1;
+//	}
+//	return (1);
+//}
+
+int	intersection(float *inter, float *step, int evaluation)
+{
+	if (evaluation)
 	{
-		if (angle > 0 && angle < M_PI)
-		{
-			*inter += TILE_SIZE;
-			return (-1);
-		}
-		*step *= -1;
+		*inter += TILE_SIZE;
+		return (-1);
 	}
-	else
-	{
-		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2)) 
-		{
-			*inter += TILE_SIZE;
-			return (-1);
-		}
-		*step *= -1;
-	}
+	*step = -*step;
 	return (1);
 }
 
@@ -54,60 +71,62 @@ int	wall_hit(float x, float y, t_mlx *mlx)	// check the wall hit
 
 	if (x < 0 || y < 0)
 		return (0);
-	x_m = floor (x / TILE_SIZE); // get the x position in the map
-	y_m = floor (y / TILE_SIZE); // get the y position in the map
-	if ((y_m >= mlx->dt->height || x_m >= mlx->dt->width))
+	x_m = floor((double) x / TILE_SIZE); // get the x position in the map
+	y_m = floor((double) y / TILE_SIZE); // get the y position in the map
+	if ((y_m >= mlx->dt->height - 1 || x_m >= mlx->dt->width - 1))
 		return (0);
-	if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
-		if (mlx->dt->map[y_m][x_m] == '1')
-			return (0);
+	//if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
+	if (mlx->dt->map[y_m][x_m] == '1')
+		return (0);
 	return (1);
 }
 
-float	get_h_inter(t_mlx *mlx, float angl)	// get the horizontal intersection
+float	get_h_inter(t_mlx *mlx, float angle)	// get the horizontal intersection
 {
-	float	h_x;
-	float	h_y;
+	float	x;
+	float	y;
 	float	x_step;
 	float	y_step;
 	int		pixel;
 
 	y_step = TILE_SIZE;
-	x_step = TILE_SIZE / tan(angl);
-	h_y = floor((float)mlx->player->y / TILE_SIZE) * TILE_SIZE;
-	pixel = inter_check(angl, &h_y, &y_step, 1);
-	h_x = mlx->player->x + (h_y - mlx->player->y) / tan(angl);
-	if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y') && x_step < 0)) // check x_step value
-		x_step *= -1;
-	while (wall_hit(h_x, h_y - pixel, mlx)) // check the wall hit whit the pixel value
+	x_step = TILE_SIZE / tan(angle);
+	y = floor((double) mlx->player->y / TILE_SIZE) * TILE_SIZE;
+	//pixel = inter_check(angle, &y, &y_step, 1);
+	pixel = intersection(&y, &y_step, horizontal_unit_circle(angle));
+	x = mlx->player->x + (y - mlx->player->y) / tan(angle);
+	if (x_step != 0 && (x_step > 0) == vertical_unit_circle(angle)) // check x_step value
+		x_step = -x_step;
+	while (wall_hit(x, y - pixel, mlx)) // check the wall hit whit the pixel value
 	{
-		h_x += x_step;
-		h_y += y_step;
+		x += x_step;
+		y += y_step;
 	}
-	return (sqrt(pow(h_x - mlx->player->x, 2) + pow(h_y - mlx->player->y, 2))); // get the distance
+	return (pytheorem(x - mlx->player->x, y - mlx->player->y));
 }
 
-float	get_v_inter(t_mlx *mlx, float angl)	// get the vertical intersection
+float	get_v_inter(t_mlx *mlx, float angle)	// get the vertical intersection
 {
-	float	v_x;
-	float	v_y;
+	float	x;
+	float	y;
 	float	x_step;
 	float	y_step;
 	int		pixel;
 
 	x_step = TILE_SIZE; 
-	y_step = TILE_SIZE * tan(angl);
-	v_x = floor((float)mlx->player->x / TILE_SIZE) * TILE_SIZE;
-	pixel = inter_check(angl, &v_x, &x_step, 0); // check the intersection and get the pixel value
-	v_y = mlx->player->y + (v_x - mlx->player->x) * tan(angl);
-	if ((unit_circle(angl, 'x') && y_step < 0) || (!unit_circle(angl, 'x') && y_step > 0)) // check y_step value
-		y_step *= -1;
-	while (wall_hit(v_x - pixel, v_y, mlx)) // check the wall hit whit the pixel value
+	y_step = TILE_SIZE * tan(angle);
+	x = floor((float)mlx->player->x / TILE_SIZE) * TILE_SIZE;
+	pixel = intersection(&x, &x_step, !vertical_unit_circle(angle)); // check the intersection and get the pixel value
+	//pixel = inter_check(angle, &x, &x_step, 0); // check the intersection and get the pixel value
+	y = mlx->player->y + (x - mlx->player->x) * tan(angle);
+	if (y_step != 0 && (y_step < 0) == horizontal_unit_circle(angle)) // check y_step value
+		y_step = -y_step;
+	while (wall_hit(x - pixel, y, mlx)) // check the wall hit whit the pixel value
 	{
-		v_x += x_step;
-		v_y += y_step;
+		x += x_step;
+		y += y_step;
 	}
-	return (sqrt(pow(v_x - mlx->player->x, 2) + pow(v_y - mlx->player->y, 2))); // get the distance
+	return (pytheorem(x - mlx->player->x, y - mlx->player->y));
 }
 
 void	cast_rays(t_mlx *mlx)	// cast the rays
