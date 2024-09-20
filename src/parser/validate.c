@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/17 16:21:00 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/18 18:10:50 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static _Bool	check_line(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!ft_strchr(" 01NSWE", line[i]))
+		if (!ft_strchr(" 01NSWEDd", line[i]))
 			return (false);
-		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1')
+		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != 'D')
 			player++;
 		i++;
 	}

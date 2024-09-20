@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 18:57:13 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 19:14:53 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
-//# define WALL_TEXT "textures/rock.png"
-//# define WALL_TEXT "textures/rocket_up.png"
+# define ANIMATION1 "textures/weapon1.png"
+# define ANIMATION2 "textures/weapon2.png"
 # define WALL_TEXT "textures/north.png"
 
 # define NEGATIVE -1
@@ -96,6 +96,10 @@ typedef struct s_data	//the data structure
 	int	texture_x;
 	int	point_x;
 
+	mlx_texture_t	*texture1;
+	mlx_texture_t	*texture2;
+	mlx_image_t		*animation1;
+	mlx_image_t		*animation2;
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure
@@ -147,5 +151,9 @@ void	ft_minimap(t_mlx *mlx);
 
 //File Animation
 mlx_texture_t *construct_texture(t_mlx *mlx, char *png);
+void	ft_animation(t_mlx *mlx);
+
+//File open_door
+void	ft_open_door(t_mlx *mlx);
 
 #endif
