@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 20:47:58 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:56:56 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	ft_animation(t_mlx *mlx)
 	double	time;
 
 	time = mlx_get_time();
-	if (mlx->dt->animation1)
-		mlx_delete_image(mlx->mlx_p, mlx->dt->animation1);
-	if (mlx->dt->animation2)
-		mlx_delete_image(mlx->mlx_p, mlx->dt->animation2);
+	mlx_delete_image(mlx->mlx_p, mlx->dt->animation1);
+	mlx_delete_image(mlx->mlx_p, mlx->dt->animation2);
 	mlx->dt->texture1 = construct_texture(mlx, ANIMATION1);
 	mlx->dt->texture2 = construct_texture(mlx, ANIMATION2);
 	mlx->dt->animation1 = mlx_texture_to_image(mlx->mlx_p, mlx->dt->texture1);
