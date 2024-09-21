@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 20:38:06 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:01:32 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define S_W 1024 // screen width
 //# define S_H 1000 // screen height
 # define S_H 600 // screen height
-# define TILE_SIZE 30 // tile size
+# define TILE_SIZE 50 // tile size
 //# define FOV 60 // field of view
 #define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
@@ -62,6 +62,7 @@ typedef struct s_player //the player structure
 
 typedef struct s_ray	//the ray structure
 {
+	int		index;
 	double	angle;	// ray angle
 	double	distance;	// distance to the wall
 	
@@ -70,6 +71,8 @@ typedef struct s_ray	//the ray structure
 
 	double	x;
 	double	y;
+	double	vx;
+	double	vy;
 	int		flag;		// flag for the wall
 }	t_ray;
 
@@ -78,6 +81,14 @@ typedef struct s_minimap
 	mlx_image_t	*img;
 	int32_t		size;
 } t_minimap;
+
+typedef struct s_texture
+{
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+}	t_texture;
 
 typedef struct s_data	//the data structure
 {
@@ -114,6 +125,7 @@ typedef struct s_mlx	//the mlx structure
 	t_data			*dt;	// the data structure
 	t_player		*player;	// the player structure
 	t_minimap	*minimap;
+	t_texture	*texture;
 }	t_mlx;
 
 //File init
