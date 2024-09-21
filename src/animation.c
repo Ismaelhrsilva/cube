@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 19:33:27 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/20 21:02:02 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ mlx_texture_t *construct_texture(t_mlx *mlx, char *png)
 	return (temp);
 }
 
-void	ft_animation(t_mlx *mlx)
+void	ft_init_animation(t_mlx *mlx)
 {
 	double	time;
 
-	return ;
 	time = mlx_get_time();
 	mlx_delete_image(mlx->mlx_p, mlx->dt->animation1);
 	mlx_delete_image(mlx->mlx_p, mlx->dt->animation2);
@@ -34,10 +33,17 @@ void	ft_animation(t_mlx *mlx)
 	mlx->dt->texture2 = construct_texture(mlx, ANIMATION2);
 	mlx->dt->animation1 = mlx_texture_to_image(mlx->mlx_p, mlx->dt->texture1);
 	mlx->dt->animation2 = mlx_texture_to_image(mlx->mlx_p, mlx->dt->texture2);
-	mlx_resize_image(mlx->dt->animation1, 250, 250);
-	mlx_resize_image(mlx->dt->animation2, 250, 250);
-	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation1, 250, 350);
-	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation2, 250, 350);
+	mlx_resize_image(mlx->dt->animation1, 150, 150);
+	mlx_resize_image(mlx->dt->animation2, 150, 150);
+}
+
+void	ft_animation(t_mlx *mlx)
+{
+	double	time;
+
+	time = mlx_get_time();
+	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation1, 250, 450);
+	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation2, 250, 450);
 	mlx->dt->animation1->instances[0].z = 3;
 	mlx->dt->animation2->instances[0].z = 4;
 	if ((int)time % 2 == 0)
