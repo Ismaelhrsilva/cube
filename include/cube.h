@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 21:01:32 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 11:21:55 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # define S_H 600 // screen height
 # define TILE_SIZE 50 // tile size
 //# define FOV 60 // field of view
-#define FOV 60
+# define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
+# define PLAYER_SIZE 3 // PLAYER_SIZE
 # define ANIMATION1 "textures/weapon1.png"
 # define ANIMATION2 "textures/weapon2.png"
 # define WALL_TEXT "textures/north.png"

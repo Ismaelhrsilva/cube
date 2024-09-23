@@ -1,8 +1,8 @@
 -I
-/nfs/homes/rde-mour/42/cube/include
+./include
 -I
-/nfs/homes/rde-mour/42/cube/lib/libft/include
+./lib/libft/include
 -I
-/nfs/homes/rde-mour/42/cube/lib/MLX42/include
+./cube/lib/MLX42/include
 -I
-/nfs/homes/rde-mour/42/cube/src/parser
+./src/parser

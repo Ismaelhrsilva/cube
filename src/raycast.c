@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 21:02:36 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/21 13:59:20 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "MLX42.h"
 #include <math.h>
 
-static double pytheorem(double a, double b)
+float	pytheorem(float a, float b)
 {
 	return (sqrt((a * a) + (b * b)));
 }
@@ -75,9 +75,9 @@ int	wall_hit(float x, float y, t_mlx *mlx)	// check the wall hit
 	y_m = floor(y / TILE_SIZE); // get the y position in the map
 	if ((y_m >= mlx->dt->height || x_m >= mlx->dt->width))
 		return (0);
-	if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
-		if (mlx->dt->map[y_m][x_m] == '1')
-			return (0);
+	//if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
+	if (mlx->dt->map[y_m][x_m] == '1')
+		return (0);
 	return (1);
 }
 
@@ -157,5 +157,5 @@ void	cast_rays(t_mlx *mlx)	// cast the rays
 		ray++; // next ray
 		mlx->ray->angle += (mlx->player->fov / S_W); // next angle
 	}
-	ft_animation(mlx);
+	//ft_animation(mlx);
 }
