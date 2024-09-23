@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 21:03:38 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/21 14:03:15 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,12 +192,12 @@ void	draw_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h)
 
 void	render_wall(t_mlx *mlx, int ray)	// render the wall
 {
-	double	wall_h;
-	double	b_pix;
-	double	t_pix;
+	float	wall_h;
+	float	b_pix;
+	float	t_pix;
 
 	mlx->ray->distance *= cos(nor_angle(mlx->ray->angle - mlx->player->angle)); // fix the fisheye
-	wall_h = (TILE_SIZE / mlx->ray->distance) * (((double)S_W / 2) / tan(mlx->player->fov / 2)); // get the wall height
+	wall_h = (TILE_SIZE / mlx->ray->distance) * (((float )S_W / 2) / tan(mlx->player->fov / 2)); // get the wall height
 	b_pix = (S_H / 2) + (wall_h / 2); // get the bottom pixel
 	t_pix = (S_H / 2) - (wall_h / 2); // get the top pixel
 	if (b_pix > S_H) // check the bottom pixel

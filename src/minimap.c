@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 19:58:28 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 11:24:06 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	display_player(t_mlx *mlx)
 
 	x = (double) mlx->player->x / TILE_SIZE * mlx->minimap->size;
 	y = (double) mlx->player->y / TILE_SIZE * mlx->minimap->size;
-	radius = mlx->minimap->size / 4;
+	radius = mlx->minimap->size / 3;
 	i = 0;
 	while (mlx->minimap->size > ++i)
 	{
@@ -76,7 +76,7 @@ void	ft_minimap(t_mlx *mlx)
 {
 	if (!mlx->minimap->img)
 	{
-		mlx->minimap->size = (double) mlx->mlx_p->width / mlx->dt->width * 0.4;
+		mlx->minimap->size = (double) mlx->mlx_p->width / mlx->dt->width * 0.25;
 		mlx->minimap->img = mlx_new_image(mlx->mlx_p,
 				mlx->minimap->size * mlx->dt->width,
 				mlx->minimap->size * mlx->dt->height);
