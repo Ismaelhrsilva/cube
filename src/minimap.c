@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 11:24:06 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 15:17:07 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	display_player(t_mlx *mlx)
 
 	x = (double) mlx->player->x / TILE_SIZE * mlx->minimap->size;
 	y = (double) mlx->player->y / TILE_SIZE * mlx->minimap->size;
-	radius = mlx->minimap->size / 3;
+	radius = mlx->minimap->size / 2;
 	i = 0;
 	while (mlx->minimap->size > ++i)
 	{
