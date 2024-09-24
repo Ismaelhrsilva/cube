@@ -6,12 +6,13 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/21 12:53:27 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 17:19:38 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "MLX42.h"
+#include <stdlib.h>
 
 mlx_texture_t *construct_texture(t_mlx *mlx, char *png)
 {
@@ -19,6 +20,8 @@ mlx_texture_t *construct_texture(t_mlx *mlx, char *png)
 
 	(void )mlx;
 	temp = mlx_load_png(png);
+	if (!temp)
+		return (mlx->dt->wall_text);
 	return (temp);
 }
 

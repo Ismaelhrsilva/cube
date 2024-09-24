@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/21 13:59:20 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 18:42:55 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ft_string.h"
 #include "MLX42.h"
 #include <math.h>
+#include <stdlib.h>
 
 float	pytheorem(float a, float b)
 {

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 21:53:22 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 16:51:45 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	 main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	print(map);
 	data = init_map(map);	// init the data structure
-	start_the_game(data);	// start the game
+	start_the_game(data, map);	// start the game
 	clear_map(map);
 	return (EXIT_SUCCESS);
 }

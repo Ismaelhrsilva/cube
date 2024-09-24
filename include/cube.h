@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 11:21:55 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/23 17:24:11 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //# define S_W 1900 // screen width
 # define S_W 1024 // screen width
 //# define S_H 1000 // screen height
-# define S_H 600 // screen height
+# define S_H 768 // screen height
 # define TILE_SIZE 50 // tile size
 //# define FOV 60 // field of view
 # define FOV 60
@@ -132,7 +132,7 @@ typedef struct s_mlx	//the mlx structure
 //File init
 void	game_loop(void *ml);
 void init_the_player(t_mlx mlx);
-void	start_the_game(t_data *dt);
+void	start_the_game(t_data *dt, t_map *map);
 
 //File movement
 void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
