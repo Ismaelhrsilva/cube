@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 15:17:07 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/24 13:25:51 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	display_player(t_mlx *mlx)
 
 static void	display_minimap(void *mlx)
 {
+	if (!((t_mlx *) mlx)->minimap->img->instances[0].enabled)
+		return ;
 	display_wall((t_mlx *) mlx);
 	display_player((t_mlx *) mlx);
 }
