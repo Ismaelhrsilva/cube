@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/20 21:02:22 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 14:43:07 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void init_the_player(t_mlx mlx)	// init the player structure
 	//the rest of the variables are initialized to zero by calloc
 }
 
-void	start_the_game(t_data *dt)	// start the game
+void	start_the_game(t_data *dt, t_map *map)	// start the game
 {
 	t_mlx	mlx;
 
@@ -46,6 +46,16 @@ void	start_the_game(t_data *dt)	// start the game
 	mlx.ray = ft_calloc(1, sizeof(t_ray));	// init the ray structure
 	mlx.minimap = ft_calloc(1, sizeof(t_minimap));
 	mlx.texture = ft_calloc(1, sizeof(t_texture));
+	
+
+	////
+	mlx.texture->no = construct_texture(&mlx, map->north);
+	mlx.texture->so = construct_texture(&mlx, map->south);
+	mlx.texture->we = construct_texture(&mlx, map->west);
+	mlx.texture->ea = construct_texture(&mlx, map->east);
+	////
+
+
 	//mlx.minimap->img = NULL;
 	//mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
 	mlx.mlx_p = mlx_init(S_W, S_H, "Cub3d", 0);	// init the mlx pointer

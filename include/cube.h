@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 11:21:55 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 16:11:30 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 //# define S_W 1900 // screen width
 # define S_W 1024 // screen width
 //# define S_H 1000 // screen height
-# define S_H 600 // screen height
-# define TILE_SIZE 50 // tile size
+# define S_H 768 // screen height
+# define TILE_SIZE 60 // tile size
 //# define FOV 60 // field of view
 # define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
@@ -59,6 +59,7 @@ typedef struct s_player //the player structure
 	int32_t	rot;	// rotation flag
 	int32_t	l_r;	// left right flag
 	int32_t	u_d;	// up down flag
+	_Bool	run;
 }	t_player;
 
 typedef struct s_ray	//the ray structure
@@ -115,6 +116,8 @@ typedef struct s_data	//the data structure
 	mlx_texture_t	*texture1;
 	mlx_texture_t	*texture2;
 	mlx_image_t		*animation1;
+	uint8_t			frame;
+	double			time;
 	mlx_image_t		*animation2;
 }	t_data;
 
@@ -132,7 +135,7 @@ typedef struct s_mlx	//the mlx structure
 //File init
 void	game_loop(void *ml);
 void init_the_player(t_mlx mlx);
-void	start_the_game(t_data *dt);
+void	start_the_game(t_data *dt, t_map *map);
 
 //File movement
 void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
