@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/24 12:24:31 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 15:14:13 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	move(t_mlx *mlx, float x, float y, float a, float b)	// move the pla
 		 || mlx->dt->map[map_grid_b][mlx->player->x / TILE_SIZE] == '1'
 		 || mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_a] == '1')  // check the wall hit and the diagonal wall hit
 		return ;
-	if (mlx->dt->map[map_grid_y][map_grid_x] == 'd'
+	else if (mlx->dt->map[map_grid_y][map_grid_x] == 'd'
 		|| mlx->dt->map[map_grid_y][mlx->player->x / TILE_SIZE] == 'd'
 		|| mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_x] == 'd') // check the wall hit and the diagonal wall hit
 		return ;
@@ -57,11 +57,11 @@ static void	vertical_move(t_mlx *mlx, int32_t direction)
 	float	a;
 	float	b;
 
-	x = (direction * (cos(mlx->player->angle)) * PLAYER_SPEED);
-	y = (direction * (sin(mlx->player->angle)) * PLAYER_SPEED);
-	a = (direction * (cos(mlx->player->angle)) * (PLAYER_SPEED * PLAYER_SIZE));
-	b = (direction * (sin(mlx->player->angle)) * (PLAYER_SPEED * PLAYER_SIZE));
-	move(mlx, x, y, a, b);
+	x = (direction * (cos(mlx->player->angle)));
+	y = (direction * (sin(mlx->player->angle)));
+	a = x * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
+	b = y * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
+	move(mlx, x * (PLAYER_SPEED + mlx->player->run * PLAYER_SPEED), y * (PLAYER_SPEED + PLAYER_SPEED * mlx->player->run), a, b);
 }
 
 static void	horizontal_move(t_mlx *mlx, int32_t direction)
@@ -71,16 +71,18 @@ static void	horizontal_move(t_mlx *mlx, int32_t direction)
 	float	a;
 	float	b;
 
-	x = (-direction * (sin(mlx->player->angle)) * PLAYER_SPEED);
-	y = (direction * (cos(mlx->player->angle)) * PLAYER_SPEED);
-	a = (-direction * (sin(mlx->player->angle)) * (PLAYER_SPEED * PLAYER_SIZE));
-	b = (direction * (cos(mlx->player->angle)) * (PLAYER_SPEED * PLAYER_SIZE));
-	move(mlx, x, y, a, b);
-	//move(mlx, x, y);
+	x = (-direction * (sin(mlx->player->angle)));
+	y = (direction * (cos(mlx->player->angle)));
+	a = x * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
+	b = y * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
+	move(mlx, x * (PLAYER_SPEED + mlx->player->run * PLAYER_SPEED), y * (PLAYER_SPEED + PLAYER_SPEED * mlx->player->run), a, b);
 }
 
 void	hook(t_mlx *mlx)
 {
+	mlx->player->run = false;
+	if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_LEFT_SHIFT))
+		mlx->player->run = true;
 	if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_W))
 		vertical_move(mlx, POSITIVE);
 	else if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_S))

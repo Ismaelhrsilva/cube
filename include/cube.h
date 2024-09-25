@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/24 12:06:40 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 15:51:31 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_player //the player structure
 	int32_t	rot;	// rotation flag
 	int32_t	l_r;	// left right flag
 	int32_t	u_d;	// up down flag
+	_Bool	run;
 }	t_player;
 
 typedef struct s_ray	//the ray structure
@@ -115,6 +116,8 @@ typedef struct s_data	//the data structure
 	mlx_texture_t	*texture1;
 	mlx_texture_t	*texture2;
 	mlx_image_t		*animation1;
+	uint8_t			frame;
+	double			time;
 	mlx_image_t		*animation2;
 }	t_data;
 

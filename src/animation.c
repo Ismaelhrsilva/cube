@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/24 14:00:55 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 15:58:58 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ void	ft_init_animation(t_mlx *mlx)
 
 void	ft_animation(t_mlx *mlx)
 {
-	draw_animation(mlx, (uint8_t) mlx_get_time() % 15);
+	if (mlx->dt->frame < 1 || mlx->dt->frame > 15)
+		return ;
+	draw_animation(mlx, mlx->dt->frame);
+	mlx->dt->frame = (uint8_t) ((mlx_get_time() - mlx->dt->time + 1) * 18) % 16;
 }

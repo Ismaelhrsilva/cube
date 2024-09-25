@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/24 20:13:48 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 14:43:07 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	game_loop(void *ml)	// game loop
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *) ml;	// cast to the mlx structure
-	//mlx_delete_image(mlx->mlx_p, mlx->img);	// delete the image
+	mlx_delete_image(mlx->mlx_p, mlx->img);	// delete the image
 	mlx->img = mlx_new_image(mlx->mlx_p, S_W, S_H);	// create new image
 	hook(mlx); // hook the player
 	cast_rays(mlx);	// cast the rays
@@ -59,7 +59,7 @@ void	start_the_game(t_data *dt, t_map *map)	// start the game
 	//mlx.minimap->img = NULL;
 	//mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
 	mlx.mlx_p = mlx_init(S_W, S_H, "Cub3d", 0);	// init the mlx pointer
-	//ft_init_animation(&mlx);
+	ft_init_animation(&mlx);
 	init_the_player(mlx);	// init the player structure
 	mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx);	// game loop
 	mlx_key_hook(mlx.mlx_p, &mlx_key, &mlx);	// key press and release
