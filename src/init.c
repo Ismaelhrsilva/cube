@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 14:43:07 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 19:38:07 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	start_the_game(t_data *dt, t_map *map)	// start the game
 	mlx.texture->we = construct_texture(&mlx, map->west);
 	mlx.texture->ea = construct_texture(&mlx, map->east);
 	////
+
+	mlx.texture->door = construct_texture(&mlx, DOOR);
 
 
 	//mlx.minimap->img = NULL;

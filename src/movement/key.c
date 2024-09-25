@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:43:50 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/25 16:02:43 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 18:47:45 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ void	mlx_key(mlx_key_data_t keydata, void *mlx)
 	else if (keydata.key == MLX_KEY_N && keydata.action == MLX_PRESS)
 		ft_open_door(mlx);
 }
+

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 16:11:30 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 19:51:41 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ANIMATION1 "textures/weapon1.png"
 # define ANIMATION2 "textures/weapon2.png"
 # define WALL_TEXT "textures/north.png"
+# define DOOR "textures/rocket_up.png"
 
 # define NEGATIVE -1
 # define POSITIVE 1
@@ -90,6 +91,7 @@ typedef struct s_texture
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	mlx_texture_t	*door;
 }	t_texture;
 
 typedef struct s_data	//the data structure
@@ -119,6 +121,8 @@ typedef struct s_data	//the data structure
 	uint8_t			frame;
 	double			time;
 	mlx_image_t		*animation2;
+
+	int	door_closed;
 }	t_data;
 
 typedef struct s_mlx	//the mlx structure

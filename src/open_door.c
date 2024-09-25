@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:25:49 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/18 19:33:16 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:56:13 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_open_door(t_mlx *mlx)
 
 	double	x;
 	double	y;
-	x = POSITIVE * (cos(mlx->player->angle) * PLAYER_SPEED) * 12;
-	y = POSITIVE * (sin(mlx->player->angle) * PLAYER_SPEED) * 12;
+	x = POSITIVE * (cos(mlx->player->angle) * PLAYER_SPEED) * 20;
+	y = POSITIVE * (sin(mlx->player->angle) * PLAYER_SPEED) * 20;
 
 	x = round(mlx->player->x + x); // get the new x position
 	y = round(mlx->player->y + y); // get the new y position

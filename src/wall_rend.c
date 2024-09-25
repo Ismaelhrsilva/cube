@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 20:56:48 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 20:01:53 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)
 mlx_texture_t	*get_texture(t_mlx *mlx)
 {
 	mlx->ray->angle = nor_angle(mlx->ray->angle);
+	if (mlx->dt->door_closed == 1)
+		return (mlx->texture->door);
 	if (mlx->ray->flag == 0)
 	{
 		if (mlx->ray->angle > M_PI / 2 && mlx->ray->angle < 3 * (M_PI / 2))

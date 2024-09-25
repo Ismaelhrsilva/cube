@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 16:51:45 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 19:43:02 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_data *init_map(t_map	*map)
 	data->floor = map->floor;
 	data->sky = map->sky;
 	data->wall_text = construct_texture(NULL, WALL_TEXT);
+	data->door_closed = 1;
 	return (data);
 }
 

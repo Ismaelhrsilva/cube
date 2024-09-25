@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 15:53:13 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 19:58:36 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,18 @@ int	wall_hit(float x, float y, t_mlx *mlx)	// check the wall hit
 	if ((y_m >= mlx->dt->height || x_m >= mlx->dt->width))
 		return (0);
 	//if (mlx->dt->map[y_m] && x_m <= (int)ft_strlen(mlx->dt->map[y_m]))
-	if (mlx->dt->map[y_m][x_m] == '1')
+	if (mlx->dt->map[y_m][x_m] == 'd')
+	{
+		mlx->dt->door_closed = 1;
 		return (0);
+	}
+	else if (mlx->dt->map[y_m][x_m] == '1')
+	{
+		mlx->dt->door_closed = 0;
+		return (0);
+	}
+	else
+		mlx->dt->door_closed = 0;
 	return (1);
 }
 
