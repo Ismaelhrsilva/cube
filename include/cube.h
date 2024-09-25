@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 15:51:31 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/25 16:11:30 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define S_W 1024 // screen width
 //# define S_H 1000 // screen height
 # define S_H 768 // screen height
-# define TILE_SIZE 50 // tile size
+# define TILE_SIZE 60 // tile size
 //# define FOV 60 // field of view
 # define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
