@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/28 12:08:41 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:55:20 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 // get the right texture based on the angle
 mlx_texture_t	*get_texture(t_mlx *mlx)
 {
-	mlx->ray->angle = nor_angle(mlx->ray->angle);
 	if (mlx->dt->door_closed == 1)
 		return (mlx->texture->door);
+	mlx->ray->angle = nor_angle(mlx->ray->angle);
 	if (mlx->ray->flag == 0)
 	{
 		if (mlx->ray->angle > M_PI / 2 && mlx->ray->angle < 3 * (M_PI / 2))

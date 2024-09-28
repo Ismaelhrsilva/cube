@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/09/18 17:25:42 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/09/28 12:10:06 by ishenriq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ FILES				:= main.c \
 					   parser/floodfill.c \
 					   raycast.c \
 					   utils.c \
+					   utils_2.c \
 					   wall_rend.c \
 					   open_door.c
 
@@ -70,7 +71,7 @@ $(OBJSDIR)/%.o: 	$(SRCSDIR)/%.c
 						&& echo "$(GREEN)Compiled $(RESET)$(notdir $<)"
 
 $(LIBS):
-					@make libftx libmlx --no-print-directory 
+					@make libftx libmlx --no-print-directory
 
 libftx:
 					@git submodule sync $(LIBFTXDIR)
