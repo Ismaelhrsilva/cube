@@ -6,34 +6,50 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:30:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/17 08:52:07 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/28 12:17:20 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "MLX42.h"
 #include <stdlib.h>
-
+#include <math.h>
 #include <stdio.h>
 
-void	ft_exit(t_mlx *mlx) 		// exit the game
+void	ft_exit(t_mlx *mlx)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (mlx->dt->map[i])
-		free(mlx->dt->map[i++]); // free the map line by line
-	free(mlx->dt->map); // free the map
-	free(mlx->dt); // free the data structure
-	free(mlx->player); // free the player structure
-	free(mlx->ray); // free the ray structure
-	mlx_delete_image(mlx->mlx_p, mlx->img); // delete the image
-	mlx_close_window(mlx->mlx_p); // close the window
-	mlx_terminate(mlx->mlx_p); // terminate the mlx pointer
-	printf("Game closed\n"); // print the message
-	exit(0); // exit the game
+		free(mlx->dt->map[i++]);
+	free(mlx->dt->map);
+	free(mlx->dt);
+	free(mlx->player);
+	free(mlx->ray);
+	mlx_delete_image(mlx->mlx_p, mlx->img);
+	mlx_close_window(mlx->mlx_p);
+	mlx_terminate(mlx->mlx_p);
+	printf("Game closed\n");
+	exit(0);
 }
 
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
+float	pytheorem(float a, float b)
+{
+	return (sqrt((a * a) + (b * b)));
+}
+
+int	horizontal_unit_circle(float angle)
+{
+	return (angle > 0 && angle < M_PI);
+}
+
+int	vertical_unit_circle(float angle)
+{
+	return (angle > (M_PI / 2) && angle < (3 * M_PI) / 2);
+}

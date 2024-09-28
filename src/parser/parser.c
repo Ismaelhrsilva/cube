@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/23 17:02:01 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/28 12:14:46 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	print(t_map *map)
 {
 	uint32_t	i;
 
-	printf("PLAYER   : %c %i %i\n", map->map[map->player[1]][map->player[0]], map->player[0], map->player[1]);
+	printf("PLAYER   : %c %i %i\n", map->map[map->player[1]][map->player[0]],
+		map->player[0], map->player[1]);
 	printf("NORTH(NO): %s\n", map->north);
 	printf("SOUTH(SO): %s\n", map->south);
 	printf("WEST (WE): %s\n", map->west);

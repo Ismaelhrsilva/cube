@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/24 13:25:51 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/28 11:58:14 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ static void	display_wall(t_mlx *mlx)
 				mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
 			else if (mlx->dt->map[height][width] == '2')
 				mlx_put_pixel(mlx->minimap->img, x, y, 0xFFFFFF7F);
-			//if (x % mlx->minimap->size == 0)
-			//	mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
-			//else if (y % mlx->minimap->size == 0)
-			//	mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
 			x++;
 		}
 		y++;
@@ -60,8 +56,10 @@ void	display_player(t_mlx *mlx)
 		j = 0;
 		while (mlx->minimap->size > ++j)
 		{
-			if ((double) radius > (double) sqrt(pow(i - radius, 2) + pow(j - radius, 2)))
-				mlx_put_pixel(mlx->minimap->img, x + i - radius, y + j - radius, 0xFF0000FF);
+			if ((double) radius > (double) sqrt(pow(i - radius, 2)
+					+ pow(j - radius, 2)))
+				mlx_put_pixel(mlx->minimap->img,
+					x + i - radius, y + j - radius, 0xFF0000FF);
 		}
 	}
 }

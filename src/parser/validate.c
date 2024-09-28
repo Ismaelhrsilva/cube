@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/25 19:41:17 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:15:14 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static _Bool	check_line(char *line)
 	{
 		if (!ft_strchr(" 01NSWEDd", line[i]))
 			return (false);
-		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != 'd')
+		else if (line[i] != ' ' && line[i] != '0'
+			&& line[i] != '1' && line[i] != 'd')
 			player++;
 		i++;
 	}

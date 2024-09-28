@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:43:50 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/25 18:47:45 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:17:07 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ void	mlx_key(mlx_key_data_t keydata, void *mlx)
 	else if (keydata.key == MLX_KEY_N && keydata.action == MLX_PRESS)
 		ft_open_door(mlx);
 }
-

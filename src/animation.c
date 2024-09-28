@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 15:58:58 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/28 11:56:49 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	reverse_bytes(int c);
 
-mlx_texture_t *construct_texture(t_mlx *mlx, char *png)
+mlx_texture_t	*construct_texture(t_mlx *mlx, char *png)
 {
 	mlx_texture_t	*temp;
 
@@ -56,7 +56,8 @@ void	ft_init_animation(t_mlx *mlx)
 {
 	mlx->dt->texture1 = construct_texture(mlx, "./assets/weapon/weapon.png");
 	mlx->dt->animation1 = mlx_new_image(mlx->mlx_p, 600, 430);
-	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation1, mlx->mlx_p->width - 600, mlx->mlx_p->height - 430);
+	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation1,
+		mlx->mlx_p->width - 600, mlx->mlx_p->height - 430);
 	mlx->dt->animation1->instances[0].z = 3;
 	mlx->dt->animation1->enabled = true;
 	draw_animation(mlx, 0);
@@ -67,5 +68,5 @@ void	ft_animation(t_mlx *mlx)
 	if (mlx->dt->frame < 1 || mlx->dt->frame > 15)
 		return ;
 	draw_animation(mlx, mlx->dt->frame);
-	mlx->dt->frame = (uint8_t) ((mlx_get_time() - mlx->dt->time + 1) * 18) % 16;
+	mlx->dt->frame = (uint8_t)((mlx_get_time() - mlx->dt->time + 1) * 18) % 16;
 }

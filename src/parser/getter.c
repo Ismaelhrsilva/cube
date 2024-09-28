@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/15 18:29:01 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/28 12:14:29 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static void	get_field(char *line, t_map *map)
 void	get_map(char *path, t_map *map)
 {
 	int32_t	fd;
-	char		*line;
+	char	*line;
 
 	fd = open(path, O_RDONLY, 0644);
 	if (fd < 0)

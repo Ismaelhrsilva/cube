@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 19:43:02 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:57:36 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*
  * Get the t_map and converts it to t_data
  */
-t_data *init_map(t_map	*map)
+t_data	*init_map(t_map	*map)
 {
 	t_data	*data;
 
@@ -37,7 +37,7 @@ t_data *init_map(t_map	*map)
 	return (data);
 }
 
-int	 main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 	t_map	*map;
@@ -48,8 +48,8 @@ int	 main(int argc, char **argv)
 	if (!map)
 		return (EXIT_FAILURE);
 	print(map);
-	data = init_map(map);	// init the data structure
-	start_the_game(data, map);	// start the game
+	data = init_map(map);
+	start_the_game(data, map);
 	clear_map(map);
 	return (EXIT_SUCCESS);
 }

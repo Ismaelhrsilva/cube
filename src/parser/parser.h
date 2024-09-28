@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:26:52 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/18 13:56:34 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/28 12:20:00 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "cube.h"
-#include <stdint.h>
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "cube.h"
+# include <stdint.h>
 # define MEMORY_SIZE 64
 
 typedef struct s_point {
-	int32_t	x;
-	int32_t	y;
+	int32_t			x;
+	int32_t			y;
 	struct s_point	*next;
 }	t_point;
 

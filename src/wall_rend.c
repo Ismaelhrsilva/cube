@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 20:01:53 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:08:41 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-// put a pixel inside of the limits of mlx image
-void	put_pixel(t_mlx *mlx, int x, int y, int color)
-{
-	if (x < 0 || x >= S_W || y < 0 || y > S_W)
-		return ;
-	mlx_put_pixel(mlx->img, x, y, color);
-}
-
-// normalize the angle
-float	nor_angle(float angle)
-{
-	if (angle < 0)
-		return (angle + (2 * M_PI));
-	if (angle > (2 * M_PI))
-		return (angle - (2 * M_PI));
-	return (angle);
-}
-
-// draw the floor and the ceiling
-void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)
-{
-    int i;
-
-	i = 0;
-    while (i < S_H)
-	{
-        if (i < t_pix)
-            put_pixel(mlx, ray, i, mlx->dt->sky);
-        else if (i >= b_pix)
-            put_pixel(mlx, ray, i, mlx->dt->floor);
-        i++;
-    }
-}
 
 // get the right texture based on the angle
 mlx_texture_t	*get_texture(t_mlx *mlx)
@@ -119,39 +85,22 @@ void	draw_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h)
 	}
 }
 
-void	render_wall(t_mlx *mlx, int ray)	// render the wall
+void	render_wall(t_mlx *mlx, int ray)
 {
 	float	wall_h;
 	float	b_pix;
 	float	t_pix;
 
-	mlx->ray->distance *= cos(nor_angle(mlx->ray->angle - mlx->player->angle)); // fix the fisheye
-	wall_h = (TILE_SIZE / mlx->ray->distance) * (((float )S_W / 2) / tan(mlx->player->fov / 2)); // get the wall height
-	b_pix = ((double) S_H / 2) + (wall_h / 2); // get the bottom pixel
-	t_pix = ((double) S_H / 2) - (wall_h / 2); // get the top pixel
-	if (b_pix > S_H) // check the bottom pixel
+	mlx->ray->distance *= cos(nor_angle(mlx->ray->angle - mlx->player->angle));
+	wall_h = (TILE_SIZE / mlx->ray->distance)
+		* (((float )S_W / 2) / tan(mlx->player->fov / 2));
+	b_pix = ((double) S_H / 2) + (wall_h / 2);
+	t_pix = ((double) S_H / 2) - (wall_h / 2);
+	if (b_pix > S_H)
 		b_pix = S_H;
-	if (t_pix < 0) // check the top pixel
+	if (t_pix < 0)
 		t_pix = 0;
 	mlx->ray->index = ray;
 	draw_wall(mlx, t_pix, b_pix, wall_h);
-	draw_floor_ceiling(mlx, ray, t_pix, b_pix); // draw the floor and the ceiling
+	draw_floor_ceiling(mlx, ray, t_pix, b_pix);
 }
-
-/*static void	intersection_point(t_mlx *mlx)
-{
-	if (ray->hit_side == 0)
-		wall->point_x = game->pos.y + ray->perp_dist * ray->dir.y;
-	else
-		wall->point_x = game->pos.x + ray->perp_dist * ray->dir.x;
-	mlx->dt->point_x -= floor(mlx->dt->point_x);
-}
-
-static void	find_texture_position_x(t_mlx *mlx)
-{
-	mlx->dt->texture_x = (int)(mlx->dt->point_x * mlx->dt->wall_text->width);
-	if ((ray->hit_side == 0 && ray->dir.x < 0)
-		|| (ray->hit_side == 1 && ray->dir.y > 0))
-		wall->texture_x = game->texture->width - wall->texture_x - 1;
-	mlx->dt->texture_step = 1.0 * mlx->dt->wall_text->height / mlx->dt->wall_height;
-}*/
