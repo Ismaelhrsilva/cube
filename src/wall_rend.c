@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/28 13:55:20 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:40:10 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ mlx_texture_t	*get_texture(t_mlx *mlx)
 	if (mlx->ray->angle > 0 && mlx->ray->angle < M_PI)
 		return (mlx->texture->so);
 	return (mlx->texture->no);
+	
 }
 
 double	get_x_o(mlx_texture_t *texture, t_mlx *mlx)
@@ -104,3 +105,19 @@ void	render_wall(t_mlx *mlx, int ray)
 	draw_wall(mlx, t_pix, b_pix, wall_h);
 	draw_floor_ceiling(mlx, ray, t_pix, b_pix);
 }
+
+/*mlx_texture_t	*get_texture(t_mlx *mlx)
+{
+	if (mlx->dt->door_closed == 1)
+		return (mlx->texture->door);
+	mlx->ray->angle = nor_angle(mlx->ray->angle);
+	if (mlx->ray->flag == 0)
+	{
+		if (mlx->ray->angle > M_PI / 2 && mlx->ray->angle < 3 * (M_PI / 2))
+			return (mlx->texture->we);
+		return (mlx->texture->ea);
+	}
+	if (mlx->ray->angle > 0 && mlx->ray->angle < M_PI)
+		return (mlx->texture->so);
+	return (mlx->texture->no);
+}*/

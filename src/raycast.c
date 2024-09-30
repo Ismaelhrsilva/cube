@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/28 13:57:25 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:51:37 by ishenriq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ int	wall_hit(float x, float y, t_mlx *mlx)
 {
 	int	x_m;
 	int	y_m;
+	int32_t	map_grid_y;
+	int32_t	map_grid_x;
+
+	x = roundf(mlx->player->x + x);
+	y = roundf(mlx->player->y + y);
+
+	map_grid_x = x / TILE_SIZE;
+	map_grid_y = y / TILE_SIZE;
 
 	if (x < 0 || y < 0)
 		return (0);
@@ -38,9 +46,12 @@ int	wall_hit(float x, float y, t_mlx *mlx)
 	y_m = floor(y / TILE_SIZE);
 	if ((y_m >= mlx->dt->height || x_m >= mlx->dt->width))
 		return (0);
-	if (mlx->dt->map[y_m][x_m] == 'd')
+	//if (mlx->dt->map[y_m][x_m] == 'd')
+	if (mlx->dt->map[map_grid_y][map_grid_x] == 'd'
+		|| mlx->dt->map[map_grid_y][mlx->player->x / TILE_SIZE] == 'd'
+		|| mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_x] == 'd')
 	{
-		mlx->dt->door_closed = 1;
+		mlx->dt->door_closed = 0;
 		return (0);
 	}
 	else if (mlx->dt->map[y_m][x_m] == '1')
@@ -128,4 +139,4 @@ void	cast_rays(t_mlx *mlx)
 		mlx->ray->angle += (mlx->player->fov / S_W);
 	}
 	ft_animation(mlx);
-}
+} 
