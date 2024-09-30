@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 20:52:56 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/18 19:29:14 by ishenriq         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:10:09 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,12 @@ _Bool	floodfill(t_map *map, int32_t x, int32_t y)
 			clear(&stack);
 			return (false);
 		}
-		if (!ft_strchr("12Dd", map->map[p->y][p->x]))
+		if (!ft_strchr("12d", map->map[p->y][p->x]))
 		{
-			map->map[p->y][p->x] = '2';
+			if (map->map[p->y][p->x] != 'D')
+				map->map[p->y][p->x] = '2';
+			else
+				map->map[p->y][p->x] = 'd';
 			push(&stack, p->x + 1, p->y);
 			push(&stack, p->x, p->y + 1);
 			push(&stack, p->x - 1, p->y);

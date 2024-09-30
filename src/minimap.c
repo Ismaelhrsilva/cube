@@ -6,10 +6,11 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/24 13:25:51 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/30 20:14:47 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "cube.h"
 #include "MLX42.h"
 #include <math.h>
@@ -33,8 +34,8 @@ static void	display_wall(t_mlx *mlx)
 				mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
 			else if (mlx->dt->map[height][width] == '2')
 				mlx_put_pixel(mlx->minimap->img, x, y, 0xFFFFFF7F);
-			//if (x % mlx->minimap->size == 0)
-			//	mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
+			if (ft_strchr("dD", mlx->dt->map[height][width]))
+				mlx_put_pixel(mlx->minimap->img, x, y, 0x7F7F7FFF);
 			//else if (y % mlx->minimap->size == 0)
 			//	mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
 			x++;
