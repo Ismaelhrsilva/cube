@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 15:58:58 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/30 11:19:23 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "MLX42.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <unistd.h>
 
 int	reverse_bytes(int c);
@@ -22,7 +23,10 @@ mlx_texture_t *construct_texture(t_mlx *mlx, char *png)
 {
 	mlx_texture_t	*temp;
 
-	(void )mlx;
+	int fd = open(png, O_RDONLY, 0644);
+	if (fd == -1)
+		exit (100);
+	close(fd);
 	temp = mlx_load_png(png);
 	if (!temp)
 		return (mlx->dt->wall_text);

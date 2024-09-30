@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 20:56:48 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/30 19:05:40 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)
 mlx_texture_t	*get_texture(t_mlx *mlx)
 {
 	mlx->ray->angle = nor_angle(mlx->ray->angle);
+	if (mlx->ray->door)
+		return (mlx->texture->door);
 	if (mlx->ray->flag == 0)
 	{
-		if (mlx->ray->angle > M_PI / 2 && mlx->ray->angle < 3 * (M_PI / 2))
+		if (mlx->ray->angle > M_PI * 0.5 && mlx->ray->angle < M_PI * 1.5)
 			return (mlx->texture->we);
 		return (mlx->texture->ea);
 	}
@@ -69,12 +71,10 @@ double	get_x_o(mlx_texture_t *texture, t_mlx *mlx)
 {
 	double	x_o;
 
-	if (mlx->ray->flag == 1)
-		x_o = (int)fmodf((mlx->ray->x * \
-		((double) texture->width / TILE_SIZE)), texture->width);
+	if (mlx->ray->flag)
+		x_o = fmodf((mlx->ray->x * ((double) texture->width / TILE_SIZE)), texture->width);
 	else
-		x_o = (int)fmodf((mlx->ray->vy * \
-		((double) texture->width / TILE_SIZE)), texture->width);
+		x_o = fmodf((mlx->ray->vy * ((double) texture->width / TILE_SIZE)), texture->width);
 	return (x_o);
 }
 
