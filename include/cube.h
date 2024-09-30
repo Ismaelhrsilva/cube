@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 16:11:30 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/30 11:25:06 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ typedef struct s_player //the player structure
 	int32_t	y; // player y position in pixels
 	double	angle;	// player angle
 	double	fov;	// field of view in radians
-	int32_t	rot;	// rotation flag
-	int32_t	l_r;	// left right flag
-	int32_t	u_d;	// up down flag
 	_Bool	run;
 }	t_player;
 
@@ -76,6 +73,7 @@ typedef struct s_ray	//the ray structure
 	double	vx;
 	double	vy;
 	int		flag;		// flag for the wall
+	_Bool	door;
 }	t_ray;
 
 typedef struct s_minimap
@@ -90,6 +88,7 @@ typedef struct s_texture
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	mlx_texture_t	*door;
 }	t_texture;
 
 typedef struct s_data	//the data structure

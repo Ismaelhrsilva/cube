@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/23 17:02:01 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/30 18:51:24 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print(t_map *map)
 {
 	uint32_t	i;
 
-	printf("PLAYER   : %c %i %i\n", map->map[map->player[1]][map->player[0]], map->player[0], map->player[1]);
+	printf("PLAYER   : %c %i %i\n", map->player[2], map->player[0], map->player[1]);
 	printf("NORTH(NO): %s\n", map->north);
 	printf("SOUTH(SO): %s\n", map->south);
 	printf("WEST (WE): %s\n", map->west);
@@ -81,7 +81,8 @@ t_map	*parser_map(char *path)
 	get_map(path, map);
 	if (!map->map)
 		return (clear_map(map), NULL);
-	print(map);
+	if (!map->player[2])
+		return (clear_map(map), NULL);
 	if (!validate_map(map))
 		panic(map, path, " is a bad formated map\n", 1);
 	if (!validate_floodfill(map))

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 14:43:07 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/09/30 11:24:17 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void init_the_player(t_mlx mlx)	// init the player structure
 	mlx.player->x = mlx.dt->p_x * TILE_SIZE + TILE_SIZE / 2; // player x position in pixels in the center of the tile
 	mlx.player->y = mlx.dt->p_y * TILE_SIZE + TILE_SIZE / 2; // player y position in pixels in the center of the tile
 	mlx.player->fov = (FOV * M_PI) / 180; // field of view in radians
-	mlx.player->angle = M_PI; // player angle
+	//mlx.player->angle = M_PI; // player angle
 	//the rest of the variables are initialized to zero by calloc
 }
 
@@ -53,7 +53,17 @@ void	start_the_game(t_data *dt, t_map *map)	// start the game
 	mlx.texture->so = construct_texture(&mlx, map->south);
 	mlx.texture->we = construct_texture(&mlx, map->west);
 	mlx.texture->ea = construct_texture(&mlx, map->east);
+	mlx.texture->door = construct_texture(&mlx, "./assets/door/cdoord.png");
 	////
+	
+	if (map->player[2] == 'N')
+		mlx.player->angle = M_PI * 1.5;
+	else if (map->player[2] == 'S')
+		mlx.player->angle = M_PI * 0.5;
+	else if (map->player[2] == 'W')
+		mlx.player->angle = M_PI;
+
+
 
 
 	//mlx.minimap->img = NULL;
