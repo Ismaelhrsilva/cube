@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/25 15:14:13 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 10:30:19 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static void	move(t_mlx *mlx, float x, float y, float a, float b)	// move the pla
 	map_grid_y = y / TILE_SIZE; // get the y position in the map
 	map_grid_a = a / TILE_SIZE;
 	map_grid_b = b / TILE_SIZE;
-	if (mlx->dt->map[map_grid_y][map_grid_x] == '1'
-		 || mlx->dt->map[map_grid_b][mlx->player->x / TILE_SIZE] == '1'
-		 || mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_a] == '1')  // check the wall hit and the diagonal wall hit
+	if (mlx->data->map[map_grid_y][map_grid_x] == '1'
+		 || mlx->data->map[map_grid_b][mlx->player->x / TILE_SIZE] == '1'
+		 || mlx->data->map[mlx->player->y / TILE_SIZE][map_grid_a] == '1')  // check the wall hit and the diagonal wall hit
 		return ;
-	else if (mlx->dt->map[map_grid_y][map_grid_x] == 'd'
-		|| mlx->dt->map[map_grid_y][mlx->player->x / TILE_SIZE] == 'd'
-		|| mlx->dt->map[mlx->player->y / TILE_SIZE][map_grid_x] == 'd') // check the wall hit and the diagonal wall hit
+	else if (mlx->data->map[map_grid_y][map_grid_x] == 'd'
+		|| mlx->data->map[map_grid_b][mlx->player->x / TILE_SIZE] == 'd'
+		|| mlx->data->map[mlx->player->y / TILE_SIZE][map_grid_a] == 'd') // check the wall hit and the diagonal wall hit
 		return ;
 	mlx->player->x = x; // move the player
 	mlx->player->y = y; // move the player
@@ -81,18 +81,18 @@ static void	horizontal_move(t_mlx *mlx, int32_t direction)
 void	hook(t_mlx *mlx)
 {
 	mlx->player->run = false;
-	if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_LEFT_SHIFT))
+	if (mlx_is_key_down(mlx->p, MLX_KEY_LEFT_SHIFT))
 		mlx->player->run = true;
-	if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_W))
+	if (mlx_is_key_down(mlx->p, MLX_KEY_W))
 		vertical_move(mlx, POSITIVE);
-	else if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_S))
+	else if (mlx_is_key_down(mlx->p, MLX_KEY_S))
 		vertical_move(mlx, NEGATIVE);
-	if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_D))
+	if (mlx_is_key_down(mlx->p, MLX_KEY_D))
 		horizontal_move(mlx, POSITIVE);
-	else if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_A))
+	else if (mlx_is_key_down(mlx->p, MLX_KEY_A))
 		horizontal_move(mlx, NEGATIVE);
-	if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(mlx->p, MLX_KEY_RIGHT))
 		rotation_move(mlx, POSITIVE);
-	else if (mlx_is_key_down(mlx->mlx_p, MLX_KEY_LEFT))
+	else if (mlx_is_key_down(mlx->p, MLX_KEY_LEFT))
 		rotation_move(mlx, NEGATIVE);
 }

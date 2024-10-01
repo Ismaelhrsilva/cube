@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 11:25:06 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 11:05:54 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@
 # include "MLX42.h"
 # include <stdint.h>
 
-//# define S_W 1900 // screen width
-# define S_W 1024 // screen width
-//# define S_H 1000 // screen height
-# define S_H 768 // screen height
+# define S_W 1024
+# define S_H 768
 # define TILE_SIZE 60 // tile size
-//# define FOV 60 // field of view
 # define FOV 60
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
@@ -40,15 +37,12 @@ typedef struct s_map
 	char			*west;	// west texture path
 	char			*east;	// east texture path
 	uint32_t		floor;	// floor hex color
-	uint32_t		sky;	// sky hex color
+	uint32_t		ceilling;	// ceilling hex color
 	int32_t		width;		// map width
 	int32_t		height;		// map height
 	char			**map;	// map array
 	int32_t		player[3];	// player position x, y and direction
 }	t_map;
-
-void	clear_map(t_map *map);	// clear structure t_map
-t_map	*parser_map(char *map);	// parser file .cub and create t_map
 
 typedef struct s_player //the player structure
 {
@@ -99,7 +93,7 @@ typedef struct s_data	//the data structure
 	int		width;		// map width
 	int		height;		// map height
 	uint32_t	floor;
-	uint32_t	sky;
+	uint32_t	ceilling;
 	int		size_minimap; // size of block minimap
 	mlx_image_t		*image;	// image of minimap
 	mlx_texture_t	*wall_text; // texture wall
@@ -120,13 +114,13 @@ typedef struct s_data	//the data structure
 	mlx_image_t		*animation2;
 }	t_data;
 
-typedef struct s_mlx	//the mlx structure
+typedef struct s_mlx
 {
-	mlx_image_t		*img;	// the image
-	mlx_t			*mlx_p;	// the mlx pointer
-	t_ray			*ray;	// the ray structure
-	t_data			*dt;	// the data structure
-	t_player		*player;	// the player structure
+	mlx_t		*p;
+	mlx_image_t	*img;
+	t_ray		*ray;
+	t_data		*data;
+	t_player	*player;
 	t_minimap	*minimap;
 	t_texture	*texture;
 }	t_mlx;

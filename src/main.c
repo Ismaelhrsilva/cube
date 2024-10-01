@@ -6,18 +6,17 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/23 16:51:45 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 11:06:18 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "parser.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
-/*
- * Get the t_map and converts it to t_data
- */
+t_map	*parser_map(char *path);
+void	clear_map(t_map *map);
+
 t_data *init_map(t_map	*map)
 {
 	t_data	*data;
@@ -31,7 +30,7 @@ t_data *init_map(t_map	*map)
 	data->width = map->width;
 	data->height = map->height;
 	data->floor = map->floor;
-	data->sky = map->sky;
+	data->ceilling = map->ceilling;
 	data->wall_text = construct_texture(NULL, WALL_TEXT);
 	return (data);
 }
@@ -46,7 +45,6 @@ int	 main(int argc, char **argv)
 	map = parser_map(argv[1]);
 	if (!map)
 		return (EXIT_FAILURE);
-	print(map);
 	data = init_map(map);	// init the data structure
 	start_the_game(data, map);	// start the game
 	clear_map(map);

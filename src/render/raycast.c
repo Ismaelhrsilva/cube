@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 19:49:09 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 10:30:38 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	wall_hit(float x, float y, t_mlx *mlx)	// check the wall hit
 	mlx->ray->door = false;
 	x_m = floor(x / TILE_SIZE); // get the x position in the map
 	y_m = floor(y / TILE_SIZE); // get the y position in the map
-	if (y_m >= mlx->dt->height || x_m >= mlx->dt->width)
+	if (y_m >= mlx->data->height || x_m >= mlx->data->width)
 		return (0);
-	if (mlx->dt->map[y_m][x_m] == '1')
+	if (mlx->data->map[y_m][x_m] == '1')
 		return (0);
-	else if (mlx->dt->map[y_m][x_m] == 'D')
+	else if (mlx->data->map[y_m][x_m] == 'd')
 	{
 		mlx->ray->door = true;
 		return (0);
@@ -77,7 +77,7 @@ float	get_h_inter(t_mlx *mlx, float angle)	// get the horizontal intersection
 	y = floorf((double) mlx->player->y / TILE_SIZE) * TILE_SIZE;
 	pixel = intersection(&y, &y_step, horizontal_unit_circle(mlx->ray->angle));
 	x = mlx->player->x + (y - mlx->player->y) / tan(angle);
-	if (x_step > 0 == vertical_unit_circle(angle)) // check x_step value
+	if ((x_step > 0) == vertical_unit_circle(angle)) // check x_step value
 		x_step = -x_step;
 	while (wall_hit(x, y - pixel, mlx)) // check the wall hit whit the pixel value
 	{
@@ -102,7 +102,7 @@ float	get_v_inter(t_mlx *mlx, float angle)	// get the vertical intersection
 	x = floorf((double)mlx->player->x / TILE_SIZE) * TILE_SIZE;
 	pixel = intersection(&x, &x_step, !vertical_unit_circle(mlx->ray->angle)); // check the intersection and get the pixel value
 	y = mlx->player->y + (x - mlx->player->x) * tan(angle);
-	if (y_step < 0 == horizontal_unit_circle(angle)) // check y_step value
+	if ((y_step < 0) == horizontal_unit_circle(angle)) // check y_step value
 		y_step = -y_step;
 	while (wall_hit(x - pixel, y, mlx)) // check the wall hit whit the pixel value
 	{

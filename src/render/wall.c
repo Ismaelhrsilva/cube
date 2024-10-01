@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall_rend.c                                        :+:      :+:    :+:   */
+/*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 19:05:40 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 11:08:47 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)
     int i;
 
 	i = 0;
-    while (i < S_H)
+    while (i < mlx->p->height)
 	{
         if (i < t_pix)
-            put_pixel(mlx, ray, i, mlx->dt->sky);
+            put_pixel(mlx, ray, i, mlx->data->ceilling);
         else if (i >= b_pix)
-            put_pixel(mlx, ray, i, mlx->dt->floor);
+            put_pixel(mlx, ray, i, mlx->data->floor);
         i++;
     }
 }
@@ -142,14 +142,14 @@ void	render_wall(t_mlx *mlx, int ray)	// render the wall
 		wall->point_x = game->pos.y + ray->perp_dist * ray->dir.y;
 	else
 		wall->point_x = game->pos.x + ray->perp_dist * ray->dir.x;
-	mlx->dt->point_x -= floor(mlx->dt->point_x);
+	mlx->data->point_x -= floor(mlx->data->point_x);
 }
 
 static void	find_texture_position_x(t_mlx *mlx)
 {
-	mlx->dt->texture_x = (int)(mlx->dt->point_x * mlx->dt->wall_text->width);
+	mlx->data->texture_x = (int)(mlx->data->point_x * mlx->data->wall_text->width);
 	if ((ray->hit_side == 0 && ray->dir.x < 0)
 		|| (ray->hit_side == 1 && ray->dir.y > 0))
 		wall->texture_x = game->texture->width - wall->texture_x - 1;
-	mlx->dt->texture_step = 1.0 * mlx->dt->wall_text->height / mlx->dt->wall_height;
+	mlx->data->texture_step = 1.0 * mlx->data->wall_text->height / mlx->data->wall_height;
 }*/

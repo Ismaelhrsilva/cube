@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:43:50 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/25 16:02:43 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 10:29:57 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	mlx_key(mlx_key_data_t keydata, void *mlx)
 		ft_exit((t_mlx *) mlx);
 	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
-		if (((t_mlx *) mlx)->dt->frame > 0 && ((t_mlx *) mlx)->dt->frame < 16)
+		if (((t_mlx *) mlx)->data->frame > 0 && ((t_mlx *) mlx)->data->frame < 16)
 			return ;
-		((t_mlx *) mlx)->dt->frame = 1;
-		((t_mlx *) mlx)->dt->time = mlx_get_time();
+		((t_mlx *) mlx)->data->frame = 1;
+		((t_mlx *) mlx)->data->time = mlx_get_time();
 	}
 	else if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
 		ft_minimap(mlx);

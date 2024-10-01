@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/09/18 17:25:42 by ishenriq         ###   ########.fr        #
+#    Updated: 2024/10/01 10:51:11 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,20 +25,20 @@ LIBFTXDIR			:= ./lib/libftx
 LIBMLXDIR			:= ./lib/MLX42
 
 FILES				:= main.c \
-					   animation.c \
 					   init.c \
-					   minimap.c \
+					   utils.c \
+					   parser/parser.c \
+					   parser/getter.c \
+					   parser/floodfill.c \
+					   parser/validate.c \
 					   movement/key.c \
 					   movement/move.c \
 					   movement/mouse.c \
-					   parser/parser.c \
-					   parser/getter.c \
-					   parser/validate.c \
-					   parser/floodfill.c \
-					   raycast.c \
-					   utils.c \
-					   wall_rend.c \
-					   open_door.c
+					   movement/door.c \
+					   render/animation.c \
+					   render/minimap.c \
+					   render/raycast.c \
+					   render/wall.c
 
 SRCS				:= $(FILES:%.c=$(SRCSDIR)/%.c)
 OBJS				:= $(FILES:%.c=$(OBJSDIR)/%.o)

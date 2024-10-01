@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/30 18:43:53 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 11:07:17 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ _Bool	validate_map(t_map	*map)
 
 _Bool	validate_color(t_map *map)
 {
-	if (!(map->sky & 0xFF) || !(map->floor & 0xFF))
+	if (!(map->ceilling & 0xFF) || !(map->floor & 0xFF))
 		return (false);
 	return (true);
 }

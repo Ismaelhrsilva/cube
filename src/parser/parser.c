@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/30 18:51:24 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 11:06:35 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print(t_map *map)
 	printf("SOUTH(SO): %s\n", map->south);
 	printf("WEST (WE): %s\n", map->west);
 	printf("EAST (EA): %s\n", map->east);
-	printf("CEILLING : %x\n", map->sky);
+	printf("CEILLING : %x\n", map->ceilling);
 	printf("FLOOR    : %x\n", map->floor);
 	printf("WIDTH    : %i\n", map->width);
 	printf("HEIGHT   : %i\n", map->height);
@@ -43,10 +43,11 @@ void	print(t_map *map)
 
 void	panic(t_map *map, char *str, char *message, unsigned int error)
 {
+	(void)map;
 	ft_putendl_fd("Error", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd(message, STDERR_FILENO);
-	clear_map(map);
+	//clear_map(map);
 	get_next_line(-1);
 	exit(error);
 }

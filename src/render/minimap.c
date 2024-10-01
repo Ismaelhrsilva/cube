@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 20:14:47 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 10:29:39 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ static void	display_wall(t_mlx *mlx)
 	int32_t	height;
 
 	y = 0;
-	while (y < mlx->dt->height * mlx->minimap->size)
+	while (y < mlx->data->height * mlx->minimap->size)
 	{
 		height = y / mlx->minimap->size;
 		x = 0;
-		while (x < mlx->dt->width * mlx->minimap->size)
+		while (x < mlx->data->width * mlx->minimap->size)
 		{
 			width = x / mlx->minimap->size;
-			if (mlx->dt->map[height][width] == '1')
+			if (mlx->data->map[height][width] == '1')
 				mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
-			else if (mlx->dt->map[height][width] == '2')
+			else if (mlx->data->map[height][width] == '2')
 				mlx_put_pixel(mlx->minimap->img, x, y, 0xFFFFFF7F);
-			if (ft_strchr("dD", mlx->dt->map[height][width]))
+			if (ft_strchr("dD", mlx->data->map[height][width]))
 				mlx_put_pixel(mlx->minimap->img, x, y, 0x7F7F7FFF);
 			//else if (y % mlx->minimap->size == 0)
 			//	mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
@@ -79,14 +79,14 @@ void	ft_minimap(t_mlx *mlx)
 {
 	if (!mlx->minimap->img)
 	{
-		mlx->minimap->size = (double) mlx->mlx_p->width / mlx->dt->width * 0.25;
-		mlx->minimap->img = mlx_new_image(mlx->mlx_p,
-				mlx->minimap->size * mlx->dt->width,
-				mlx->minimap->size * mlx->dt->height);
-		mlx_image_to_window(mlx->mlx_p, mlx->minimap->img, 0, 0);
+		mlx->minimap->size = (double) mlx->p->width / mlx->data->width * 0.25;
+		mlx->minimap->img = mlx_new_image(mlx->p,
+				mlx->minimap->size * mlx->data->width,
+				mlx->minimap->size * mlx->data->height);
+		mlx_image_to_window(mlx->p, mlx->minimap->img, 0, 0);
 		mlx->minimap->img->instances[0].z = 1;
 		mlx->minimap->img->instances[0].enabled = false;
-		mlx_loop_hook(mlx->mlx_p, display_minimap, mlx);
+		mlx_loop_hook(mlx->p, display_minimap, mlx);
 	}
 	mlx->minimap->img->instances[0].enabled
 		= !mlx->minimap->img->instances[0].enabled;
