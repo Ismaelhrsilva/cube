@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:25:38 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/01 16:49:21 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 17:00:41 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,25 @@
 #include <math.h>
 #include <stdint.h>
 
-void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-	if (x > img->width || y > img->height)
-		return ;
-	mlx_put_pixel(img, x, y, color);
-}
-
-float	normalize(float angle)
-{
-	float	limit;
-
-	limit = M_PI * 2;
-	return (angle - (limit * ((int)(angle / limit))));
-}
+float		normalize(float angle);
+int			horizontal_unit_circle(float angle);
+int			vertical_unit_circle(float angle);
+uint32_t	reverse_bytes(unsigned int c);
+void		put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 
 void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)
 {
-    int i;
+	int32_t	i;
 
 	i = 0;
-    while (i < mlx->p->height)
+	while (i < mlx->p->height)
 	{
-        if (i < t_pix)
-            put_pixel(mlx->img, ray, i, mlx->data->ceilling);
-        else if (i >= b_pix)
-            put_pixel(mlx->img, ray, i, mlx->data->floor);
-        i++;
-    }
+		if (i < t_pix)
+			put_pixel(mlx->img, ray, i, mlx->data->ceilling);
+		else if (i >= b_pix)
+			put_pixel(mlx->img, ray, i, mlx->data->floor);
+		i++;
+	}
 }
 
 mlx_texture_t	*get_texture(t_mlx *mlx)
@@ -76,10 +67,6 @@ double	get_x_o(mlx_texture_t *texture, t_mlx *mlx)
 	return (x);
 }
 
-unsigned int reverse_bytes(unsigned int c) {
-    return (((c & R) >> 8) | ((c & G) << 8) | (c & B) << 24) | ((c & A) >> 24);
-}
-
 void	draw_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h)
 {
 	double			x;
@@ -111,7 +98,7 @@ void	render_wall(t_mlx *mlx, int ray)
 
 	mlx->ray->distance *= cos(normalize(mlx->ray->angle - mlx->player->angle));
 	wall_h = (TILE_SIZE / mlx->ray->distance) * (((float) mlx->img->width / 2)
-		/ tan(mlx->player->fov / 2));
+			/ tan(mlx->player->fov / 2));
 	b_pix = ((double) mlx->img->height / 2) + (wall_h / 2);
 	t_pix = ((double) mlx->img->height / 2) - (wall_h / 2);
 	if (b_pix > mlx->img->height)

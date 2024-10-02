@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/01 16:57:04 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:14:34 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define TILE_SIZE 60 // tile size
 # define FOV 60
 # define ROTATION_SPEED 0.045
-# define PLAYER_SPEED 4
-# define PLAYER_SIZE 3
+# define SPEED 4
+# define PLAYER 3
 
 # define WALL_TEXT "textures/north.png"
 
@@ -61,10 +61,9 @@ typedef struct s_player
 	int32_t	y;
 	double	angle;
 	double	fov;
-	_Bool	run;
 }	t_player;
 
-typedef struct s_ray	//the ray structure
+typedef struct s_ray
 {
 	int32_t	index;
 	double	angle;
@@ -78,7 +77,7 @@ typedef struct s_minimap
 {
 	mlx_image_t	*img;
 	int32_t		size;
-} t_minimap;
+}	t_minimap;
 
 typedef struct s_texture
 {
@@ -89,21 +88,19 @@ typedef struct s_texture
 	mlx_texture_t	*door;
 }	t_texture;
 
-typedef struct s_data	//the data structure
+typedef struct s_data
 {
-	char	**map;	// the map
-	int		p_x;		// player x position in the map
-	int		p_y;		// player y position in the map
-	int		width;		// map width
-	int		height;		// map height
-	uint32_t	floor;
-	uint32_t	ceilling;
-	int		size_minimap; // size of block minimap
-	mlx_image_t		*image;	// image of minimap
-	mlx_texture_t	*wall_text; // texture wall
-	
-	mlx_texture_t	*texture1;
-	mlx_image_t		*animation1;
+	char			**map;
+	int				p_x;
+	int				p_y;
+	int				width;
+	int				height;
+	uint32_t		floor;
+	uint32_t		ceilling;
+	int				size_minimap;
+	mlx_image_t		*image;
+	mlx_texture_t	*texture;
+	mlx_image_t		*animation;
 	uint8_t			frame;
 	double			time;
 }	t_data;
@@ -119,38 +116,15 @@ typedef struct s_mlx
 	t_texture	*texture;
 }	t_mlx;
 
-void	start_the_game(t_data *dt, t_map *map);
-
-//File movement
-void mlx_key(mlx_key_data_t keydata, void *ml);
+void	start(t_data *dt, t_map *map);
+void	key(mlx_key_data_t keydata, void *ml);
 void	hook(t_mlx *mlx);
 void	rotation_move(t_mlx *mlx, int32_t direction);
-
-//File raycast 
-int	horizontal_unit_circle(float angle);
-int	vertical_unit_circle(float angle);
-int	wall_hit(float x, float y, t_mlx *mlx);
-void	cast_rays(t_mlx *mlx);
-
-//File utils
+void	raycast(t_mlx *mlx);
 void	ft_exit(t_mlx *mlx);
-
-//File wall rend
-float	normalize(float angle);
-void	render_wall(t_mlx *mlx, int ray);
-
-//File mouse
-void ft_mouse(double xpos, double ypos, void *ml);
-
-//File minimap
-void	ft_minimap(t_mlx *mlx);
-
-//File Animation
-mlx_texture_t *construct_texture(t_mlx *mlx, char *png);
-void	ft_animation(t_mlx *mlx);
-void	ft_init_animation(t_mlx *mlx);
-
-//File open_door
-void	ft_open_door(t_mlx *mlx);
+void	mouse(double xpos, double ypos, void *ml);
+void	minimap(t_mlx *mlx);
+void	animation(t_mlx *mlx);
+void	door(t_mlx *mlx);
 
 #endif

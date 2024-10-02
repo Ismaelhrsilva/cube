@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/01 11:06:58 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 16:58:14 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 static uint32_t	get_hexcolor(char *line)
 {
@@ -121,7 +122,7 @@ static void	get_field(char *line, t_map *map)
 void	get_map(char *path, t_map *map)
 {
 	int32_t	fd;
-	char		*line;
+	char	*line;
 
 	fd = open(path, O_RDONLY, 0644);
 	if (fd < 0)

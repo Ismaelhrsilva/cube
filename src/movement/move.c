@@ -6,41 +6,37 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/01 10:30:19 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:09:14 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "libft.h"
 #include "MLX42.h"
 #include <math.h>
 #include <stdint.h>
 
-#include <stdio.h>
-static void	move(t_mlx *mlx, float x, float y, float a, float b)	// move the player
+static void	move(t_mlx *mlx, float *x, float *y)
 {
-	int32_t	map_grid_y;
-	int32_t	map_grid_x;
-	int32_t	map_grid_a;
-	int32_t	map_grid_b;
+	int32_t	map_y;
+	int32_t	map_x;
+	int32_t	map_a;
+	int32_t	map_b;
 
-	x = roundf(mlx->player->x + x); // get the new x position
-	y = roundf(mlx->player->y + y); // get the new y position
-	a = roundf(mlx->player->x + a);
-	b = roundf(mlx->player->y + b);
-	map_grid_x = x / TILE_SIZE; // get the x position in the map
-	map_grid_y = y / TILE_SIZE; // get the y position in the map
-	map_grid_a = a / TILE_SIZE;
-	map_grid_b = b / TILE_SIZE;
-	if (mlx->data->map[map_grid_y][map_grid_x] == '1'
-		 || mlx->data->map[map_grid_b][mlx->player->x / TILE_SIZE] == '1'
-		 || mlx->data->map[mlx->player->y / TILE_SIZE][map_grid_a] == '1')  // check the wall hit and the diagonal wall hit
+	x[0] = roundf(mlx->player->x + x[0]);
+	y[0] = roundf(mlx->player->y + y[0]);
+	x[1] = roundf(mlx->player->x + x[1]);
+	y[1] = roundf(mlx->player->y + y[1]);
+	map_x = x[0] / TILE_SIZE;
+	map_y = y[0] / TILE_SIZE;
+	map_a = x[1] / TILE_SIZE;
+	map_b = y[1] / TILE_SIZE;
+	if (ft_strchr("d1", mlx->data->map[map_y][map_x])
+		|| ft_strchr("d1", mlx->data->map[map_b][mlx->player->x / TILE_SIZE])
+		|| ft_strchr("d1", mlx->data->map[mlx->player->y / TILE_SIZE][map_a]))
 		return ;
-	else if (mlx->data->map[map_grid_y][map_grid_x] == 'd'
-		|| mlx->data->map[map_grid_b][mlx->player->x / TILE_SIZE] == 'd'
-		|| mlx->data->map[mlx->player->y / TILE_SIZE][map_grid_a] == 'd') // check the wall hit and the diagonal wall hit
-		return ;
-	mlx->player->x = x; // move the player
-	mlx->player->y = y; // move the player
+	mlx->player->x = x[0];
+	mlx->player->y = y[0];
 }
 
 void	rotation_move(t_mlx *mlx, int32_t direction)
@@ -52,37 +48,34 @@ void	rotation_move(t_mlx *mlx, int32_t direction)
 
 static void	vertical_move(t_mlx *mlx, int32_t direction)
 {
-	float	x;
-	float	y;
-	float	a;
-	float	b;
+	float	x[2];
+	float	y[2];
 
-	x = (direction * (cos(mlx->player->angle)));
-	y = (direction * (sin(mlx->player->angle)));
-	a = x * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
-	b = y * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
-	move(mlx, x * (PLAYER_SPEED + mlx->player->run * PLAYER_SPEED), y * (PLAYER_SPEED + PLAYER_SPEED * mlx->player->run), a, b);
+	x[0] = (direction * (cos(mlx->player->angle)));
+	y[0] = (direction * (sin(mlx->player->angle)));
+	x[1] = x[0] * (SPEED * PLAYER);
+	y[1] = y[0] * (SPEED * PLAYER);
+	x[0] *= SPEED;
+	y[0] *= SPEED;
+	move(mlx, x, y);
 }
 
 static void	horizontal_move(t_mlx *mlx, int32_t direction)
 {
-	float	x;
-	float	y;
-	float	a;
-	float	b;
+	float	x[2];
+	float	y[2];
 
-	x = (-direction * (sin(mlx->player->angle)));
-	y = (direction * (cos(mlx->player->angle)));
-	a = x * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
-	b = y * (PLAYER_SPEED * PLAYER_SIZE + mlx->player->run * PLAYER_SPEED);
-	move(mlx, x * (PLAYER_SPEED + mlx->player->run * PLAYER_SPEED), y * (PLAYER_SPEED + PLAYER_SPEED * mlx->player->run), a, b);
+	x[0] = (-direction * (sin(mlx->player->angle)));
+	y[0] = (direction * (cos(mlx->player->angle)));
+	x[1] = x[0] * (SPEED * PLAYER);
+	y[1] = y[0] * (SPEED * PLAYER);
+	x[0] *= SPEED;
+	y[0] *= SPEED;
+	move(mlx, x, y);
 }
 
 void	hook(t_mlx *mlx)
 {
-	mlx->player->run = false;
-	if (mlx_is_key_down(mlx->p, MLX_KEY_LEFT_SHIFT))
-		mlx->player->run = true;
 	if (mlx_is_key_down(mlx->p, MLX_KEY_W))
 		vertical_move(mlx, POSITIVE);
 	else if (mlx_is_key_down(mlx->p, MLX_KEY_S))

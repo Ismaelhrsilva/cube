@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/01 10:51:11 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/02 14:24:53 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ FILES				:= main.c \
 					   render/animation.c \
 					   render/minimap.c \
 					   render/raycast.c \
-					   render/wall.c
+					   render/wall.c \
+					   render/utils.c
 
 SRCS				:= $(FILES:%.c=$(SRCSDIR)/%.c)
 OBJS				:= $(FILES:%.c=$(OBJSDIR)/%.o)

@@ -6,10 +6,11 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 20:52:56 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/30 20:10:09 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 16:58:26 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cube.h"
 #include "libft.h"
 #include "parser.h"
 #include <stdbool.h>
@@ -42,18 +43,19 @@ static t_point	*pop(t_point **stack)
 	return (p);
 }
 
-static void	clear(t_point **stack)
+static bool	clear(t_point **stack, bool status)
 {
 	t_point	*p;
 
 	if (!stack)
-		return ;
+		return (status);
 	while (*stack)
 	{
 		p = *stack;
 		*stack = p->next;
 		free(p);
 	}
+	return (status);
 }
 
 _Bool	floodfill(t_map *map, int32_t x, int32_t y)
@@ -67,10 +69,7 @@ _Bool	floodfill(t_map *map, int32_t x, int32_t y)
 	{
 		p = pop(&stack);
 		if (p->x < 0 || p->y < 0 || p->x > map->width || p->y > map->height)
-		{
-			clear(&stack);
-			return (false);
-		}
+			return (clear(&stack, false));
 		if (!ft_strchr("12d", map->map[p->y][p->x]))
 		{
 			if (map->map[p->y][p->x] != 'D')
@@ -84,5 +83,5 @@ _Bool	floodfill(t_map *map, int32_t x, int32_t y)
 		}
 		free(p);
 	}
-	return (true);
+	return (clear(&stack, true));
 }
