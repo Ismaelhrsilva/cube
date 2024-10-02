@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/30 18:51:24 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 17:58:03 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ void	print(t_map *map)
 {
 	uint32_t	i;
 
-	printf("PLAYER   : %c %i %i\n", map->player[2], map->player[0], map->player[1]);
+	printf("PLAYER   : %c %i %i\n",
+		map->player[2], map->player[0], map->player[1]);
 	printf("NORTH(NO): %s\n", map->north);
 	printf("SOUTH(SO): %s\n", map->south);
 	printf("WEST (WE): %s\n", map->west);
 	printf("EAST (EA): %s\n", map->east);
-	printf("CEILLING : %x\n", map->sky);
+	printf("CEILLING : %x\n", map->ceilling);
 	printf("FLOOR    : %x\n", map->floor);
 	printf("WIDTH    : %i\n", map->width);
 	printf("HEIGHT   : %i\n", map->height);
@@ -40,16 +41,6 @@ void	print(t_map *map)
 	printf("<<< END MAP\n");
 }
 // TEMPORARY FUNCTION
-
-void	panic(t_map *map, char *str, char *message, unsigned int error)
-{
-	ft_putendl_fd("Error", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putendl_fd(message, STDERR_FILENO);
-	clear_map(map);
-	get_next_line(-1);
-	exit(error);
-}
 
 void	clear_map(t_map *map)
 {
@@ -68,6 +59,17 @@ void	clear_map(t_map *map)
 	free(map);
 }
 
+void	panic(t_map *map, char *str, char *message, unsigned int error)
+{
+	(void)map;
+	ft_putendl_fd("Error", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(message, STDERR_FILENO);
+	clear_map(map);
+	get_next_line(-1);
+	exit(error);
+}
+
 t_map	*parser_map(char *path)
 {
 	t_map	*map;
@@ -79,7 +81,7 @@ t_map	*parser_map(char *path)
 		return (NULL);
 	*map = (t_map){0};
 	get_map(path, map);
-	if (!map->map)
+	if (!map->map || map->height > 105 || map->width > 105)
 		return (clear_map(map), NULL);
 	if (!map->player[2])
 		return (clear_map(map), NULL);

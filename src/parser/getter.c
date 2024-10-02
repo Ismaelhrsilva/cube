@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/09/30 18:51:55 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 16:58:14 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 static uint32_t	get_hexcolor(char *line)
 {
@@ -58,8 +59,8 @@ static void	get_texture(char *line, t_map *map)
 		map->west = ft_strtrim(&tmp[3], " \t");
 	else if (!map->east && !ft_strncmp(tmp, "EA ", 3))
 		map->east = ft_strtrim(&tmp[3], " \t");
-	else if (!map->sky && !ft_strncmp(tmp, "C ", 2))
-		map->sky = get_hexcolor(&tmp[2]);
+	else if (!map->ceilling && !ft_strncmp(tmp, "C ", 2))
+		map->ceilling = get_hexcolor(&tmp[2]);
 	else if (!map->floor && !ft_strncmp(tmp, "F ", 2))
 		map->floor = get_hexcolor(&tmp[2]);
 	else if (ft_strlen(tmp))
@@ -121,7 +122,7 @@ static void	get_field(char *line, t_map *map)
 void	get_map(char *path, t_map *map)
 {
 	int32_t	fd;
-	char		*line;
+	char	*line;
 
 	fd = open(path, O_RDONLY, 0644);
 	if (fd < 0)
@@ -135,7 +136,7 @@ void	get_map(char *path, t_map *map)
 			|| !map->south
 			|| !map->west
 			|| !map->east
-			|| !map->sky
+			|| !map->ceilling
 			|| !map->floor)
 			get_texture(line, map);
 		else

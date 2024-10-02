@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 11:24:17 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:29:53 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,64 +15,55 @@
 #include "MLX42.h"
 #include <math.h>
 
-void	game_loop(void *ml)	// game loop
+mlx_texture_t	*construct_texture(char *png);
+
+static void	game_loop(void *param)
 {
 	t_mlx	*mlx;
 
-	mlx = (t_mlx *) ml;	// cast to the mlx structure
-	mlx_delete_image(mlx->mlx_p, mlx->img);	// delete the image
-	mlx->img = mlx_new_image(mlx->mlx_p, S_W, S_H);	// create new image
-	hook(mlx); // hook the player
-	cast_rays(mlx);	// cast the rays
-	mlx_image_to_window(mlx->mlx_p, mlx->img, 0, 0); // put the image to the window
+	mlx = (t_mlx *) param;
+	mlx_delete_image(mlx->p, mlx->img);
+	mlx->img = mlx_new_image(mlx->p, mlx->p->width, mlx->p->height);
+	hook(mlx);
+	raycast(mlx);
+	mlx_image_to_window(mlx->p, mlx->img, 0, 0);
 	mlx->img->instances[0].z = 0;
 }
 
-void init_the_player(t_mlx mlx)	// init the player structure
+static void	init_player(t_mlx mlx, t_map *map)
 {
-	mlx.player->x = mlx.dt->p_x * TILE_SIZE + TILE_SIZE / 2; // player x position in pixels in the center of the tile
-	mlx.player->y = mlx.dt->p_y * TILE_SIZE + TILE_SIZE / 2; // player y position in pixels in the center of the tile
-	mlx.player->fov = (FOV * M_PI) / 180; // field of view in radians
-	//mlx.player->angle = M_PI; // player angle
-	//the rest of the variables are initialized to zero by calloc
+	mlx.player->x = mlx.data->p_x * TILE_SIZE + TILE_SIZE / 2;
+	mlx.player->y = mlx.data->p_y * TILE_SIZE + TILE_SIZE / 2;
+	mlx.player->fov = (FOV * M_PI) / 180;
+	if (map->player[2] == 'N')
+		mlx.player->angle = M_PI * NORTH;
+	else if (map->player[2] == 'S')
+		mlx.player->angle = M_PI * SOUTH;
+	else if (map->player[2] == 'W')
+		mlx.player->angle = M_PI * WEST;
 }
 
-void	start_the_game(t_data *dt, t_map *map)	// start the game
+void	start(t_data *data, t_map *map)
 {
 	t_mlx	mlx;
 
-	mlx.dt = dt;	// init the mlx structure
-	mlx.player = ft_calloc(1, sizeof(t_player));	// init the player structure i'm using calloc to initialize the variables to zero
-	mlx.ray = ft_calloc(1, sizeof(t_ray));	// init the ray structure
+	mlx.data = data;
+	mlx.player = ft_calloc(1, sizeof(t_player));
+	mlx.ray = ft_calloc(1, sizeof(t_ray));
 	mlx.minimap = ft_calloc(1, sizeof(t_minimap));
 	mlx.texture = ft_calloc(1, sizeof(t_texture));
-	
-
-	////
-	mlx.texture->no = construct_texture(&mlx, map->north);
-	mlx.texture->so = construct_texture(&mlx, map->south);
-	mlx.texture->we = construct_texture(&mlx, map->west);
-	mlx.texture->ea = construct_texture(&mlx, map->east);
-	mlx.texture->door = construct_texture(&mlx, "./assets/door/cdoord.png");
-	////
-	
-	if (map->player[2] == 'N')
-		mlx.player->angle = M_PI * 1.5;
-	else if (map->player[2] == 'S')
-		mlx.player->angle = M_PI * 0.5;
-	else if (map->player[2] == 'W')
-		mlx.player->angle = M_PI;
-
-
-
-
-	//mlx.minimap->img = NULL;
-	//mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
-	mlx.mlx_p = mlx_init(S_W, S_H, "Cub3d", 0);	// init the mlx pointer
-	ft_init_animation(&mlx);
-	init_the_player(mlx);	// init the player structure
-	mlx_loop_hook(mlx.mlx_p, &game_loop, &mlx);	// game loop
-	mlx_key_hook(mlx.mlx_p, &mlx_key, &mlx);	// key press and release
-	mlx_cursor_hook(mlx.mlx_p, &ft_mouse, &mlx); // função de movimentação com mouse
-	mlx_loop(mlx.mlx_p);	// mlx loop
+	if (!mlx.player || !mlx.ray || !mlx.minimap || !mlx.texture)
+		exit(125);
+	mlx.texture->north = construct_texture(map->north);
+	mlx.texture->south = construct_texture(map->south);
+	mlx.texture->west = construct_texture(map->west);
+	mlx.texture->east = construct_texture(map->east);
+	mlx.texture->door = construct_texture("./assets/door.png");
+	mlx.p = mlx_init(S_W, S_H, "Cub3d", true);
+	mlx_set_window_limit(mlx.p, 1024, 768, -1, -1);
+	init_player(mlx, map);
+	mlx_loop_hook(mlx.p, &game_loop, &mlx);
+	mlx_key_hook(mlx.p, &key, &mlx);
+	mlx_cursor_hook(mlx.p, &mouse, &mlx);
+	mlx_loop(mlx.p);
 }

@@ -6,14 +6,22 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 20:14:47 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:28:08 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cube.h"
 #include "MLX42.h"
-#include <math.h>
+
+char	*ft_strchr(const char *s, int c);
+float	pytheorem(float a, float b);
+
+void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+{
+	if (x > img->width || y > img->height)
+		return ;
+	mlx_put_pixel(img, x, y, color);
+}
 
 static void	display_wall(t_mlx *mlx)
 {
@@ -23,28 +31,26 @@ static void	display_wall(t_mlx *mlx)
 	int32_t	height;
 
 	y = 0;
-	while (y < mlx->dt->height * mlx->minimap->size)
+	while (y < mlx->data->height * mlx->minimap->size)
 	{
 		height = y / mlx->minimap->size;
 		x = 0;
-		while (x < mlx->dt->width * mlx->minimap->size)
+		while (x < mlx->data->width * mlx->minimap->size)
 		{
 			width = x / mlx->minimap->size;
-			if (mlx->dt->map[height][width] == '1')
-				mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
-			else if (mlx->dt->map[height][width] == '2')
-				mlx_put_pixel(mlx->minimap->img, x, y, 0xFFFFFF7F);
-			if (ft_strchr("dD", mlx->dt->map[height][width]))
-				mlx_put_pixel(mlx->minimap->img, x, y, 0x7F7F7FFF);
-			//else if (y % mlx->minimap->size == 0)
-			//	mlx_put_pixel(mlx->minimap->img, x, y, 0x000000FF);
+			if (mlx->data->map[height][width] == '1')
+				put_pixel(mlx->minimap->img, x, y, 0x000000FF);
+			else if (mlx->data->map[height][width] == '2')
+				put_pixel(mlx->minimap->img, x, y, 0xFFFFFF7F);
+			if (ft_strchr("dD", mlx->data->map[height][width]))
+				put_pixel(mlx->minimap->img, x, y, 0x7F7F7FFF);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	display_player(t_mlx *mlx)
+static void	display_player(t_mlx *mlx)
 {
 	int32_t	i;
 	int32_t	j;
@@ -61,8 +67,9 @@ void	display_player(t_mlx *mlx)
 		j = 0;
 		while (mlx->minimap->size > ++j)
 		{
-			if ((double) radius > (double) sqrt(pow(i - radius, 2) + pow(j - radius, 2)))
-				mlx_put_pixel(mlx->minimap->img, x + i - radius, y + j - radius, 0xFF0000FF);
+			if ((double) radius > (double) pytheorem(i - radius, j - radius))
+				put_pixel(mlx->minimap->img,
+					x + i - radius, y + j - radius, 0xFF0000FF);
 		}
 	}
 }
@@ -75,18 +82,18 @@ static void	display_minimap(void *mlx)
 	display_player((t_mlx *) mlx);
 }
 
-void	ft_minimap(t_mlx *mlx)
+void	minimap(t_mlx *mlx)
 {
 	if (!mlx->minimap->img)
 	{
-		mlx->minimap->size = (double) mlx->mlx_p->width / mlx->dt->width * 0.25;
-		mlx->minimap->img = mlx_new_image(mlx->mlx_p,
-				mlx->minimap->size * mlx->dt->width,
-				mlx->minimap->size * mlx->dt->height);
-		mlx_image_to_window(mlx->mlx_p, mlx->minimap->img, 0, 0);
+		mlx->minimap->size = 10;
+		mlx->minimap->img = mlx_new_image(mlx->p,
+				mlx->minimap->size * mlx->data->width,
+				mlx->minimap->size * mlx->data->height);
+		mlx_image_to_window(mlx->p, mlx->minimap->img, 0, 0);
 		mlx->minimap->img->instances[0].z = 1;
 		mlx->minimap->img->instances[0].enabled = false;
-		mlx_loop_hook(mlx->mlx_p, display_minimap, mlx);
+		mlx_loop_hook(mlx->p, display_minimap, mlx);
 	}
 	mlx->minimap->img->instances[0].enabled
 		= !mlx->minimap->img->instances[0].enabled;

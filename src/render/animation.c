@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/09/30 11:19:23 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 16:28:44 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,18 @@
 
 int	reverse_bytes(int c);
 
-mlx_texture_t *construct_texture(t_mlx *mlx, char *png)
+mlx_texture_t	*construct_texture(char *png)
 {
 	mlx_texture_t	*temp;
+	int32_t			fd;
 
-	int fd = open(png, O_RDONLY, 0644);
+	fd = open(png, O_RDONLY, 0644);
 	if (fd == -1)
 		exit (100);
 	close(fd);
 	temp = mlx_load_png(png);
 	if (!temp)
-		return (mlx->dt->wall_text);
+		exit(100);
 	return (temp);
 }
 
@@ -39,37 +40,47 @@ static void	draw_animation(t_mlx *mlx, uint8_t frame)
 	uint32_t	x;
 	uint32_t	y;
 
-	pixels = (uint32_t *) mlx->dt->texture1->pixels;
+	pixels = (uint32_t *) mlx->data->texture->pixels;
 	y = 0;
-	while (y < mlx->dt->animation1->height)
+	while (y < mlx->data->animation->height)
 	{
 		x = 0;
-		while (x < mlx->dt->animation1->width)
+		while (x < mlx->data->animation->width)
 		{
-			mlx_put_pixel(mlx->dt->animation1, x, y,
+			mlx_put_pixel(mlx->data->animation, x, y,
 				reverse_bytes(
-					pixels[y * mlx->dt->texture1->width + \
-					mlx->dt->animation1->width * frame + x]));
+					pixels[y * mlx->data->texture->width + \
+					mlx->data->animation->width * frame + x]));
 			x++;
 		}
 		y++;
 	}
 }
 
-void	ft_init_animation(t_mlx *mlx)
+static void	init_image(t_mlx *mlx)
 {
-	mlx->dt->texture1 = construct_texture(mlx, "./assets/weapon/weapon.png");
-	mlx->dt->animation1 = mlx_new_image(mlx->mlx_p, 600, 430);
-	mlx_image_to_window(mlx->mlx_p, mlx->dt->animation1, mlx->mlx_p->width - 600, mlx->mlx_p->height - 430);
-	mlx->dt->animation1->instances[0].z = 3;
-	mlx->dt->animation1->enabled = true;
+	mlx_delete_image(mlx->p, mlx->data->animation);
+	if (!mlx->data->texture)
+		mlx->data->texture = construct_texture("./assets/weapon.png");
+	mlx->data->animation = mlx_new_image(mlx->p, 600, 430);
+	mlx_image_to_window(mlx->p, mlx->data->animation,
+		mlx->p->width - 600, mlx->p->height - 430);
+	mlx->data->animation->instances[0].z = 3;
+	mlx->data->animation->enabled = true;
 	draw_animation(mlx, 0);
 }
 
-void	ft_animation(t_mlx *mlx)
+void	animation(t_mlx *mlx)
 {
-	if (mlx->dt->frame < 1 || mlx->dt->frame > 15)
+	static int32_t	width;
+	static int32_t	height;
+
+	if (mlx->p->width != width || mlx->p->height != height)
+		init_image(mlx);
+	width = mlx->p->width;
+	height = mlx->p->height;
+	if (mlx->data->frame < 1 || mlx->data->frame > 15)
 		return ;
-	draw_animation(mlx, mlx->dt->frame);
-	mlx->dt->frame = (uint8_t) ((mlx_get_time() - mlx->dt->time + 1) * 18) % 16;
+	draw_animation(mlx, mlx->data->frame);
+	mlx->data->frame = (int)((mlx_get_time() - mlx->data->time + 1) * 18) % 16;
 }

@@ -1,10 +1,10 @@
-NO ./assets/wall/brick-1l1.png
-EA ./assets/wall/brick-2l2.png
-SO ./assets/wall/brick-1d3.png
-WE ./assets/wall/brick-2d4.png
+NO ./assets/wall/walln.png
+EA ./assets/wall/walle.png
+SO ./assets/wall/walls.png
+WE ./assets/wall/wallw.png
 
-F 220,100,0
-C 225,30,0
+F 59,59,59
+C 122,122,122
 
         1111111111111111111111111
         1000000000110000000000001
