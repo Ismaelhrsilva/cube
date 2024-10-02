@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 16:53:27 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:29:53 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	start(t_data *data, t_map *map)
 	mlx.texture->east = construct_texture(map->east);
 	mlx.texture->door = construct_texture("./assets/door.png");
 	mlx.p = mlx_init(S_W, S_H, "Cub3d", true);
-	mlx_set_window_limit(mlx.p, 640, 480, -1, -1);
+	mlx_set_window_limit(mlx.p, 1024, 768, -1, -1);
 	init_player(mlx, map);
 	mlx_loop_hook(mlx.p, &game_loop, &mlx);
 	mlx_key_hook(mlx.p, &key, &mlx);

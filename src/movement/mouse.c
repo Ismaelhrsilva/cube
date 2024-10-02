@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:25:27 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 16:17:36 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:31:03 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	mouse(double xpos, double ypos, void *param)
 	if (x < 25 || x > mlx->p->width - 25)
 		mlx_set_mouse_pos(mlx->p, mlx->p->width / 2, mlx->p->height / 2);
 	if ((double) x > xpos)
-		rotation_move(mlx, POSITIVE);
+		rotation_move(mlx, POSITIVE * 1.5);
 	else if ((double)x < xpos)
-		rotation_move(mlx, NEGATIVE);
+		rotation_move(mlx, NEGATIVE * 1.5);
 }
