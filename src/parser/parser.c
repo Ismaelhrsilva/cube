@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/02 17:58:03 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 20:09:17 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_map	*parser_map(char *path)
 
 	if (!validate_file(path))
 		return (NULL);
-	map = (t_map *) malloc(sizeof(t_map));
+	map = (t_map *) ft_calloc(1, sizeof(t_map));
 	if (!map)
 		return (NULL);
 	*map = (t_map){0};

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 16:28:44 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 19:45:29 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 
 int	reverse_bytes(int c);
 
-mlx_texture_t	*construct_texture(char *png)
+mlx_texture_t	*construct_texture(t_mlx *mlx, char *png)
 {
 	mlx_texture_t	*temp;
 	int32_t			fd;
 
 	fd = open(png, O_RDONLY, 0644);
 	if (fd == -1)
-		exit (100);
+		ft_exit(mlx);
 	close(fd);
 	temp = mlx_load_png(png);
 	if (!temp)
-		exit(100);
+		ft_exit(mlx);
 	return (temp);
 }
 
@@ -61,7 +61,7 @@ static void	init_image(t_mlx *mlx)
 {
 	mlx_delete_image(mlx->p, mlx->data->animation);
 	if (!mlx->data->texture)
-		mlx->data->texture = construct_texture("./assets/weapon.png");
+		mlx->data->texture = construct_texture(mlx, "./assets/weapon.png");
 	mlx->data->animation = mlx_new_image(mlx->p, 600, 430);
 	mlx_image_to_window(mlx->p, mlx->data->animation,
 		mlx->p->width - 600, mlx->p->height - 430);

@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 18:14:34 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 19:44:20 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_data
 	mlx_image_t		*animation;
 	uint8_t			frame;
 	double			time;
+	t_map			*parser;
 }	t_data;
 
 typedef struct s_mlx
@@ -116,7 +117,7 @@ typedef struct s_mlx
 	t_texture	*texture;
 }	t_mlx;
 
-void	start(t_data *dt, t_map *map);
+void	start(t_data *data);
 void	key(mlx_key_data_t keydata, void *ml);
 void	hook(t_mlx *mlx);
 void	rotation_move(t_mlx *mlx, int32_t direction);
@@ -126,5 +127,7 @@ void	mouse(double xpos, double ypos, void *ml);
 void	minimap(t_mlx *mlx);
 void	animation(t_mlx *mlx);
 void	door(t_mlx *mlx);
+t_map	*parser_map(char *path);
+void	clear_map(t_map *map);
 
 #endif
