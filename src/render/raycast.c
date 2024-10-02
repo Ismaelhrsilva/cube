@@ -6,29 +6,26 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/01 10:30:38 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 16:36:40 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "ft_string.h"
-#include "MLX42.h"
 #include <math.h>
-#include <stdlib.h>
 
-float	pytheorem(float a, float b)
+static float	pytheorem(float a, float b)
 {
 	return (sqrt((a * a) + (b * b)));
 }
 
-static int	horizontal_unit_circle(float angle) // check the unit circle
+int	horizontal_unit_circle(float angle)
 {
 	return (angle > 0 && angle < M_PI);
 }
 
-static int	vertical_unit_circle(float angle) // check the unit circle
+int	vertical_unit_circle(float angle)
 {
-	return (angle > M_PI * 0.5 && angle < M_PI * 1.5);//(3 * M_PI) / 2);
+	return (angle > M_PI * 0.5 && angle < M_PI * 1.5);
 }
 
 int	intersection(float *inter, float *step, int evaluation)
@@ -44,19 +41,16 @@ int	intersection(float *inter, float *step, int evaluation)
 
 int	wall_hit(float x, float y, t_mlx *mlx)	// check the wall hit
 {
-	int		x_m;
-	int		y_m;
-
 	if (x < 0 || y < 0)
 		return (0);
 	mlx->ray->door = false;
-	x_m = floor(x / TILE_SIZE); // get the x position in the map
-	y_m = floor(y / TILE_SIZE); // get the y position in the map
-	if (y_m >= mlx->data->height || x_m >= mlx->data->width)
+	x = floor(x / TILE_SIZE); // get the x position in the map
+	y = floor(y / TILE_SIZE); // get the y position in the map
+	if (y >= mlx->data->height || x >= mlx->data->width)
 		return (0);
-	if (mlx->data->map[y_m][x_m] == '1')
+	if (mlx->data->map[(int) y][(int) x] == '1')
 		return (0);
-	else if (mlx->data->map[y_m][x_m] == 'd')
+	if (mlx->data->map[(int) y][(int) x] == 'd')
 	{
 		mlx->ray->door = true;
 		return (0);
@@ -85,7 +79,7 @@ float	get_h_inter(t_mlx *mlx, float angle)	// get the horizontal intersection
 		y += y_step;
 	}
 	mlx->ray->x = x;
-	mlx->ray->y = y;
+	mlx->ray->y = 0;
 	return (pytheorem(x - mlx->player->x, y - mlx->player->y));
 }
 
@@ -109,36 +103,29 @@ float	get_v_inter(t_mlx *mlx, float angle)	// get the vertical intersection
 		x += x_step;
 		y += y_step;
 	}
-	mlx->ray->vx = x;
-	mlx->ray->vy = y;
+	mlx->ray->x = 0;
+	mlx->ray->y = y;
 	return (pytheorem(x - mlx->player->x, y - mlx->player->y));
 }
 
-#include <stdio.h>
 void	cast_rays(t_mlx *mlx)	// cast the rays
 {
 	double	h_inter;
 	double	v_inter;
-	int		ray;
+	uint32_t	ray;
 
 	ray = 0;
 	mlx->ray->angle = mlx->player->angle - (mlx->player->fov / 2); // the start angle
-	while (ray < S_W) // loop for the rays
+	while (ray < mlx->img->width) // loop for the rays
 	{
-		mlx->ray->door = 0;
-		mlx->ray->flag = 0; // flag for the wall
-		v_inter = get_v_inter(mlx, nor_angle(mlx->ray->angle)); // get the vertical intersection
-		h_inter = get_h_inter(mlx, nor_angle(mlx->ray->angle)); // get the horizontal intersection
+		v_inter = get_v_inter(mlx, normalize(mlx->ray->angle)); // get the vertical intersection
+		h_inter = get_h_inter(mlx, normalize(mlx->ray->angle)); // get the horizontal intersection
 		if (v_inter < h_inter) // check the distance
-			mlx->ray->distance = get_v_inter(mlx, nor_angle(mlx->ray->angle));
+			mlx->ray->distance = get_v_inter(mlx, normalize(mlx->ray->angle));
 		else
-		{
-			mlx->ray->distance = get_h_inter(mlx, nor_angle(mlx->ray->angle));
-			mlx->ray->flag = 1; // flag for the wall
-		}
-		render_wall(mlx, ray); // render the wall
-		ray++; // next ray
-		mlx->ray->angle += ((double) mlx->player->fov / S_W); // next angle
+			mlx->ray->distance = get_h_inter(mlx, normalize(mlx->ray->angle));
+		render_wall(mlx, ray++); // render the wall
+		mlx->ray->angle += ((double) mlx->player->fov / mlx->img->width); // next angle
 	}
 	ft_animation(mlx);
 }

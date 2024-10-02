@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/01 11:06:35 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 18:27:22 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_map	*parser_map(char *path)
 		return (clear_map(map), NULL);
 	if (!map->player[2])
 		return (clear_map(map), NULL);
+	print(map);
 	if (!validate_map(map))
 		panic(map, path, " is a bad formated map\n", 1);
 	if (!validate_floodfill(map))

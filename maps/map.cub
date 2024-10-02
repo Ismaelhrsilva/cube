@@ -1,4 +1,4 @@
-NO ./assets/wall/brick-1l1.png
+NO ./assets/wall/wall1.png
 EA ./assets/wall/brick-2l2.png
 SO ./assets/wall/brick-1d3.png
 WE ./assets/wall/brick-2d4.png

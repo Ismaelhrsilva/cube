@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/01 10:29:22 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/01 19:05:16 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,28 @@ void	start_the_game(t_data *data, t_map *map)	// start the game
 	
 
 	////
-	mlx.texture->no = construct_texture(&mlx, map->north);
-	mlx.texture->so = construct_texture(&mlx, map->south);
-	mlx.texture->we = construct_texture(&mlx, map->west);
-	mlx.texture->ea = construct_texture(&mlx, map->east);
-	mlx.texture->door = construct_texture(&mlx, "./assets/door/cdoord.png");
+	mlx.texture->north = construct_texture(&mlx, map->north);
+	mlx.texture->south = construct_texture(&mlx, map->south);
+	mlx.texture->west = construct_texture(&mlx, map->west);
+	mlx.texture->east = construct_texture(&mlx, map->east);
+	mlx.texture->door = construct_texture(&mlx, "./assets/wall/door.png");
+	//mlx.texture->door = construct_texture(&mlx, "./assets/door/cdoord.png");
 	////
 	
 	if (map->player[2] == 'N')
-		mlx.player->angle = M_PI * 1.5;
+		mlx.player->angle = M_PI * NORTH;
 	else if (map->player[2] == 'S')
-		mlx.player->angle = M_PI * 0.5;
+		mlx.player->angle = M_PI * SOUTH;
 	else if (map->player[2] == 'W')
-		mlx.player->angle = M_PI;
+		mlx.player->angle = M_PI * WEST;
 
 
 
 
 	//mlx.minimap->img = NULL;
 	//mlx_set_setting(MLX_FULLSCREEN, true); // fullscreen mode
-	mlx.p = mlx_init(S_W, S_H, "Cub3d", 0);	// init the mlx pointer
+	mlx.p = mlx_init(S_W, S_H, "Cub3d", true);	// init the mlx pointer
+	mlx_set_window_limit(mlx.p, 640, 480, -1, -1);
 	ft_init_animation(&mlx);
 	init_the_player(mlx);	// init the player structure
 	mlx_loop_hook(mlx.p, &game_loop, &mlx);	// game loop
