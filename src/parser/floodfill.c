@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 20:52:56 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/02 18:17:17 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/02 18:41:51 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ _Bool	floodfill(t_map *map, int32_t x, int32_t y)
 	while (stack)
 	{
 		p = pop(&stack);
-		if (p->x < 0 || p->y < 0 || p->x > map->width || p->y > map->height)
+		if (p->x < 0 || p->y < 0 || p->x >= map->width || p->y >= map->height)
 			return (clear(&stack, false));
 		if (!ft_strchr("12d", map->map[p->y][p->x]))
 		{
