@@ -6,14 +6,14 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 19:45:29 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/05 12:58:57 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "libft.h"
 #include "MLX42.h"
 #include <stdint.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -21,17 +21,19 @@ int	reverse_bytes(int c);
 
 mlx_texture_t	*construct_texture(t_mlx *mlx, char *png)
 {
-	mlx_texture_t	*temp;
+	mlx_texture_t	*tmp;
 	int32_t			fd;
 
+	if (ft_strncmp(&png[ft_strlen(png) - 4], ".png", 5) != 0)
+		ft_exit(mlx);
 	fd = open(png, O_RDONLY, 0644);
-	if (fd == -1)
+	if (fd < 1)
 		ft_exit(mlx);
 	close(fd);
-	temp = mlx_load_png(png);
-	if (!temp)
+	tmp = mlx_load_png(png);
+	if (!tmp)
 		ft_exit(mlx);
-	return (temp);
+	return (tmp);
 }
 
 static void	draw_animation(t_mlx *mlx, uint8_t frame)

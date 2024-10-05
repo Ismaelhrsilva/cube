@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/02 14:24:53 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/05 13:08:37 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ HEADERS				:= -I ./include \
 
 LDFLAGS				:= $(HEADERS) $(LIBS)
 
-COMPILER			:= gcc
+COMPILER			:= clang-12 
 CFLAGS				:= -Wall -Wextra -Werror -g3 -Ofast
 MLXFLAGS 			:= -ldl -lglfw -lm
 NFLAGS				:= -R CheckForbiddenSourceHeader

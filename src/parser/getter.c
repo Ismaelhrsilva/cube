@@ -6,42 +6,43 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/02 19:18:45 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/05 12:48:14 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "libft.h"
 #include "parser.h"
-#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 
-static uint32_t	get_hexcolor(char *line)
+static void	get_hexcolor(t_map *map, char *line, uint32_t *color)
 {
 	char		**colors;
-	uint32_t	color;
+	char		*message;
 	uint32_t	tmp;
 	uint32_t	i;
 
 	colors = ft_split(line, ',');
 	if (!colors)
-		exit(1);
+		panic(map, ft_strdup("Failed to allocate memory"), 1);
 	i = 0;
-	color = 0;
 	while (check(colors[i], ft_isdigit) && ft_strlen(colors[i]) < 4)
 	{
 		tmp = ft_atoi(colors[i]);
 		if (tmp > 255)
 			break ;
-		color += tmp;
-		color = color << 8;
+		*color = (*color + tmp) << 8;
 		i++;
 	}
 	ft_split_clear(colors);
 	if (i != 3)
-		return (0);
-	return (color += 0xFF);
+	{
+		message = NULL;
+		ft_sprintf(&message, "Invalid color: %s", line);
+		panic(map, message, 1);
+	}
+	*color += 0xFF;
 }
 
 static void	get_texture(char *line, t_map *map)
@@ -50,7 +51,7 @@ static void	get_texture(char *line, t_map *map)
 
 	tmp = ft_strtrim(line, " \t\n");
 	if (!tmp)
-		return (exit(1));
+		panic(map, ft_strdup("Failed to allocate memory"), 1);
 	if (!map->north && !ft_strncmp(tmp, "NO ", 3))
 		map->north = ft_strtrim(&tmp[3], " \t");
 	else if (!map->south && !ft_strncmp(tmp, "SO ", 3))
@@ -60,14 +61,15 @@ static void	get_texture(char *line, t_map *map)
 	else if (!map->east && !ft_strncmp(tmp, "EA ", 3))
 		map->east = ft_strtrim(&tmp[3], " \t");
 	else if (!map->ceilling && !ft_strncmp(tmp, "C ", 2))
-		map->ceilling = get_hexcolor(&tmp[2]);
+		get_hexcolor(map, &tmp[2], &map->ceilling);
 	else if (!map->floor && !ft_strncmp(tmp, "F ", 2))
-		map->floor = get_hexcolor(&tmp[2]);
+		get_hexcolor(map, &tmp[2], &map->floor);
 	else if (ft_strlen(tmp))
 	{
-		free(tmp);
 		free(line);
-		panic(map, NULL, "Extra information", 1);
+		ft_sprintf(&line, "Invalid information: %s", tmp);
+		free(tmp);
+		panic(map, line, 1);
 	}
 	free(tmp);
 }
@@ -102,12 +104,14 @@ static void	get_field(char *line, t_map *map)
 	int32_t			width;
 	char			**tmp;
 
+	if (!map->map && !ft_strchr(line, '1'))
+		return ;
 	if (!(map->height % MEMORY_SIZE))
 	{
 		size += MEMORY_SIZE;
 		tmp = (char **) ft_calloc(sizeof(char *), size + 1);
 		if (!tmp)
-			exit(1);
+			panic(map, ft_strdup("Failed to allocate memory"), 1);
 		if (map->map)
 			ft_memmove(tmp, map->map, sizeof(char **) * (size - MEMORY_SIZE));
 		free(map->map);
@@ -125,8 +129,8 @@ void	get_map(char *path, t_map *map)
 	char	*line;
 
 	fd = open(path, O_RDONLY, 0644);
-	if (fd < 0)
-		return (exit(1));
+	if (fd < 1)
+		panic(map, ft_strdup("Failed to open file"), 1);
 	while (true)
 	{
 		line = get_next_line(fd);
