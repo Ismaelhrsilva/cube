@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/05 13:08:37 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/07 16:16:14 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,7 @@ fclean: 			clean
 re: 				fclean all
 
 norm:
-					@norminette $(NFLAGS) $(SRCS) ./include | grep -v "OK!" \
+					@norminette $(NFLAGS) $(SRCSDIR) ./include | grep -v "OK!" \
 						|| true
 
 .PHONY: 			all, clean, fclean, re, libmlx, libftx
