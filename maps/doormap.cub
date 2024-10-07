@@ -1,7 +1,7 @@
-NO ./assets/wall/walln.png
-EA ./assets/wall/walle.png
-SO ./assets/wall/walls.png
-WE ./assets/wall/wallw.png
+NO ./assets/light-yellow.png
+EA ./assets/light.png
+WE ./assets/dark-yellow.png
+SO ./assets/dark.png
 
 F 59,59,59
 C 122,122,122

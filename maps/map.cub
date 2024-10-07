@@ -1,7 +1,7 @@
-NO ./assets/light-yellow.png
-EA ./assets/light.png
-WE ./assets/dark-yellow.png
-SO ./assets/dark.png
+NO ./assets/wall1.png
+EA ./assets/wall2.png
+WE ./assets/wall3.png
+SO ./assets/wall5.png
 
 F 185,148,112
 C 137,207,243

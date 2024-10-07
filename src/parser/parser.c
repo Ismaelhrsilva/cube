@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/02 17:58:03 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/05 12:49:30 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,21 @@
 #include <unistd.h>
 
 #include <stdio.h>
-
 // TEMPORARY FUNCTION
 void	print(t_map *map)
 {
 	uint32_t	i;
 
-	printf("PLAYER   : %c %i %i\n",
+	printf("PLAYER  : %c %i %i\n",
 		map->player[2], map->player[0], map->player[1]);
-	printf("NORTH(NO): %s\n", map->north);
-	printf("SOUTH(SO): %s\n", map->south);
-	printf("WEST (WE): %s\n", map->west);
-	printf("EAST (EA): %s\n", map->east);
-	printf("CEILLING : %x\n", map->ceilling);
-	printf("FLOOR    : %x\n", map->floor);
-	printf("WIDTH    : %i\n", map->width);
-	printf("HEIGHT   : %i\n", map->height);
+	printf("NO NORTH: %s\n", map->north);
+	printf("SO SOUTH: %s\n", map->south);
+	printf("WE WEST : %s\n", map->west);
+	printf("EA EAST : %s\n", map->east);
+	printf("CEILLING: %x\n", map->ceilling);
+	printf("FLOOR   : %x\n", map->floor);
+	printf("WIDTH   : %i\n", map->width);
+	printf("HEIGHT  : %i\n", map->height);
 	printf("START MAP >>>\n");
 	i = 0;
 	while (map->map && map->map[i])
@@ -59,14 +58,13 @@ void	clear_map(t_map *map)
 	free(map);
 }
 
-void	panic(t_map *map, char *str, char *message, unsigned int error)
+void	panic(t_map *map, char *message, uint8_t error)
 {
-	(void)map;
-	ft_putendl_fd("Error", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putendl_fd(message, STDERR_FILENO);
-	clear_map(map);
 	get_next_line(-1);
+	clear_map(map);
+	ft_putendl_fd("Error", STDERR_FILENO);
+	ft_putendl_fd(message, STDERR_FILENO);
+	free(message);
 	exit(error);
 }
 
@@ -74,20 +72,18 @@ t_map	*parser_map(char *path)
 {
 	t_map	*map;
 
-	if (!validate_file(path))
-		return (NULL);
-	map = (t_map *) malloc(sizeof(t_map));
+	validate_file(path);
+	map = (t_map *) ft_calloc(1, sizeof(t_map));
 	if (!map)
-		return (NULL);
+		panic(map, ft_strdup("Failed to allocate memory"), 1);
 	*map = (t_map){0};
 	get_map(path, map);
-	if (!map->map || map->height > 105 || map->width > 105)
-		return (clear_map(map), NULL);
-	if (!map->player[2])
-		return (clear_map(map), NULL);
-	if (!validate_map(map))
-		panic(map, path, " is a bad formated map\n", 1);
-	if (!validate_floodfill(map))
-		panic(map, path, " is not a valid map\n", 1);
+	if (!map->map)
+		panic(map, ft_strdup("No map"), 1);
+	if (map->height > 100 || map->width > 100)
+		panic(map, ft_strdup("Map to big"), 1);
+	validate_map(map);
+	validate_floodfill(map);
+	print(map);
 	return (map);
 }

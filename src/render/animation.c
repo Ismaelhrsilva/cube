@@ -6,32 +6,34 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 16:28:44 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/07 15:55:09 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "libft.h"
 #include "MLX42.h"
 #include <stdint.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 
 int	reverse_bytes(int c);
 
-mlx_texture_t	*construct_texture(char *png)
+mlx_texture_t	*construct_texture(t_mlx *mlx, char *png)
 {
-	mlx_texture_t	*temp;
+	mlx_texture_t	*tmp;
 	int32_t			fd;
 
+	if (ft_strncmp(&png[ft_strlen(png) - 4], ".png", 5) != 0)
+		gameover(mlx, ft_strdup("Invalid .png texture"), 1);
 	fd = open(png, O_RDONLY, 0644);
-	if (fd == -1)
-		exit (100);
+	if (fd < 1)
+		gameover(mlx, ft_strdup("Impossible to load texture"), 1);
 	close(fd);
-	temp = mlx_load_png(png);
-	if (!temp)
-		exit(100);
-	return (temp);
+	tmp = mlx_load_png(png);
+	if (!tmp)
+		gameover(mlx, ft_strdup("Failed to load texture"), 1);
+	return (tmp);
 }
 
 static void	draw_animation(t_mlx *mlx, uint8_t frame)
@@ -61,7 +63,7 @@ static void	init_image(t_mlx *mlx)
 {
 	mlx_delete_image(mlx->p, mlx->data->animation);
 	if (!mlx->data->texture)
-		mlx->data->texture = construct_texture("./assets/weapon.png");
+		mlx->data->texture = construct_texture(mlx, "./assets/weapon.png");
 	mlx->data->animation = mlx_new_image(mlx->p, 600, 430);
 	mlx_image_to_window(mlx->p, mlx->data->animation,
 		mlx->p->width - 600, mlx->p->height - 430);
