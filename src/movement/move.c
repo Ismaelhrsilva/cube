@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:24:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 18:16:59 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/07 16:02:11 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static void	vertical_move(t_mlx *mlx, int32_t direction)
 
 	x[0] = (direction * (cos(mlx->player->angle)));
 	y[0] = (direction * (sin(mlx->player->angle)));
-	x[1] = x[0] * (SPEED * PLAYER);
-	y[1] = y[0] * (SPEED * PLAYER);
-	x[0] *= SPEED;
-	y[0] *= SPEED;
+	x[1] = x[0] * (PLAYER_SPEED * PLAYER_SIZE);
+	y[1] = y[0] * (PLAYER_SPEED * PLAYER_SIZE);
+	x[0] *= PLAYER_SPEED;
+	y[0] *= PLAYER_SPEED;
 	move(mlx, x, y);
 }
 
@@ -67,10 +67,10 @@ static void	horizontal_move(t_mlx *mlx, int32_t direction)
 
 	x[0] = (-direction * (sin(mlx->player->angle)));
 	y[0] = (direction * (cos(mlx->player->angle)));
-	x[1] = x[0] * (SPEED * PLAYER);
-	y[1] = y[0] * (SPEED * PLAYER);
-	x[0] *= SPEED;
-	y[0] *= SPEED;
+	x[1] = x[0] * (PLAYER_SPEED * PLAYER_SIZE);
+	y[1] = y[0] * (PLAYER_SPEED * PLAYER_SIZE);
+	x[0] *= PLAYER_SPEED;
+	y[0] *= PLAYER_SPEED;
 	move(mlx, x, y);
 }
 

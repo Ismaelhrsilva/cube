@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/05 12:58:57 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/07 15:55:09 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ mlx_texture_t	*construct_texture(t_mlx *mlx, char *png)
 	int32_t			fd;
 
 	if (ft_strncmp(&png[ft_strlen(png) - 4], ".png", 5) != 0)
-		ft_exit(mlx);
+		gameover(mlx, ft_strdup("Invalid .png texture"), 1);
 	fd = open(png, O_RDONLY, 0644);
 	if (fd < 1)
-		ft_exit(mlx);
+		gameover(mlx, ft_strdup("Impossible to load texture"), 1);
 	close(fd);
 	tmp = mlx_load_png(png);
 	if (!tmp)
-		ft_exit(mlx);
+		gameover(mlx, ft_strdup("Failed to load texture"), 1);
 	return (tmp);
 }
 

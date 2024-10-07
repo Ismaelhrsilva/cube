@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 19:44:20 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/07 16:05:06 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@
 # include "MLX42.h"
 # include <stdint.h>
 
-# define S_W 1024
-# define S_H 768
-# define TILE_SIZE 60 // tile size
+# define SCREEN_WIDTH 1024
+# define SCREEN_HEIGHT 768
+# define TILE_SIZE 60
 # define FOV 60
 # define ROTATION_SPEED 0.045
-# define SPEED 4
-# define PLAYER 3
-
-# define WALL_TEXT "textures/north.png"
+# define PLAYER_SIZE 3
+# define PLAYER_SPEED 3
 
 # define NEGATIVE -1
 # define POSITIVE 1
@@ -122,7 +120,7 @@ void	key(mlx_key_data_t keydata, void *ml);
 void	hook(t_mlx *mlx);
 void	rotation_move(t_mlx *mlx, int32_t direction);
 void	raycast(t_mlx *mlx);
-void	ft_exit(t_mlx *mlx);
+void	gameover(t_mlx *mlx, char *message, uint8_t status);
 void	mouse(double xpos, double ypos, void *ml);
 void	minimap(t_mlx *mlx);
 void	animation(t_mlx *mlx);

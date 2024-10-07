@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:29:25 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 20:14:48 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/07 16:00:24 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	start(t_data *data)
 	mlx.texture->west = construct_texture(&mlx, data->parser->west);
 	mlx.texture->east = construct_texture(&mlx, data->parser->east);
 	mlx.texture->door = construct_texture(&mlx, "./assets/door.png");
-	mlx.p = mlx_init(S_W, S_H, "Cub3d", true);
+	mlx.p = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3d", true);
 	mlx_set_window_limit(mlx.p, 1024, 768, -1, -1);
 	init_player(mlx);
 	mlx_loop_hook(mlx.p, &game_loop, &mlx);
