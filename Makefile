@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/07 16:16:14 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/09 19:52:36 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ BLUE				:= $(shell tput setaf 4)
 MAGENTA				:= $(shell tput setaf 5)
 RESET				:= $(shell tput sgr0)
 
-NAME				:= cub3d
+NAME				:= cub3D
 
 SRCSDIR				:= ./src
 OBJSDIR				:= ./build
@@ -41,8 +41,12 @@ FILES				:= main.c \
 					   render/wall.c \
 					   render/utils.c
 
-SRCS				:= $(FILES:%.c=$(SRCSDIR)/%.c)
-OBJS				:= $(FILES:%.c=$(OBJSDIR)/%.o)
+FILES_BONUS			:= $(FILES:%.c=%_bonus.c)
+
+SRCS				= $(FILES:%.c=$(SRCSDIR)/%.c)
+OBJS				= $(FILES:%.c=$(OBJSDIR)/%.o)
+SRCS_BONUS			= $(FILES_BONUS:%.c=$(SRCSDIR)/bonus/%.c)
+OBJS_BONUS			= $(FILES_BONUS:%.c=$(OBJSDIR)/bonus/%.o)
 
 LIBS 				:= $(LIBMLXDIR)/build/libmlx42.a \
 					  $(LIBFTXDIR)/libftx.a
@@ -52,18 +56,30 @@ HEADERS				:= -I ./include \
 					   -I $(LIBFTXDIR)/includes \
 					   -I $(LIBMLXDIR)/include/MLX42
 
+
 LDFLAGS				:= $(HEADERS) $(LIBS)
 
-COMPILER			:= clang-12 
+COMPILER			:= cc
 CFLAGS				:= -Wall -Wextra -Werror -g3 -Ofast
 MLXFLAGS 			:= -ldl -lglfw -lm
 NFLAGS				:= -R CheckForbiddenSourceHeader
 
+DELETE 				= $(OBJS_BONUS)
+MESSAGE				= mandatory
+
+ifdef WITH_BONUS
+	DELETE = $(OBJS)
+	SRCS = $(SRCS_BONUS)
+	OBJS = $(OBJS_BONUS)
+	MESSAGE = bonus
+endif
+
 all: 				$(NAME)
 
 $(NAME):			$(LIBS) $(OBJS)
+					@rm -rf $(DELETE)
 					@$(COMPILER) $(CFLAGS) $(HEADERS) $(OBJS) $(LIBS) $(MLXFLAGS) -o $(NAME) \
-						&& echo "$(BLUE)Compiled $(NAME) successfully$(RESET)"
+						&& echo "$(BLUE)Compiled $(MESSAGE) successfully$(RESET)"
 
 $(OBJSDIR)/%.o: 	$(SRCSDIR)/%.c
 					@mkdir -p $(@D)
@@ -83,6 +99,9 @@ libmlx:
 					@git submodule update --init --force --remote $(LIBMLXDIR)
 					@cd $(LIBMLXDIR) && cmake -B build && make -sC build -j4
 
+bonus:
+					@make WITH_BONUS=TRUE --no-print-directory
+
 clean:
 					@rm -rf $(OBJSDIR) \
 						&& echo "$(RED)Removing $(RESET)$(NAME) objects"
@@ -100,4 +119,4 @@ norm:
 					@norminette $(NFLAGS) $(SRCSDIR) ./include | grep -v "OK!" \
 						|| true
 
-.PHONY: 			all, clean, fclean, re, libmlx, libftx
+.PHONY: 			all clean fclean re libmlx libftx
