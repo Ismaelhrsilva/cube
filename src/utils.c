@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:30:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/12 10:46:01 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 13:02:44 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,25 @@ static void	delete_textures(t_mlx *mlx)
 
 static void	clear(t_mlx *mlx, uint8_t status)
 {
-	clear_map(mlx->data->parser);
-	delete_textures(mlx);
-	if (mlx->data)
-		free(mlx->data);
-	if (mlx->texture)
-		free(mlx->texture);
-	if (mlx->player)
-		free(mlx->player);
-	if (mlx->ray)
-		free(mlx->ray);
-	if (mlx->p && mlx->img)
-		mlx_delete_image(mlx->p, mlx->img);
-	if (mlx->p)
-		mlx_close_window(mlx->p);
-	if (mlx->p)
-		mlx_terminate(mlx->p);
+	if (mlx)
+	{
+		clear_map(mlx->data->parser);
+		delete_textures(mlx);
+		if (mlx->data)
+			free(mlx->data);
+		if (mlx->texture)
+			free(mlx->texture);
+		if (mlx->player)
+			free(mlx->player);
+		if (mlx->ray)
+			free(mlx->ray);
+		if (mlx->p && mlx->img)
+			mlx_delete_image(mlx->p, mlx->img);
+		if (mlx->p)
+			mlx_close_window(mlx->p);
+		if (mlx->p)
+			mlx_terminate(mlx->p);
+	}
 	exit(status);
 }
 

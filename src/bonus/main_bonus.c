@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:51:24 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/09 19:34:32 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 13:07:53 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ int	main(int argc, char **argv)
 	t_data	*data;
 	t_map	*map;
 
-	if (argc != 2)
-		return (EXIT_FAILURE);
+	if (argc < 2)
+		gameover(NULL, ft_strdup("No map informed"), 1);
+	if (argc > 2)
+		gameover(NULL, ft_strdup("Too many arguments"), 1);
 	map = parser_map(argv[1]);
 	if (!map)
-		return (EXIT_FAILURE);
+		gameover(NULL, ft_strdup("Failed to parser map"), 1);
 	data = init_map(map);
 	data->parser = map;
 	start(data);
