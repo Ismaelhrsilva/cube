@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/05 12:52:37 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 11:00:48 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void	check_line(t_map *map, char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!ft_strchr(" 01NSWED", line[i]))
+		if (!ft_strchr(" 01NSWE", line[i]))
 		{
-			ft_sprintf(&message, "Invalid character %c: ", line[i]);
+			ft_sprintf(&message, "Invalid character: %c", line[i]);
 			panic(map, message, 1);
 		}
 		if (ft_strrchr("NSWE", line[i]))
@@ -75,7 +75,7 @@ void	validate_map(t_map	*map)
 void	validate_color(t_map *map)
 {
 	if (!(map->ceilling & 0xFF))
-		panic(map, ft_strdup("ceilling not infomed"), 1);
+		panic(map, ft_strdup("Ceilling not infomed"), 1);
 	if (!(map->floor & 0xFF))
 		panic(map, ft_strdup("Floor not informed"), 1);
 }

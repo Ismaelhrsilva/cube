@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:30:07 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/09 18:34:22 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 10:46:01 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@
 
 static void	delete_textures(t_mlx *mlx)
 {
-	if (mlx->data->texture)
-		mlx_delete_texture(mlx->data->texture);
-	if (mlx->texture->door)
-		mlx_delete_texture(mlx->texture->door);
 	if (mlx->texture->north)
 		mlx_delete_texture(mlx->texture->north);
 	if (mlx->texture->south)
@@ -39,8 +35,6 @@ static void	clear(t_mlx *mlx, uint8_t status)
 		free(mlx->data);
 	if (mlx->texture)
 		free(mlx->texture);
-	if (mlx->minimap)
-		free(mlx->minimap);
 	if (mlx->player)
 		free(mlx->player);
 	if (mlx->ray)

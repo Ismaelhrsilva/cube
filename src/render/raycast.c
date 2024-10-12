@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:26:47 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 16:40:09 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 10:43:20 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,12 @@ int	wall_hit(float x, float y, t_mlx *mlx)
 {
 	if (x < 0 || y < 0)
 		return (0);
-	mlx->ray->door = false;
 	x = floor(x / TILE_SIZE);
 	y = floor(y / TILE_SIZE);
 	if (y >= mlx->data->height || x >= mlx->data->width)
 		return (0);
 	if (mlx->data->map[(int) y][(int) x] == '1')
 		return (0);
-	if (mlx->data->map[(int) y][(int) x] == 'd')
-	{
-		mlx->ray->door = true;
-		return (0);
-	}
 	return (1);
 }
 
@@ -118,5 +112,4 @@ void	raycast(t_mlx *mlx)
 		render_wall(mlx, ray++);
 		mlx->ray->angle += ((double) mlx->player->fov / mlx->img->width);
 	}
-	animation(mlx);
 }

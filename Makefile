@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/09 19:52:36 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/12 10:59:57 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,27 @@ FILES				:= main.c \
 					   parser/validate.c \
 					   movement/key.c \
 					   movement/move.c \
-					   movement/mouse.c \
-					   movement/door.c \
 					   render/animation.c \
-					   render/minimap.c \
 					   render/raycast.c \
 					   render/wall.c \
 					   render/utils.c
 
-FILES_BONUS			:= $(FILES:%.c=%_bonus.c)
+FILES_BONUS			:= main_bonus.c \
+					   init_bonus.c \
+					   utils_bonus.c \
+					   parser/parser_bonus.c \
+					   parser/getter_bonus.c \
+					   parser/floodfill_bonus.c \
+					   parser/validate_bonus.c \
+					   movement/key_bonus.c \
+					   movement/move_bonus.c \
+					   movement/mouse_bonus.c \
+					   movement/door_bonus.c \
+					   render/animation_bonus.c \
+					   render/minimap_bonus.c \
+					   render/raycast_bonus.c \
+					   render/wall_bonus.c \
+					   render/utils_bonus.c
 
 SRCS				= $(FILES:%.c=$(SRCSDIR)/%.c)
 OBJS				= $(FILES:%.c=$(OBJSDIR)/%.o)
@@ -52,7 +64,6 @@ LIBS 				:= $(LIBMLXDIR)/build/libmlx42.a \
 					  $(LIBFTXDIR)/libftx.a
 
 HEADERS				:= -I ./include \
-					   -I ./src/parser \
 					   -I $(LIBFTXDIR)/includes \
 					   -I $(LIBMLXDIR)/include/MLX42
 
@@ -64,14 +75,14 @@ CFLAGS				:= -Wall -Wextra -Werror -g3 -Ofast
 MLXFLAGS 			:= -ldl -lglfw -lm
 NFLAGS				:= -R CheckForbiddenSourceHeader
 
-DELETE 				= $(OBJS_BONUS)
-MESSAGE				= mandatory
+DELETE 				:= $(OBJS_BONUS)
+MESSAGE				:= mandatory
 
 ifdef WITH_BONUS
-	DELETE = $(OBJS)
-	SRCS = $(SRCS_BONUS)
-	OBJS = $(OBJS_BONUS)
-	MESSAGE = bonus
+	DELETE := $(OBJS)
+	SRCS := $(SRCS_BONUS)
+	OBJS := $(OBJS_BONUS)
+	MESSAGE := bonus
 endif
 
 all: 				$(NAME)

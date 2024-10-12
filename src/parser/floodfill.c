@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 20:52:56 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/09 18:51:22 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 10:34:37 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,6 @@ static bool	clear(t_point **stack, bool status)
 	return (status);
 }
 
-static void	validate_character(t_map *map, int32_t x, int32_t y)
-{
-	if (map->map[y][x] == 'D' && (map->map[y - 1][x] == 'D' || map->map[y][x - 1] == 'D' || map->map[y][x + 1] == 'D' || map->map[y + 1][x] == 'D'))
-		panic(map, ft_strdup("Two doors side by side"), 1);
-	if (map->map[y][x] != 'D')
-		map->map[y][x] = '2';
-	else
-		map->map[y][x] = 'd';
-}
-
 void	floodfill(t_map *map, int32_t x, int32_t y)
 {
 	t_point	*stack;
@@ -83,9 +73,9 @@ void	floodfill(t_map *map, int32_t x, int32_t y)
 			clear(&stack, false);
 			panic(map, ft_strdup("Floodfill error"), 1);
 		}
-		if (!ft_strchr("12d", map->map[p->y][p->x]))
+		if (!ft_strchr("12", map->map[p->y][p->x]))
 		{
-			validate_character(map, p->x, p->y);
+			map->map[p->y][p->x] = '2';
 			push(map, &stack, p->x + 1, p->y);
 			push(map, &stack, p->x, p->y + 1);
 			push(map, &stack, p->x - 1, p->y);

@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/09 19:38:53 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 11:01:20 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	check_line(t_map *map, char *line)
 	{
 		if (!ft_strchr(" 01NSWED", line[i]))
 		{
-			ft_sprintf(&message, "Invalid character %c: ", line[i]);
+			ft_sprintf(&message, "Invalid character: %c", line[i]);
 			panic(map, message, 1);
 		}
 		if (ft_strrchr("NSWE", line[i]))
