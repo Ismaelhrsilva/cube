@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/12 12:38:04 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 11:19:16 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 #include "libft.h"
-#include "parser.h"
+#include "parser_bonus.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:30:53 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/02 18:28:08 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/12 12:39:24 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 #include "MLX42.h"
 
 char	*ft_strchr(const char *s, int c);
@@ -86,7 +86,7 @@ void	minimap(t_mlx *mlx)
 {
 	if (!mlx->minimap->img)
 	{
-		mlx->minimap->size = 10;
+		mlx->minimap->size = 5;
 		mlx->minimap->img = mlx_new_image(mlx->p,
 				mlx->minimap->size * mlx->data->width,
 				mlx->minimap->size * mlx->data->height);
