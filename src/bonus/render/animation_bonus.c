@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/13 10:47:14 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/13 11:32:36 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	draw_animation(t_mlx *mlx, uint8_t frame)
 	uint32_t	x;
 	uint32_t	y;
 
+	if (frame > 15)
+		return ;
 	pixels = (uint32_t *) mlx->data->texture->pixels;
 	y = 0;
 	while (y < mlx->data->animation->height)
