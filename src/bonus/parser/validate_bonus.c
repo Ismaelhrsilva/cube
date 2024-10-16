@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/12 11:01:20 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 14:50:44 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 void	validate_file(char *path)
 {
 	char	*message;
+	int		len;
 
-	if (ft_strncmp(&path[ft_strlen(path) - 4], ".cub", 5) == 0)
+	len = ft_strlen(path);
+	if (len > 3 && ft_strncmp(&path[ft_strlen(path) - 4], ".cub", 5) == 0)
 		return ;
 	ft_sprintf(&message, "The %s is a invalid file .cub", path);
 	panic(NULL, message, 1);

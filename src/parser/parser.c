@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:24:54 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/12 12:38:04 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 14:49:31 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	clear_map(t_map *map)
 {
 	if (!map)
 		return ;
+	close(map->fd);
 	if (map->north)
 		free(map->north);
 	if (map->south)
@@ -56,7 +57,7 @@ t_map	*parser_map(char *path)
 	get_map(path, map);
 	if (!map->map)
 		panic(map, ft_strdup("No map"), 1);
-	if (map->height > 100 || map->width > 100)
+	if (map->height > 50 || map->width > 50)
 		panic(map, ft_strdup("Map to big"), 1);
 	validate_map(map);
 	validate_floodfill(map);
