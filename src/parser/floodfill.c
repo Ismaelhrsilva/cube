@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 20:52:56 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/12 10:34:37 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 20:23:09 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ static t_point	*pop(t_point **stack)
 	return (p);
 }
 
-static bool	clear(t_point **stack, bool status)
+static void	clear(t_point **stack)
 {
 	t_point	*p;
 
 	if (!stack)
-		return (status);
+		return ;
 	while (*stack)
 	{
 		p = *stack;
 		*stack = p->next;
 		free(p);
 	}
-	return (status);
+	return ;
 }
 
 void	floodfill(t_map *map, int32_t x, int32_t y)
@@ -67,10 +67,11 @@ void	floodfill(t_map *map, int32_t x, int32_t y)
 	while (stack)
 	{
 		p = pop(&stack);
-		if (p->x < 0 || p->y < 0 || p->x >= map->width || p->y >= map->height)
+		if (p->x < 0 || p->y < 0 || p->x >= map->width || p->y >= map->height
+			|| map->map[p->y][p->x] == ' ')
 		{
 			free(p);
-			clear(&stack, false);
+			clear(&stack);
 			panic(map, ft_strdup("Floodfill error"), 1);
 		}
 		if (!ft_strchr("12", map->map[p->y][p->x]))
