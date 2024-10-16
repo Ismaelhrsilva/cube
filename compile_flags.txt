@@ -1,8 +1,0 @@
--I
-./include
--I
-./lib/libft/include
--I
-./cube/lib/MLX42/include
--I
-./src/parser

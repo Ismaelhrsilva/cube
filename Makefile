@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/16 15:37:53 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/16 15:57:48 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME				:= cub3D
 SRCSDIR				:= ./src
 OBJSDIR				:= ./build
 LIBFTXDIR			:= ./lib/libftx
-LIBMLXDIR			:= ./lib/MLX42
+LIBMLXDIR			:= ./lib/.MLX42
 
 FILES				:= main.c \
 					   init.c \
@@ -101,13 +101,9 @@ $(LIBS):
 					@make libftx libmlx --no-print-directory 
 
 libftx:
-					@git submodule sync $(LIBFTXDIR)
-					@git submodule update --init --force --remote $(LIBFTXDIR)
 					@make -sC $(LIBFTXDIR)
 
 libmlx:
-					@git submodule sync $(LIBMLXDIR)
-					@git submodule update --init --force --remote $(LIBMLXDIR)
 					@cd $(LIBMLXDIR) && cmake -B build && make -sC build -j4
 
 bonus:

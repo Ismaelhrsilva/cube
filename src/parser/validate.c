@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:16:17 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/16 14:51:03 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 15:58:25 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#include <stdio.h>
 void	validate_file(char *path)
 {
 	char	*message;
