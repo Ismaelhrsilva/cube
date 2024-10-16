@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/16 12:49:45 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 15:40:29 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,4 @@ void	get_map(char *path, t_map *map)
 	}
 	if (map->map)
 		get_player(map);
-	close(map->fd);
 }
