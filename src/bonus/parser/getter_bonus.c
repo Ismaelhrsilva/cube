@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/09 19:38:39 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 14:27:40 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-static void	get_hexcolor(t_map *map, char *line, uint32_t *color)
+static void	get_hexcolor(t_map *map, char *line, char *def, uint32_t *color)
 {
 	char		**colors;
 	char		*message;
@@ -29,17 +29,17 @@ static void	get_hexcolor(t_map *map, char *line, uint32_t *color)
 	i = 0;
 	while (check(colors[i], ft_isdigit) && ft_strlen(colors[i]) < 4)
 	{
-		tmp = ft_atoi(colors[i]);
+		tmp = ft_atoi(colors[i++]);
 		if (tmp > 255)
 			break ;
 		*color = (*color + tmp) << 8;
-		i++;
 	}
 	ft_split_clear(colors);
-	if (i != 3)
+	if (i != 3 || countchr(line, ',') != 2)
 	{
-		message = NULL;
+		free(def);
 		ft_sprintf(&message, "Invalid color: %s", line);
+		free(line - 2);
 		panic(map, message, 1);
 	}
 	*color += 0xFF;
@@ -61,9 +61,9 @@ static void	get_texture(char *line, t_map *map)
 	else if (!map->east && !ft_strncmp(tmp, "EA ", 3))
 		map->east = ft_strtrim(&tmp[3], " \t");
 	else if (!map->ceilling && !ft_strncmp(tmp, "C ", 2))
-		get_hexcolor(map, &tmp[2], &map->ceilling);
+		get_hexcolor(map, &tmp[2], line, &map->ceilling);
 	else if (!map->floor && !ft_strncmp(tmp, "F ", 2))
-		get_hexcolor(map, &tmp[2], &map->floor);
+		get_hexcolor(map, &tmp[2], line, &map->floor);
 	else if (ft_strlen(tmp))
 	{
 		free(line);
@@ -128,15 +128,14 @@ static void	get_field(char *line, t_map *map)
 
 void	get_map(char *path, t_map *map)
 {
-	int32_t	fd;
 	char	*line;
 
-	fd = open(path, O_RDONLY, 0644);
-	if (fd < 1)
+	map->fd = open(path, O_RDONLY, 0644);
+	if (map->fd < 1)
 		panic(map, ft_strdup("Failed to open file"), 1);
 	while (true)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(map->fd);
 		if (!line)
 			break ;
 		if (!map->north
@@ -152,5 +151,5 @@ void	get_map(char *path, t_map *map)
 	}
 	if (map->map)
 		get_player(map);
-	close(fd);
+	close(map->fd);
 }

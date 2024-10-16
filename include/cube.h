@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/12 10:48:47 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 12:28:21 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_map
 	int32_t		width;
 	int32_t		height;
 	char		**map;
+	int			fd;
 }	t_map;
 
 typedef struct s_player
