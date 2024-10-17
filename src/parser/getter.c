@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:56:24 by rde-mour          #+#    #+#             */
-/*   Updated: 2024/10/16 15:40:29 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 20:59:25 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	get_field(char *line, t_map *map)
 	int32_t			width;
 	char			**tmp;
 
-	if (!map->map && !ft_strchr(line, '1'))
+	if (!map->map && check(line, ft_isspace))
 		return ;
 	if (!(map->height % MEMORY_SIZE))
 	{

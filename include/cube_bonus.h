@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/16 14:23:33 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/16 20:33:14 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_data
 	mlx_image_t		*image;
 	mlx_texture_t	*texture;
 	mlx_image_t		*animation;
-	uint8_t			frame;
+	int8_t			frame;
 	double			time;
 	t_map			*parser;
 }	t_data;
