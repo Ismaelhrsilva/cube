@@ -6,7 +6,7 @@
 #    By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 18:43:11 by ishenriq          #+#    #+#              #
-#    Updated: 2024/10/16 15:57:48 by rde-mour         ###   ########.org.br    #
+#    Updated: 2024/10/17 16:27:48 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ HEADERS				:= -I ./include \
 LDFLAGS				:= $(HEADERS) $(LIBS)
 
 COMPILER			:= cc
-CFLAGS				:= -Wall -Wextra -Werror -g3 -Ofast
+CFLAGS				:= -Wall -Wextra -Werror -Ofast
 MLXFLAGS 			:= -ldl -lglfw -lm
 NFLAGS				:= -R CheckForbiddenSourceHeader
 

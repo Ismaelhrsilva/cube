@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:09:23 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/16 14:32:48 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/17 16:27:06 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	draw_animation(t_mlx *mlx, uint8_t frame)
 		return ;
 	pixels = (uint32_t *) mlx->data->texture->pixels;
 	y = 0;
-	while (y < mlx->data->animation->height)
+	while (y < mlx->data->animation->height - 1)
 	{
 		x = 0;
-		while (x < mlx->data->animation->width)
+		while (x < mlx->data->animation->width - 1)
 		{
 			mlx_put_pixel(mlx->data->animation, x, y,
 				reverse_bytes(

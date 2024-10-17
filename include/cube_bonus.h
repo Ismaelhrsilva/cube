@@ -6,7 +6,7 @@
 /*   By: ishenriq <ishenriq@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:52:45 by ishenriq          #+#    #+#             */
-/*   Updated: 2024/10/16 20:33:14 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2024/10/17 16:28:30 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define SCREEN_WIDTH 1024
 # define SCREEN_HEIGHT 768
-# define TILE_SIZE 60
+# define TILE_SIZE 100
 # define FOV 60
 # define ROTATION_SPEED 0.045
 # define PLAYER_SIZE 3
